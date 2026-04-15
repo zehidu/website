@@ -563,9 +563,25 @@
         });
       });
 
-      // Form submission
+      // Form submission — saves lead to localStorage for admin dashboard
       function handleSubmit(e) {
         e.preventDefault();
+        const form = e.target;
+        const lead = {
+          id: Date.now(),
+          name: form[0].value.trim(),
+          email: form[1].value.trim(),
+          company: form[2].value.trim(),
+          size: form[3].value,
+          status: 'new',
+          notes: 'Submitted via website contact form',
+          date: new Date().toISOString().slice(0, 10)
+        };
+        try {
+          const existing = JSON.parse(localStorage.getItem('af_leads')) || [];
+          existing.unshift(lead);
+          localStorage.setItem('af_leads', JSON.stringify(existing));
+        } catch(err) {}
         document.getElementById('contact-form').classList.add('hidden');
         document.getElementById('form-success').classList.remove('hidden');
       }

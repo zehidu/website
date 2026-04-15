@@ -1,0 +1,986 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AutoFlow Admin — Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { fontFamily: { sans: ['Inter','sans-serif'] }, colors: { brand: { 400:'#818cf8',500:'#6366f1',600:'#4f46e5',700:'#4338ca',800:'#3730a3',900:'#312e81' } } } }
+    }
+  </script>
+  <style>
+    ::-webkit-scrollbar{width:6px;height:6px} ::-webkit-scrollbar-track{background:transparent} ::-webkit-scrollbar-thumb{background:#374151;border-radius:3px}
+    .sidebar-link { transition: all 0.15s; }
+    .sidebar-link.active { background: rgba(99,102,241,0.15); color: #818cf8; border-left: 3px solid #6366f1; }
+    .sidebar-link:not(.active):hover { background: rgba(255,255,255,0.04); }
+    .section { display: none; }
+    .section.active { display: block; }
+    .badge-new    { background:#1e3a5f; color:#60a5fa; }
+    .badge-contacted { background:#1a2e1a; color:#4ade80; }
+    .badge-qualified  { background:#2d1f6e; color:#a78bfa; }
+    .badge-lost   { background:#2d1a1a; color:#f87171; }
+    .badge-client { background:#1a3a2e; color:#34d399; }
+    .badge-pending { background:#2d2200; color:#fbbf24; }
+    .badge-paid   { background:#1a3a2e; color:#34d399; }
+    .badge-overdue{ background:#2d1a1a; color:#f87171; }
+    .badge-planning{ background:#1e2a3a; color:#60a5fa; }
+    .badge-progress{ background:#2d1f6e; color:#a78bfa; }
+    .badge-live   { background:#1a3a2e; color:#34d399; }
+    .badge-testing{ background:#2d2200; color:#fbbf24; }
+    .badge-active { background:#1a3a2e; color:#34d399; }
+    .badge-inactive{ background:#1f2937; color:#9ca3af; }
+    .modal-backdrop { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:50; backdrop-filter:blur(4px); align-items:center; justify-content:center; }
+    .modal-backdrop.open { display:flex; }
+    .toast { position:fixed; bottom:24px; right:24px; z-index:100; transform:translateY(100px); opacity:0; transition:all 0.3s ease; }
+    .toast.show { transform:translateY(0); opacity:1; }
+    input:-webkit-autofill { -webkit-box-shadow: 0 0 0 1000px #1f2937 inset !important; -webkit-text-fill-color: #fff !important; }
+    .progress-bar { height:6px; border-radius:3px; background:#1f2937; }
+    .progress-fill { height:100%; border-radius:3px; background:linear-gradient(90deg,#6366f1,#a78bfa); transition:width 0.5s ease; }
+  </style>
+</head>
+<body class="font-sans bg-gray-950 text-white flex min-h-screen">
+
+<!-- ═══ SIDEBAR ═══ -->
+<aside id="sidebar" class="w-64 min-h-screen bg-gray-900 border-r border-white/5 flex flex-col fixed left-0 top-0 bottom-0 z-30">
+  <!-- Logo -->
+  <div class="px-6 py-5 border-b border-white/5">
+    <a href="../index.html" target="_blank" class="flex items-center gap-2 text-lg font-black text-white hover:text-brand-400 transition-colors">
+      <span class="w-8 h-8 bg-brand-500 rounded-lg flex items-center justify-center font-black text-sm">A</span>
+      Auto<span class="text-brand-400">Flow</span>
+    </a>
+    <span class="text-xs text-gray-600 mt-1 block">Admin Dashboard</span>
+  </div>
+
+  <!-- Nav -->
+  <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+    <button onclick="showSection('overview')" class="sidebar-link active w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-300" data-section="overview">
+      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+      Overview
+    </button>
+    <button onclick="showSection('leads')" class="sidebar-link w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-300" data-section="leads">
+      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+      Leads
+      <span id="leads-badge" class="ml-auto bg-brand-600 text-white text-xs px-2 py-0.5 rounded-full"></span>
+    </button>
+    <button onclick="showSection('clients')" class="sidebar-link w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-300" data-section="clients">
+      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+      Clients
+    </button>
+    <button onclick="showSection('projects')" class="sidebar-link w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-300" data-section="projects">
+      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+      Projects
+    </button>
+    <button onclick="showSection('invoices')" class="sidebar-link w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-300" data-section="invoices">
+      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+      Invoices
+    </button>
+    <div class="pt-3 pb-1 px-3"><span class="text-xs text-gray-700 uppercase tracking-widest font-semibold">Account</span></div>
+    <button onclick="showSection('settings')" class="sidebar-link w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-300" data-section="settings">
+      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+      Settings
+    </button>
+  </nav>
+
+  <!-- User -->
+  <div class="px-3 py-4 border-t border-white/5">
+    <div class="flex items-center gap-3 px-3 py-2 rounded-lg">
+      <div class="w-8 h-8 bg-brand-600 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">A</div>
+      <div class="flex-1 min-w-0">
+        <div class="text-sm font-medium text-white truncate">Admin</div>
+        <div class="text-xs text-gray-500 truncate">admin@autoflow.com</div>
+      </div>
+      <button onclick="logout()" title="Logout" class="text-gray-600 hover:text-red-400 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+      </button>
+    </div>
+  </div>
+</aside>
+
+<!-- ═══ MAIN ═══ -->
+<main class="flex-1 ml-64 min-h-screen flex flex-col">
+  <!-- Top Header -->
+  <header class="bg-gray-900/70 border-b border-white/5 px-8 py-4 flex items-center justify-between sticky top-0 z-20 backdrop-blur-md">
+    <h1 id="page-title" class="text-lg font-bold text-white">Overview</h1>
+    <div class="flex items-center gap-4">
+      <div class="text-xs text-gray-500" id="last-updated"></div>
+      <a href="../index.html" target="_blank" class="text-xs text-gray-500 hover:text-brand-400 transition-colors flex items-center gap-1">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        View Site
+      </a>
+    </div>
+  </header>
+
+  <div class="flex-1 p-8">
+
+    <!-- ═══ OVERVIEW ═══ -->
+    <div id="section-overview" class="section active">
+      <!-- KPI Cards -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+        <div class="bg-gray-900 border border-white/8 rounded-2xl p-5">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-gray-500 text-xs font-medium uppercase tracking-wide">New Leads</span>
+            <span class="w-8 h-8 bg-brand-600/20 rounded-lg flex items-center justify-center">
+              <svg class="w-4 h-4 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+            </span>
+          </div>
+          <div class="text-3xl font-black text-white" id="kpi-leads">—</div>
+          <div class="text-xs text-green-400 mt-1">This month</div>
+        </div>
+        <div class="bg-gray-900 border border-white/8 rounded-2xl p-5">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-gray-500 text-xs font-medium uppercase tracking-wide">Active Clients</span>
+            <span class="w-8 h-8 bg-green-600/20 rounded-lg flex items-center justify-center">
+              <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+            </span>
+          </div>
+          <div class="text-3xl font-black text-white" id="kpi-clients">—</div>
+          <div class="text-xs text-green-400 mt-1">Currently active</div>
+        </div>
+        <div class="bg-gray-900 border border-white/8 rounded-2xl p-5">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-gray-500 text-xs font-medium uppercase tracking-wide">MRR</span>
+            <span class="w-8 h-8 bg-purple-600/20 rounded-lg flex items-center justify-center">
+              <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </span>
+          </div>
+          <div class="text-3xl font-black text-white" id="kpi-mrr">—</div>
+          <div class="text-xs text-green-400 mt-1">Monthly recurring</div>
+        </div>
+        <div class="bg-gray-900 border border-white/8 rounded-2xl p-5">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-gray-500 text-xs font-medium uppercase tracking-wide">Projects Live</span>
+            <span class="w-8 h-8 bg-pink-600/20 rounded-lg flex items-center justify-center">
+              <svg class="w-4 h-4 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </span>
+          </div>
+          <div class="text-3xl font-black text-white" id="kpi-projects">—</div>
+          <div class="text-xs text-green-400 mt-1">Running automations</div>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-6">
+        <!-- Recent Leads -->
+        <div class="lg:col-span-2 bg-gray-900 border border-white/8 rounded-2xl p-6">
+          <div class="flex items-center justify-between mb-5">
+            <h3 class="font-bold text-white">Recent Leads</h3>
+            <button onclick="showSection('leads')" class="text-brand-400 text-xs hover:text-brand-300 transition-colors">View all →</button>
+          </div>
+          <div id="recent-leads-table" class="space-y-3"></div>
+        </div>
+
+        <!-- Activity Feed -->
+        <div class="bg-gray-900 border border-white/8 rounded-2xl p-6">
+          <h3 class="font-bold text-white mb-5">Recent Activity</h3>
+          <div id="activity-feed" class="space-y-4"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ LEADS ═══ -->
+    <div id="section-leads" class="section">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h2 class="text-xl font-bold">Leads</h2>
+          <p class="text-gray-500 text-sm mt-0.5">Manage inbound leads from your website</p>
+        </div>
+        <button onclick="openModal('lead')" class="bg-brand-600 hover:bg-brand-500 text-white font-semibold text-sm px-4 py-2.5 rounded-xl transition-colors flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          Add Lead
+        </button>
+      </div>
+
+      <!-- Filters -->
+      <div class="flex gap-2 mb-5 flex-wrap">
+        <button onclick="filterLeads('all')" class="lead-filter active-filter text-xs px-4 py-2 rounded-lg bg-brand-600 text-white font-medium">All</button>
+        <button onclick="filterLeads('new')" class="lead-filter text-xs px-4 py-2 rounded-lg bg-gray-800 text-gray-300 hover:bg-gray-700 font-medium">New</button>
+        <button onclick="filterLeads('contacted')" class="lead-filter text-xs px-4 py-2 rounded-lg bg-gray-800 text-gray-300 hover:bg-gray-700 font-medium">Contacted</button>
+        <button onclick="filterLeads('qualified')" class="lead-filter text-xs px-4 py-2 rounded-lg bg-gray-800 text-gray-300 hover:bg-gray-700 font-medium">Qualified</button>
+        <button onclick="filterLeads('client')" class="lead-filter text-xs px-4 py-2 rounded-lg bg-gray-800 text-gray-300 hover:bg-gray-700 font-medium">Converted</button>
+        <button onclick="filterLeads('lost')" class="lead-filter text-xs px-4 py-2 rounded-lg bg-gray-800 text-gray-300 hover:bg-gray-700 font-medium">Lost</button>
+      </div>
+
+      <div class="bg-gray-900 border border-white/8 rounded-2xl overflow-hidden">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-white/5 text-left text-xs text-gray-500 uppercase tracking-wide">
+              <th class="px-5 py-3.5 font-medium">Name</th>
+              <th class="px-5 py-3.5 font-medium">Company</th>
+              <th class="px-5 py-3.5 font-medium hidden md:table-cell">Email</th>
+              <th class="px-5 py-3.5 font-medium hidden lg:table-cell">Team Size</th>
+              <th class="px-5 py-3.5 font-medium">Status</th>
+              <th class="px-5 py-3.5 font-medium hidden md:table-cell">Date</th>
+              <th class="px-5 py-3.5 font-medium">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="leads-table-body" class="divide-y divide-white/5"></tbody>
+        </table>
+        <div id="leads-empty" class="hidden text-center py-16 text-gray-600">
+          <svg class="w-12 h-12 mx-auto mb-3 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          No leads found
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ CLIENTS ═══ -->
+    <div id="section-clients" class="section">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h2 class="text-xl font-bold">Clients</h2>
+          <p class="text-gray-500 text-sm mt-0.5">Active client accounts and MRR</p>
+        </div>
+        <button onclick="openModal('client')" class="bg-brand-600 hover:bg-brand-500 text-white font-semibold text-sm px-4 py-2.5 rounded-xl transition-colors flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          Add Client
+        </button>
+      </div>
+
+      <!-- Stats row -->
+      <div class="grid grid-cols-3 gap-4 mb-6">
+        <div class="bg-gray-900 border border-white/8 rounded-xl p-4 text-center">
+          <div class="text-2xl font-black text-white" id="c-stat-total">—</div>
+          <div class="text-xs text-gray-500 mt-1">Total Clients</div>
+        </div>
+        <div class="bg-gray-900 border border-white/8 rounded-xl p-4 text-center">
+          <div class="text-2xl font-black text-green-400" id="c-stat-active">—</div>
+          <div class="text-xs text-gray-500 mt-1">Active</div>
+        </div>
+        <div class="bg-gray-900 border border-white/8 rounded-xl p-4 text-center">
+          <div class="text-2xl font-black text-purple-400" id="c-stat-mrr">—</div>
+          <div class="text-xs text-gray-500 mt-1">Total MRR</div>
+        </div>
+      </div>
+
+      <div class="bg-gray-900 border border-white/8 rounded-2xl overflow-hidden">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-white/5 text-left text-xs text-gray-500 uppercase tracking-wide">
+              <th class="px-5 py-3.5 font-medium">Company</th>
+              <th class="px-5 py-3.5 font-medium hidden md:table-cell">Contact</th>
+              <th class="px-5 py-3.5 font-medium">Plan</th>
+              <th class="px-5 py-3.5 font-medium">MRR</th>
+              <th class="px-5 py-3.5 font-medium">Status</th>
+              <th class="px-5 py-3.5 font-medium hidden lg:table-cell">Since</th>
+              <th class="px-5 py-3.5 font-medium">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="clients-table-body" class="divide-y divide-white/5"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ═══ PROJECTS ═══ -->
+    <div id="section-projects" class="section">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h2 class="text-xl font-bold">Projects</h2>
+          <p class="text-gray-500 text-sm mt-0.5">Automation workflows by status</p>
+        </div>
+        <button onclick="openModal('project')" class="bg-brand-600 hover:bg-brand-500 text-white font-semibold text-sm px-4 py-2.5 rounded-xl transition-colors flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          New Project
+        </button>
+      </div>
+      <div id="projects-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+    </div>
+
+    <!-- ═══ INVOICES ═══ -->
+    <div id="section-invoices" class="section">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h2 class="text-xl font-bold">Invoices</h2>
+          <p class="text-gray-500 text-sm mt-0.5">Billing and payment tracking</p>
+        </div>
+        <button onclick="openModal('invoice')" class="bg-brand-600 hover:bg-brand-500 text-white font-semibold text-sm px-4 py-2.5 rounded-xl transition-colors flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          New Invoice
+        </button>
+      </div>
+
+      <!-- Invoice stats -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="bg-gray-900 border border-white/8 rounded-xl p-4">
+          <div class="text-xs text-gray-500 mb-1">Total Billed</div>
+          <div class="text-xl font-black text-white" id="inv-total">—</div>
+        </div>
+        <div class="bg-gray-900 border border-white/8 rounded-xl p-4">
+          <div class="text-xs text-gray-500 mb-1">Collected</div>
+          <div class="text-xl font-black text-green-400" id="inv-paid">—</div>
+        </div>
+        <div class="bg-gray-900 border border-white/8 rounded-xl p-4">
+          <div class="text-xs text-gray-500 mb-1">Pending</div>
+          <div class="text-xl font-black text-yellow-400" id="inv-pending">—</div>
+        </div>
+        <div class="bg-gray-900 border border-white/8 rounded-xl p-4">
+          <div class="text-xs text-gray-500 mb-1">Overdue</div>
+          <div class="text-xl font-black text-red-400" id="inv-overdue">—</div>
+        </div>
+      </div>
+
+      <div class="bg-gray-900 border border-white/8 rounded-2xl overflow-hidden">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-white/5 text-left text-xs text-gray-500 uppercase tracking-wide">
+              <th class="px-5 py-3.5 font-medium">Invoice #</th>
+              <th class="px-5 py-3.5 font-medium">Client</th>
+              <th class="px-5 py-3.5 font-medium">Amount</th>
+              <th class="px-5 py-3.5 font-medium">Status</th>
+              <th class="px-5 py-3.5 font-medium hidden md:table-cell">Due Date</th>
+              <th class="px-5 py-3.5 font-medium">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="invoices-table-body" class="divide-y divide-white/5"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ═══ SETTINGS ═══ -->
+    <div id="section-settings" class="section max-w-2xl">
+      <h2 class="text-xl font-bold mb-6">Settings</h2>
+
+      <!-- Profile -->
+      <div class="bg-gray-900 border border-white/8 rounded-2xl p-6 mb-5">
+        <h3 class="font-bold mb-5 flex items-center gap-2">
+          <svg class="w-5 h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+          Profile
+        </h3>
+        <div class="space-y-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs text-gray-500 mb-1.5">Business Name</label>
+              <input id="s-biz" type="text" value="AutoFlow" class="w-full bg-gray-800 border border-white/10 focus:border-brand-500 text-white rounded-xl px-4 py-3 text-sm outline-none transition-colors" />
+            </div>
+            <div>
+              <label class="block text-xs text-gray-500 mb-1.5">Admin Email</label>
+              <input id="s-email" type="email" value="admin@autoflow.com" class="w-full bg-gray-800 border border-white/10 focus:border-brand-500 text-white rounded-xl px-4 py-3 text-sm outline-none transition-colors" />
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs text-gray-500 mb-1.5">Phone</label>
+            <input id="s-phone" type="tel" placeholder="+1 (555) 000-0000" class="w-full bg-gray-800 border border-white/10 focus:border-brand-500 text-white rounded-xl px-4 py-3 text-sm outline-none transition-colors" />
+          </div>
+          <button onclick="saveSettings()" class="bg-brand-600 hover:bg-brand-500 text-white font-semibold text-sm px-5 py-2.5 rounded-xl transition-colors">Save Profile</button>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="bg-gray-900 border border-white/8 rounded-2xl p-6 mb-5">
+        <h3 class="font-bold mb-5 flex items-center gap-2">
+          <svg class="w-5 h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
+          Change Password
+        </h3>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-xs text-gray-500 mb-1.5">Current Password</label>
+            <input id="s-cur-pass" type="password" placeholder="••••••••" class="w-full bg-gray-800 border border-white/10 focus:border-brand-500 text-white rounded-xl px-4 py-3 text-sm outline-none transition-colors" />
+          </div>
+          <div>
+            <label class="block text-xs text-gray-500 mb-1.5">New Password</label>
+            <input id="s-new-pass" type="password" placeholder="••••••••" class="w-full bg-gray-800 border border-white/10 focus:border-brand-500 text-white rounded-xl px-4 py-3 text-sm outline-none transition-colors" />
+          </div>
+          <button onclick="changePassword()" class="bg-brand-600 hover:bg-brand-500 text-white font-semibold text-sm px-5 py-2.5 rounded-xl transition-colors">Update Password</button>
+        </div>
+      </div>
+
+      <!-- Danger Zone -->
+      <div class="bg-red-950/20 border border-red-900/30 rounded-2xl p-6">
+        <h3 class="font-bold text-red-400 mb-2">Danger Zone</h3>
+        <p class="text-gray-500 text-sm mb-4">Clear all data from localStorage. This cannot be undone.</p>
+        <button onclick="clearAllData()" class="bg-red-900/40 hover:bg-red-800/60 border border-red-800/50 text-red-300 font-semibold text-sm px-5 py-2.5 rounded-xl transition-colors">Clear All Data</button>
+      </div>
+    </div>
+
+  </div><!-- /p-8 -->
+</main>
+
+<!-- ═══ MODALS ═══ -->
+<!-- Add Lead Modal -->
+<div id="modal-lead" class="modal-backdrop" onclick="closeModalOnBackdrop(event,'modal-lead')">
+  <div class="bg-gray-900 border border-white/10 rounded-2xl p-6 w-full max-w-md mx-4">
+    <div class="flex items-center justify-between mb-5">
+      <h3 class="font-bold text-lg" id="lead-modal-title">Add Lead</h3>
+      <button onclick="closeModal('modal-lead')" class="text-gray-500 hover:text-white transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <input type="hidden" id="lead-edit-id" value="" />
+    <div class="space-y-3">
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs text-gray-500 mb-1">Name *</label>
+          <input id="l-name" type="text" class="w-full bg-gray-800 border border-white/10 focus:border-brand-500 text-white rounded-xl px-4 py-3 text-sm outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-xs text-gray-500 mb-1">Email *</label>
+          <input id="l-email" type="email" class="w-full bg-gray-800 border border-white/10 focus:border-brand-500 text-white rounded-xl px-4 py-3 text-sm outline-none transition-colors" />
+        </div>
+      </div>
+      <div>
+        <label class="block text-xs text-gray-500 mb-1">Company</label>
+        <input id="l-company" type="text" class="w-full bg-gray-800 border border-white/10 focus:border-brand-500 text-white rounded-xl px-4 py-3 text-sm outline-none transition-colors" />
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs text-gray-500 mb-1">Team Size</label>
+          <select id="l-size" class="w-full bg-gray-800 border border-white/10 focus:border-brand-500 text-white rounded-xl px-4 py-3 text-sm outline-none transition-colors">
+            <option value="">Select</option>
+            <option>1–5</option><option>6–20</option><option>21–100</option><option>100+</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs text-gray-500 mb-1">Status</label>
+          <select id="l-status" class="w-full bg-gray-800 border border-white/10 focus:border-brand-500 text-white rounded-xl px-4 py-3 text-sm outline-none transition-colors">
+            <option value="new">New</option>
+            <option value="contacted">Contacted</option>
+            <option value="qualified">Qualified</option>
+            <option value="client">Converted</option>
+            <option value="lost">Lost</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label class="block text-xs text-gray-500 mb-1">Notes</label>
+        <textarea id="l-notes" rows="2" class="w-full bg-gray-800 border border-white/10 focus:border-brand-500 text-white rounded-xl px-4 py-3 text-sm outline-none transition-colors resize-none"></textarea>
+      </div>
+    </div>
+    <button onclick="saveLead()" class="w-full mt-4 bg-brand-600 hover:bg-brand-500 text-white font-bold py-3 rounded-xl transition-colors text-sm">Save Lead</button>
+  </div>
+</div>
+
+<!-- Add Client Modal -->
+<div id="modal-client" class="modal-backdrop" onclick="closeModalOnBackdrop(event,'modal-client')">
+  <div class="bg-gray-900 border border-white/10 rounded-2xl p-6 w-full max-w-md mx-4">
+    <div class="flex items-center justify-between mb-5">
+      <h3 class="font-bold text-lg" id="client-modal-title">Add Client</h3>
+      <button onclick="closeModal('modal-client')" class="text-gray-500 hover:text-white transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <input type="hidden" id="client-edit-id" value="" />
+    <div class="space-y-3">
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs text-gray-500 mb-1">Company *</label>
+          <input id="c-company" type="text" class="w-full bg-gray-800 border border-white/10 focus:border-brand-500 text-white rounded-xl px-4 py-3 text-sm outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-xs text-gray-500 mb-1">Contact Name *</label>
+          <input id="c-contact" type="text" class="w-full bg-gray-800 border border-white/10 focus:border-brand-500 text-white rounded-xl px-4 py-3 text-sm outline-none transition-colors" />
+        </div>
+      </div>
+      <div>
+        <label class="block text-xs text-gray-500 mb-1">Email</label>
+        <input id="c-email" type="email" class="w-full bg-gray-800 border border-white/10 focus:border-brand-500 text-white rounded-xl px-4 py-3 text-sm outline-none transition-colors" />
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs text-gray-500 mb-1">Plan</label>
+          <select id="c-plan" class="w-full bg-gray-800 border border-white/10 focus:border-brand-500 text-white rounded-xl px-4 py-3 text-sm outline-none transition-colors">
+            <option>Starter</option><option>Growth</option><option>Pro</option><option>Enterprise</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs text-gray-500 mb-1">MRR ($)</label>
+          <input id="c-mrr" type="number" placeholder="497" class="w-full bg-gray-800 border border-white/10 focus:border-brand-500 text-white rounded-xl px-4 py-3 text-sm outline-none transition-colors" />
+        </div>
+      </div>
+      <div>
+        <label class="block text-xs text-gray-500 mb-1">Status</label>
+        <select id="c-status" class="w-full bg-gray-800 border border-white/10 focus:border-brand-500 text-white rounded-xl px-4 py-3 text-sm outline-none transition-colors">
+          <option value="active">Active</option><option value="inactive">Inactive</option>
+        </select>
+      </div>
+    </div>
+    <button onclick="saveClient()" class="w-full mt-4 bg-brand-600 hover:bg-brand-500 text-white font-bold py-3 rounded-xl transition-colors text-sm">Save Client</button>
+  </div>
+</div>
+
+<!-- Add Project Modal -->
+<div id="modal-project" class="modal-backdrop" onclick="closeModalOnBackdrop(event,'modal-project')">
+  <div class="bg-gray-900 border border-white/10 rounded-2xl p-6 w-full max-w-md mx-4">
+    <div class="flex items-center justify-between mb-5">
+      <h3 class="font-bold text-lg">New Project</h3>
+      <button onclick="closeModal('modal-project')" class="text-gray-500 hover:text-white transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="space-y-3">
+      <div>
+        <label class="block text-xs text-gray-500 mb-1">Project Name *</label>
+        <input id="p-name" type="text" class="w-full bg-gray-800 border border-white/10 focus:border-brand-500 text-white rounded-xl px-4 py-3 text-sm outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-xs text-gray-500 mb-1">Client</label>
+        <input id="p-client" type="text" class="w-full bg-gray-800 border border-white/10 focus:border-brand-500 text-white rounded-xl px-4 py-3 text-sm outline-none transition-colors" />
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs text-gray-500 mb-1">Type</label>
+          <select id="p-type" class="w-full bg-gray-800 border border-white/10 focus:border-brand-500 text-white rounded-xl px-4 py-3 text-sm outline-none transition-colors">
+            <option>Sales & CRM</option><option>Finance</option><option>HR & Onboarding</option><option>Customer Support</option><option>Marketing</option><option>Data & Reporting</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs text-gray-500 mb-1">Status</label>
+          <select id="p-status" class="w-full bg-gray-800 border border-white/10 focus:border-brand-500 text-white rounded-xl px-4 py-3 text-sm outline-none transition-colors">
+            <option value="planning">Planning</option><option value="progress">In Progress</option><option value="testing">Testing</option><option value="live">Live</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label class="block text-xs text-gray-500 mb-1">Progress (%)</label>
+        <input id="p-progress" type="number" min="0" max="100" placeholder="0" class="w-full bg-gray-800 border border-white/10 focus:border-brand-500 text-white rounded-xl px-4 py-3 text-sm outline-none transition-colors" />
+      </div>
+    </div>
+    <button onclick="saveProject()" class="w-full mt-4 bg-brand-600 hover:bg-brand-500 text-white font-bold py-3 rounded-xl transition-colors text-sm">Save Project</button>
+  </div>
+</div>
+
+<!-- Add Invoice Modal -->
+<div id="modal-invoice" class="modal-backdrop" onclick="closeModalOnBackdrop(event,'modal-invoice')">
+  <div class="bg-gray-900 border border-white/10 rounded-2xl p-6 w-full max-w-md mx-4">
+    <div class="flex items-center justify-between mb-5">
+      <h3 class="font-bold text-lg">New Invoice</h3>
+      <button onclick="closeModal('modal-invoice')" class="text-gray-500 hover:text-white transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="space-y-3">
+      <div>
+        <label class="block text-xs text-gray-500 mb-1">Client *</label>
+        <input id="i-client" type="text" class="w-full bg-gray-800 border border-white/10 focus:border-brand-500 text-white rounded-xl px-4 py-3 text-sm outline-none transition-colors" />
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs text-gray-500 mb-1">Amount ($) *</label>
+          <input id="i-amount" type="number" placeholder="497" class="w-full bg-gray-800 border border-white/10 focus:border-brand-500 text-white rounded-xl px-4 py-3 text-sm outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-xs text-gray-500 mb-1">Due Date *</label>
+          <input id="i-due" type="date" class="w-full bg-gray-800 border border-white/10 focus:border-brand-500 text-white rounded-xl px-4 py-3 text-sm outline-none transition-colors" />
+        </div>
+      </div>
+      <div>
+        <label class="block text-xs text-gray-500 mb-1">Status</label>
+        <select id="i-status" class="w-full bg-gray-800 border border-white/10 focus:border-brand-500 text-white rounded-xl px-4 py-3 text-sm outline-none transition-colors">
+          <option value="pending">Pending</option><option value="paid">Paid</option><option value="overdue">Overdue</option>
+        </select>
+      </div>
+    </div>
+    <button onclick="saveInvoice()" class="w-full mt-4 bg-brand-600 hover:bg-brand-500 text-white font-bold py-3 rounded-xl transition-colors text-sm">Save Invoice</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="toast bg-gray-800 border border-white/10 text-white text-sm px-5 py-3 rounded-xl flex items-center gap-3">
+  <svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+  <span id="toast-msg">Saved successfully</span>
+</div>
+
+<script>
+// ── AUTH ──
+const auth = localStorage.getItem('af_auth');
+if (!auth) window.location.href = 'login.html';
+
+function logout() {
+  localStorage.removeItem('af_auth');
+  window.location.href = 'login.html';
+}
+
+// ── SAMPLE DATA ──
+const defaultLeads = [
+  { id: 1, name: 'Marcus Rivera', email: 'marcus@nexora.com', company: 'Nexora Logistics', size: '21–100', status: 'client', notes: 'Interested in CRM automation', date: '2025-03-10' },
+  { id: 2, name: 'Sofia Lim', email: 'sofia@vaultpay.io', company: 'VaultPay', size: '6–20', status: 'client', notes: 'Invoice automation project', date: '2025-03-15' },
+  { id: 3, name: 'Daniel Kim', email: 'd.kim@coretek.com', company: 'CoreTek Solutions', size: '21–100', status: 'client', notes: 'Full ops automation', date: '2025-03-22' },
+  { id: 4, name: 'Ava Thompson', email: 'ava@striplex.co', company: 'Striplex', size: '6–20', status: 'qualified', notes: 'Ready for proposal', date: '2025-04-01' },
+  { id: 5, name: 'James Ortega', email: 'james@orbisco.com', company: 'Orbis Co.', size: '1–5', status: 'contacted', notes: 'Intro call scheduled', date: '2025-04-05' },
+  { id: 6, name: 'Priya Nair', email: 'priya@zenrift.io', company: 'ZenRift', size: '6–20', status: 'new', notes: 'Came from website form', date: '2025-04-12' },
+  { id: 7, name: 'Tom Blake', email: 'tom@blakeco.com', company: 'Blake & Co.', size: '1–5', status: 'lost', notes: 'Budget concerns', date: '2025-04-08' },
+];
+const defaultClients = [
+  { id: 1, company: 'Nexora Logistics', contact: 'Marcus Rivera', email: 'marcus@nexora.com', plan: 'Pro', mrr: 1497, status: 'active', since: '2025-03-20' },
+  { id: 2, company: 'VaultPay', contact: 'Sofia Lim', email: 'sofia@vaultpay.io', plan: 'Growth', mrr: 997, status: 'active', since: '2025-03-28' },
+  { id: 3, company: 'CoreTek Solutions', contact: 'Daniel Kim', email: 'd.kim@coretek.com', plan: 'Enterprise', mrr: 2497, status: 'active', since: '2025-04-01' },
+  { id: 4, company: 'Striplex', contact: 'Ava Thompson', email: 'ava@striplex.co', plan: 'Starter', mrr: 497, status: 'inactive', since: '2025-02-10' },
+];
+const defaultProjects = [
+  { id: 1, name: 'CRM Lead Sync', client: 'Nexora Logistics', type: 'Sales & CRM', status: 'live', progress: 100 },
+  { id: 2, name: 'Invoice Automation', client: 'VaultPay', type: 'Finance', status: 'live', progress: 100 },
+  { id: 3, name: 'Full Ops Workflow', client: 'CoreTek Solutions', type: 'Sales & CRM', status: 'progress', progress: 65 },
+  { id: 4, name: 'HR Onboarding Flow', client: 'Nexora Logistics', type: 'HR & Onboarding', status: 'testing', progress: 85 },
+  { id: 5, name: 'Marketing Campaigns', client: 'VaultPay', type: 'Marketing', status: 'planning', progress: 20 },
+];
+const defaultInvoices = [
+  { id: 1, num: 'INV-001', client: 'Nexora Logistics', amount: 1497, status: 'paid', due: '2025-04-01' },
+  { id: 2, num: 'INV-002', client: 'VaultPay', amount: 997, status: 'paid', due: '2025-04-05' },
+  { id: 3, num: 'INV-003', client: 'CoreTek Solutions', amount: 2497, status: 'pending', due: '2025-04-30' },
+  { id: 4, num: 'INV-004', client: 'Nexora Logistics', amount: 1497, status: 'pending', due: '2025-05-01' },
+  { id: 5, num: 'INV-005', client: 'Striplex', amount: 497, status: 'overdue', due: '2025-03-15' },
+];
+
+function getData(key, def) { try { return JSON.parse(localStorage.getItem(key)) || def; } catch { return def; } }
+function setData(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
+function getLeads()    { return getData('af_leads', defaultLeads); }
+function getClients()  { return getData('af_clients', defaultClients); }
+function getProjects() { return getData('af_projects', defaultProjects); }
+function getInvoices() { return getData('af_invoices', defaultInvoices); }
+
+// ── NAVIGATION ──
+const titles = { overview:'Overview', leads:'Leads', clients:'Clients', projects:'Projects', invoices:'Invoices', settings:'Settings' };
+function showSection(name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+  document.getElementById('section-' + name).classList.add('active');
+  document.querySelector('[data-section="' + name + '"]').classList.add('active');
+  document.getElementById('page-title').textContent = titles[name];
+  renderSection(name);
+}
+
+function renderSection(name) {
+  if (name === 'overview') renderOverview();
+  else if (name === 'leads') renderLeads();
+  else if (name === 'clients') renderClients();
+  else if (name === 'projects') renderProjects();
+  else if (name === 'invoices') renderInvoices();
+}
+
+// ── OVERVIEW ──
+function renderOverview() {
+  const leads = getLeads(), clients = getClients(), projects = getProjects();
+  const newLeads = leads.filter(l => l.status === 'new').length;
+  const activeClients = clients.filter(c => c.status === 'active').length;
+  const mrr = clients.filter(c => c.status === 'active').reduce((a,c) => a + c.mrr, 0);
+  const livePros = projects.filter(p => p.status === 'live').length;
+  document.getElementById('kpi-leads').textContent = newLeads;
+  document.getElementById('kpi-clients').textContent = activeClients;
+  document.getElementById('kpi-mrr').textContent = '$' + mrr.toLocaleString();
+  document.getElementById('kpi-projects').textContent = livePros;
+
+  // Recent leads
+  const recent = [...leads].sort((a,b) => new Date(b.date)-new Date(a.date)).slice(0,5);
+  document.getElementById('recent-leads-table').innerHTML = recent.map(l => `
+    <div class="flex items-center justify-between py-2.5 border-b border-white/5 last:border-0">
+      <div>
+        <div class="text-sm font-medium text-white">${l.name}</div>
+        <div class="text-xs text-gray-500">${l.company || '—'}</div>
+      </div>
+      <span class="text-xs px-2.5 py-1 rounded-full font-medium badge-${l.status}">${statusLabel(l.status)}</span>
+    </div>`).join('');
+
+  // Activity
+  const activities = [
+    ...leads.slice(-3).map(l => ({ icon: '👤', text: `New lead: <b>${l.name}</b>`, time: l.date })),
+    ...getInvoices().filter(i=>i.status==='paid').slice(-2).map(i => ({ icon: '💰', text: `Invoice paid: <b>${i.num}</b>`, time: i.due })),
+  ].sort((a,b) => new Date(b.time)-new Date(a.time)).slice(0,6);
+  document.getElementById('activity-feed').innerHTML = activities.map(a => `
+    <div class="flex gap-3 items-start">
+      <span class="text-lg leading-none">${a.icon}</span>
+      <div>
+        <div class="text-sm text-gray-300">${a.text}</div>
+        <div class="text-xs text-gray-600 mt-0.5">${a.time}</div>
+      </div>
+    </div>`).join('');
+
+  // Leads badge in nav
+  document.getElementById('leads-badge').textContent = newLeads > 0 ? newLeads : '';
+}
+
+// ── LEADS ──
+let currentLeadFilter = 'all';
+function filterLeads(f) {
+  currentLeadFilter = f;
+  document.querySelectorAll('.lead-filter').forEach(b => {
+    b.classList.remove('active-filter','bg-brand-600','text-white');
+    b.classList.add('bg-gray-800','text-gray-300');
+  });
+  event.target.classList.add('active-filter','bg-brand-600','text-white');
+  event.target.classList.remove('bg-gray-800','text-gray-300');
+  renderLeads();
+}
+function renderLeads() {
+  let leads = getLeads();
+  if (currentLeadFilter !== 'all') leads = leads.filter(l => l.status === currentLeadFilter);
+  const tbody = document.getElementById('leads-table-body');
+  const empty = document.getElementById('leads-empty');
+  if (!leads.length) { tbody.innerHTML = ''; empty.classList.remove('hidden'); return; }
+  empty.classList.add('hidden');
+  tbody.innerHTML = leads.map(l => `
+    <tr class="hover:bg-white/2 transition-colors">
+      <td class="px-5 py-3.5"><div class="font-medium text-sm">${l.name}</div></td>
+      <td class="px-5 py-3.5 text-gray-400 text-sm">${l.company || '—'}</td>
+      <td class="px-5 py-3.5 text-gray-400 text-sm hidden md:table-cell">${l.email}</td>
+      <td class="px-5 py-3.5 text-gray-400 text-sm hidden lg:table-cell">${l.size || '—'}</td>
+      <td class="px-5 py-3.5">
+        <select onchange="updateLeadStatus(${l.id}, this.value)" class="text-xs px-2.5 py-1.5 rounded-lg border-0 outline-none cursor-pointer badge-${l.status} bg-transparent font-medium">
+          <option value="new" ${l.status==='new'?'selected':''}>New</option>
+          <option value="contacted" ${l.status==='contacted'?'selected':''}>Contacted</option>
+          <option value="qualified" ${l.status==='qualified'?'selected':''}>Qualified</option>
+          <option value="client" ${l.status==='client'?'selected':''}>Converted</option>
+          <option value="lost" ${l.status==='lost'?'selected':''}>Lost</option>
+        </select>
+      </td>
+      <td class="px-5 py-3.5 text-gray-500 text-xs hidden md:table-cell">${l.date}</td>
+      <td class="px-5 py-3.5">
+        <div class="flex gap-2">
+          <button onclick="editLead(${l.id})" class="text-gray-500 hover:text-brand-400 transition-colors" title="Edit">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+          </button>
+          <button onclick="deleteLead(${l.id})" class="text-gray-500 hover:text-red-400 transition-colors" title="Delete">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+          </button>
+        </div>
+      </td>
+    </tr>`).join('');
+}
+function updateLeadStatus(id, status) {
+  const leads = getLeads();
+  const l = leads.find(x => x.id === id);
+  if (l) { l.status = status; setData('af_leads', leads); renderLeads(); renderOverview(); showToast('Status updated'); }
+}
+function editLead(id) {
+  const l = getLeads().find(x => x.id === id);
+  if (!l) return;
+  document.getElementById('lead-edit-id').value = id;
+  document.getElementById('lead-modal-title').textContent = 'Edit Lead';
+  document.getElementById('l-name').value = l.name;
+  document.getElementById('l-email').value = l.email;
+  document.getElementById('l-company').value = l.company || '';
+  document.getElementById('l-size').value = l.size || '';
+  document.getElementById('l-status').value = l.status;
+  document.getElementById('l-notes').value = l.notes || '';
+  openModal('lead');
+}
+function deleteLead(id) {
+  if (!confirm('Delete this lead?')) return;
+  setData('af_leads', getLeads().filter(l => l.id !== id));
+  renderLeads(); renderOverview(); showToast('Lead deleted');
+}
+function saveLead() {
+  const name = document.getElementById('l-name').value.trim();
+  const email = document.getElementById('l-email').value.trim();
+  if (!name || !email) { alert('Name and email are required.'); return; }
+  const leads = getLeads();
+  const editId = parseInt(document.getElementById('lead-edit-id').value);
+  const data = { name, email, company: document.getElementById('l-company').value.trim(), size: document.getElementById('l-size').value, status: document.getElementById('l-status').value, notes: document.getElementById('l-notes').value.trim(), date: new Date().toISOString().slice(0,10) };
+  if (editId) { const i = leads.findIndex(l => l.id === editId); leads[i] = { ...leads[i], ...data }; }
+  else { data.id = Date.now(); leads.unshift(data); }
+  setData('af_leads', leads); closeModal('modal-lead'); renderLeads(); renderOverview(); showToast('Lead saved');
+}
+
+// ── CLIENTS ──
+function renderClients() {
+  const clients = getClients();
+  const active = clients.filter(c => c.status === 'active');
+  const mrr = active.reduce((a,c) => a+c.mrr, 0);
+  document.getElementById('c-stat-total').textContent = clients.length;
+  document.getElementById('c-stat-active').textContent = active.length;
+  document.getElementById('c-stat-mrr').textContent = '$' + mrr.toLocaleString();
+  document.getElementById('clients-table-body').innerHTML = clients.map(c => `
+    <tr class="hover:bg-white/2 transition-colors">
+      <td class="px-5 py-3.5"><div class="font-medium text-sm">${c.company}</div></td>
+      <td class="px-5 py-3.5 text-gray-400 text-sm hidden md:table-cell">${c.contact}</td>
+      <td class="px-5 py-3.5"><span class="text-xs bg-gray-800 text-gray-300 px-2.5 py-1 rounded-full">${c.plan}</span></td>
+      <td class="px-5 py-3.5 text-white font-semibold text-sm">$${c.mrr.toLocaleString()}</td>
+      <td class="px-5 py-3.5"><span class="text-xs px-2.5 py-1 rounded-full font-medium badge-${c.status}">${c.status}</span></td>
+      <td class="px-5 py-3.5 text-gray-500 text-xs hidden lg:table-cell">${c.since}</td>
+      <td class="px-5 py-3.5">
+        <div class="flex gap-2">
+          <button onclick="editClient(${c.id})" class="text-gray-500 hover:text-brand-400 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+          </button>
+          <button onclick="deleteClient(${c.id})" class="text-gray-500 hover:text-red-400 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+          </button>
+        </div>
+      </td>
+    </tr>`).join('');
+}
+function editClient(id) {
+  const c = getClients().find(x => x.id === id);
+  if (!c) return;
+  document.getElementById('client-edit-id').value = id;
+  document.getElementById('client-modal-title').textContent = 'Edit Client';
+  document.getElementById('c-company').value = c.company;
+  document.getElementById('c-contact').value = c.contact;
+  document.getElementById('c-email').value = c.email || '';
+  document.getElementById('c-plan').value = c.plan;
+  document.getElementById('c-mrr').value = c.mrr;
+  document.getElementById('c-status').value = c.status;
+  openModal('client');
+}
+function deleteClient(id) {
+  if (!confirm('Delete this client?')) return;
+  setData('af_clients', getClients().filter(c => c.id !== id));
+  renderClients(); renderOverview(); showToast('Client deleted');
+}
+function saveClient() {
+  const company = document.getElementById('c-company').value.trim();
+  const contact = document.getElementById('c-contact').value.trim();
+  if (!company || !contact) { alert('Company and contact are required.'); return; }
+  const clients = getClients();
+  const editId = parseInt(document.getElementById('client-edit-id').value);
+  const data = { company, contact, email: document.getElementById('c-email').value.trim(), plan: document.getElementById('c-plan').value, mrr: parseInt(document.getElementById('c-mrr').value)||0, status: document.getElementById('c-status').value, since: new Date().toISOString().slice(0,10) };
+  if (editId) { const i = clients.findIndex(c => c.id === editId); clients[i] = { ...clients[i], ...data }; }
+  else { data.id = Date.now(); clients.push(data); }
+  setData('af_clients', clients); closeModal('modal-client'); renderClients(); renderOverview(); showToast('Client saved');
+}
+
+// ── PROJECTS ──
+const statusColors = { planning:'badge-planning', progress:'badge-progress', testing:'badge-testing', live:'badge-live' };
+const statusLabels = { planning:'Planning', progress:'In Progress', testing:'Testing', live:'Live' };
+function renderProjects() {
+  const projects = getProjects();
+  document.getElementById('projects-grid').innerHTML = projects.map(p => `
+    <div class="bg-gray-900 border border-white/8 rounded-2xl p-5 flex flex-col gap-4">
+      <div class="flex items-start justify-between">
+        <div>
+          <h4 class="font-bold text-sm">${p.name}</h4>
+          <div class="text-xs text-gray-500 mt-0.5">${p.client}</div>
+        </div>
+        <span class="text-xs px-2.5 py-1 rounded-full font-medium ${statusColors[p.status]}">${statusLabels[p.status]}</span>
+      </div>
+      <div class="text-xs text-gray-600 bg-gray-800/50 rounded-lg px-3 py-1.5 inline-block self-start">${p.type}</div>
+      <div>
+        <div class="flex justify-between text-xs text-gray-500 mb-1.5">
+          <span>Progress</span><span>${p.progress}%</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" style="width:${p.progress}%"></div></div>
+      </div>
+      <div class="flex gap-2 mt-auto pt-2 border-t border-white/5">
+        <button onclick="deleteProject(${p.id})" class="text-xs text-gray-600 hover:text-red-400 transition-colors">Delete</button>
+      </div>
+    </div>`).join('');
+}
+function saveProject() {
+  const name = document.getElementById('p-name').value.trim();
+  if (!name) { alert('Project name is required.'); return; }
+  const projects = getProjects();
+  projects.push({ id: Date.now(), name, client: document.getElementById('p-client').value.trim(), type: document.getElementById('p-type').value, status: document.getElementById('p-status').value, progress: parseInt(document.getElementById('p-progress').value)||0 });
+  setData('af_projects', projects); closeModal('modal-project'); renderProjects(); renderOverview(); showToast('Project saved');
+}
+function deleteProject(id) {
+  if (!confirm('Delete this project?')) return;
+  setData('af_projects', getProjects().filter(p => p.id !== id));
+  renderProjects(); renderOverview(); showToast('Project deleted');
+}
+
+// ── INVOICES ──
+function renderInvoices() {
+  const invoices = getInvoices();
+  const total   = invoices.reduce((a,i) => a+i.amount, 0);
+  const paid    = invoices.filter(i=>i.status==='paid').reduce((a,i)=>a+i.amount,0);
+  const pending = invoices.filter(i=>i.status==='pending').reduce((a,i)=>a+i.amount,0);
+  const overdue = invoices.filter(i=>i.status==='overdue').reduce((a,i)=>a+i.amount,0);
+  document.getElementById('inv-total').textContent   = '$'+total.toLocaleString();
+  document.getElementById('inv-paid').textContent    = '$'+paid.toLocaleString();
+  document.getElementById('inv-pending').textContent = '$'+pending.toLocaleString();
+  document.getElementById('inv-overdue').textContent = '$'+overdue.toLocaleString();
+  document.getElementById('invoices-table-body').innerHTML = invoices.map(i => `
+    <tr class="hover:bg-white/2 transition-colors">
+      <td class="px-5 py-3.5 font-mono text-sm text-gray-300">${i.num}</td>
+      <td class="px-5 py-3.5 text-sm">${i.client}</td>
+      <td class="px-5 py-3.5 font-bold text-sm">$${i.amount.toLocaleString()}</td>
+      <td class="px-5 py-3.5">
+        <select onchange="updateInvoiceStatus(${i.id}, this.value)" class="text-xs px-2.5 py-1.5 rounded-lg border-0 outline-none cursor-pointer badge-${i.status} bg-transparent font-medium">
+          <option value="pending" ${i.status==='pending'?'selected':''}>Pending</option>
+          <option value="paid" ${i.status==='paid'?'selected':''}>Paid</option>
+          <option value="overdue" ${i.status==='overdue'?'selected':''}>Overdue</option>
+        </select>
+      </td>
+      <td class="px-5 py-3.5 text-gray-500 text-sm hidden md:table-cell">${i.due}</td>
+      <td class="px-5 py-3.5">
+        <button onclick="deleteInvoice(${i.id})" class="text-gray-500 hover:text-red-400 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+        </button>
+      </td>
+    </tr>`).join('');
+}
+function updateInvoiceStatus(id, status) {
+  const invoices = getInvoices();
+  const i = invoices.find(x => x.id === id);
+  if (i) { i.status = status; setData('af_invoices', invoices); renderInvoices(); showToast('Invoice updated'); }
+}
+function deleteInvoice(id) {
+  if (!confirm('Delete this invoice?')) return;
+  setData('af_invoices', getInvoices().filter(i => i.id !== id));
+  renderInvoices(); showToast('Invoice deleted');
+}
+function saveInvoice() {
+  const client = document.getElementById('i-client').value.trim();
+  const amount = parseInt(document.getElementById('i-amount').value);
+  const due    = document.getElementById('i-due').value;
+  if (!client || !amount || !due) { alert('All fields required.'); return; }
+  const invoices = getInvoices();
+  const num = 'INV-' + String(invoices.length + 1).padStart(3,'0');
+  invoices.push({ id: Date.now(), num, client, amount, status: document.getElementById('i-status').value, due });
+  setData('af_invoices', invoices); closeModal('modal-invoice'); renderInvoices(); showToast('Invoice created');
+}
+
+// ── SETTINGS ──
+function saveSettings() { showToast('Profile saved'); }
+function changePassword() {
+  const cur = document.getElementById('s-cur-pass').value;
+  const nw  = document.getElementById('s-new-pass').value;
+  if (cur !== 'AutoFlow2025!') { alert('Current password is incorrect.'); return; }
+  if (nw.length < 8) { alert('New password must be at least 8 characters.'); return; }
+  showToast('Password updated');
+  document.getElementById('s-cur-pass').value = '';
+  document.getElementById('s-new-pass').value = '';
+}
+function clearAllData() {
+  if (!confirm('Clear ALL data? This cannot be undone.')) return;
+  ['af_leads','af_clients','af_projects','af_invoices'].forEach(k => localStorage.removeItem(k));
+  showToast('All data cleared'); renderOverview();
+}
+
+// ── MODALS ──
+function openModal(type) {
+  if (type === 'lead') {
+    document.getElementById('lead-edit-id').value = '';
+    document.getElementById('lead-modal-title').textContent = 'Add Lead';
+    ['l-name','l-email','l-company','l-notes'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('l-size').value = '';
+    document.getElementById('l-status').value = 'new';
+  }
+  if (type === 'client') {
+    document.getElementById('client-edit-id').value = '';
+    document.getElementById('client-modal-title').textContent = 'Add Client';
+    ['c-company','c-contact','c-email','c-mrr'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('c-plan').value = 'Starter';
+    document.getElementById('c-status').value = 'active';
+  }
+  if (type === 'project') {
+    ['p-name','p-client','p-progress'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('p-type').value = 'Sales & CRM';
+    document.getElementById('p-status').value = 'planning';
+  }
+  if (type === 'invoice') {
+    ['i-client','i-amount','i-due'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('i-status').value = 'pending';
+  }
+  document.getElementById('modal-' + type).classList.add('open');
+}
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function closeModalOnBackdrop(e, id) { if (e.target === document.getElementById(id)) closeModal(id); }
+
+// ── TOAST ──
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ── STATUS HELPERS ──
+function statusLabel(s) {
+  return {new:'New',contacted:'Contacted',qualified:'Qualified',client:'Converted',lost:'Lost'}[s] || s;
+}
+
+// ── INIT ──
+document.getElementById('last-updated').textContent = 'Last updated: ' + new Date().toLocaleTimeString();
+renderOverview();
+</script>
+</body>
+</html>
