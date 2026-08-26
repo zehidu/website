@@ -15,6 +15,7 @@ All material website changes are recorded here. Production status is stated expl
 
 - Added a strict analytics event allowlist, anonymous per-tab preview sessions, coarse calculator ranges, and prohibited-field contract
 - Added the content roadmap, appliance assumptions, issue records, and full measurement architecture
+- Enabled Cloudflare Web Analytics with a manual cookie-free beacon for aggregate traffic and real-user performance
 - Kept all third-party product analytics disabled pending consent, retention, privacy-contact, and owner review
 
 ### Search and trust

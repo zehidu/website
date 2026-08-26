@@ -25,14 +25,15 @@ The required owner-approved account connections are established. Publication was
 
 ## Measurement activation order
 
-1. Add a verified privacy contact and approve the retention schedule.
-2. Enable Cloudflare Web Analytics for aggregate baseline traffic.
-3. Create or confirm the GA4 property and web stream.
-4. Implement regional consent behavior and verify denied-state requests.
-5. Send only the allowlisted events in data/event-schema.json.
-6. Link GA4 to Search Console and enable the daily BigQuery export.
-7. Add sampled session replay only after input masking and route exclusions pass.
-8. Build the weekly dashboard specified in MEASUREMENT.md.
+1. Keep Cloudflare Web Analytics active as the cookie-free aggregate baseline.
+2. Submit and monitor the canonical sitemap in Search Console.
+3. Add a verified privacy contact and approve the retention schedule before product-event analytics.
+4. Create or confirm the GA4 property and web stream only after that review.
+5. Implement regional consent behavior and verify denied-state requests.
+6. Send only the allowlisted events in data/event-schema.json.
+7. Link GA4 to Search Console and enable the daily BigQuery export if the data policy is approved.
+8. Add sampled session replay only after input masking and route exclusions pass.
+9. Build the weekly dashboard specified in MEASUREMENT.md.
 
 ## Content expansion rule
 
@@ -47,7 +48,8 @@ Every new search page needs a distinct user task, primary or manufacturer source
 - [ ] Structured data parses and visible page content supports it
 - [ ] Custom 404 and removed admin paths behave correctly
 - [ ] Social preview, favicon, keyboard focus, contrast and small-screen layout reviewed
-- [ ] Privacy contact, retention and consent configuration approved before analytics activation
+- [x] Privacy notice discloses the active aggregate Cloudflare Web Analytics baseline
+- [ ] Privacy contact, retention and consent configuration approved before product-event analytics activation
 - [ ] Production Search Console sitemap resubmitted after deployment
 
 ## Weekly growth review

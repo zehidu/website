@@ -1,6 +1,6 @@
 # The Renew Up measurement plan
 
-Status: production event contract prepared. No third-party product analytics provider is enabled by this release.
+Status: Cloudflare Web Analytics is active for aggregate, cookie-free traffic and performance measurement. The production product-event contract is prepared, but no third-party product-event analytics provider is enabled.
 
 ## Decision system
 
@@ -15,15 +15,15 @@ The north-star metric is **engaged organic task completions per indexed landing 
 
 ## Collection layers
 
-| Layer | Purpose | Planned retention |
-| --- | --- | --- |
-| Google Search Console | Query, page, country, device, clicks, impressions, CTR, position, crawl and indexing | Export monthly snapshots before the 16-month UI window expires |
-| Cloudflare Web Analytics | Aggregate visits, referrers, browsers, countries and web performance | Provider aggregate retention; no custom visitor identity |
-| GA4 | Consent-aware acquisition and product-event stream | 14-month exploration retention |
-| BigQuery export | Durable raw events, content versions and experiment variants | Set after privacy review; proposed 25 months for raw events |
-| Sampled replay | Diagnose interface problems with all inputs masked | Proposed 30 days, consent required, sensitive routes excluded |
+| Layer | Status | Purpose | Retention |
+| --- | --- | --- | --- |
+| Google Search Console | Active | Query, page, country, device, clicks, impressions, CTR, position, crawl and indexing | Export monthly snapshots before the 16-month UI window expires |
+| Cloudflare Web Analytics | Active | Aggregate visits, referrers, browsers, countries and web performance | Provider-controlled aggregate retention; no custom visitor identity |
+| GA4 | Not connected | Consent-aware acquisition and product-event stream | Proposed 14-month exploration retention |
+| BigQuery export | Not connected | Durable raw events, content versions and experiment variants | Set after privacy review; proposed 25 months for raw events |
+| Sampled replay | Not connected | Diagnose interface problems with all inputs masked | Proposed 30 days, consent required, sensitive routes excluded |
 
-Retention values remain proposals until production consent and privacy configuration are reviewed.
+Retention values for tools that are not connected remain proposals until production consent and privacy configuration are reviewed.
 
 ## Event contract
 

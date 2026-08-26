@@ -40,6 +40,6 @@ Product data, the content roadmap, and the analytics contract live in data/. The
 
 Netlify, Cloudflare, and Search Console are connected to the owner-approved Google account. No credentials or API keys belong in this repository.
 
-## Publication gate
+## Publication status
 
-The owner approved publication on August 26, 2026. Before third-party product analytics is enabled, add a verified privacy contact, approve retention periods, configure consent behavior, and test all input masking.
+The owner approved publication on August 26, 2026. The site is live, Search Console is connected, and Cloudflare Web Analytics provides the cookie-free aggregate baseline. Before any third-party product-event analytics, outcome submission, data warehouse, or session replay is enabled, add a verified privacy contact, approve retention periods, configure consent behavior, and test all input masking.
