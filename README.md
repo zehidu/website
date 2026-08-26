@@ -1,47 +1,45 @@
 # The Renew Up
 
-A dependency-free static website documenting its own growth from an untracked one-page template into a measurable, useful, search-visible resource.
+A source-checked appliance decision site built around a working repair-or-replace calculator, symptom guides, recall checks, and privacy-safe product measurement.
+
+This branch is a local MVP and is not published to therenewup.com.
 
 ## Run locally
 
 From this folder:
 
-```powershell
-python -m http.server 4173 --bind 127.0.0.1
-```
+    python -m http.server 4173 --bind 127.0.0.1
 
-Then open `http://127.0.0.1:4173/`.
+Open http://127.0.0.1:4173/ and run the repeatable checks in another PowerShell window:
 
-No package install, database, or paid local service is required.
+    .\scripts\check-site.ps1
 
-In a second PowerShell window, validate the files and local routes:
+No package installation, database, or paid local service is required.
 
-```powershell
-.\scripts\check-site.ps1
-```
+## MVP surface
 
-Run `.\scripts\check-site.ps1 -SkipHttp` when the local server is not running.
+- / — working repair-or-replace calculator
+- /diagnose/ — searchable symptom library
+- /guides/washer-not-draining/
+- /guides/washer-not-spinning/
+- /guides/dishwasher-not-draining/
+- /guides/dishwasher-not-cleaning/
+- /recalls/ — official CPSC recall handoff
+- /methodology/ — calculator rules and limitations
+- /privacy/ — current and planned measurement disclosure
+
+Product data, the content roadmap, and the analytics contract live in data/. The decision and dashboard architecture is documented in MEASUREMENT.md.
 
 ## Production map
 
 - Registrar: GoDaddy
 - DNS: Cloudflare
-- Hosting: Netlify project `zesty-custard-83b123`
-- Source: `https://github.com/zehidu/website`, branch `main`
-- Search ownership clue: Google site-verification TXT record exists in DNS
+- Hosting: Netlify project zesty-custard-83b123
+- Source: https://github.com/zehidu/website
+- Search property: sc-domain:therenewup.com
 
-See [OPERATIONS.md](OPERATIONS.md) for dashboards, release checks, and the weekly growth routine.
-The dated machine-readable baseline is in [data/baseline-2026-08-26.json](data/baseline-2026-08-26.json), and material changes are recorded in [CHANGELOG.md](CHANGELOG.md).
+Netlify, Cloudflare, and Search Console are connected to the owner-approved Google account. No credentials or API keys belong in this repository.
 
-## Site structure
+## Publication gate
 
-- `/` — experiment homepage
-- `/metrics/` — public growth dashboard
-- `/case-study/day-zero/` — evidence-backed first audit
-- `/guides/free-website-analytics/` — measurement stack guide
-- `/guides/local-vs-static-hosting/` — low-cost hosting guide
-- `/privacy/` — current measurement and privacy status
-
-## Release rule
-
-Do not publish claims as live results until they have been checked on the production domain. Local improvements and future targets must remain labeled.
+Do not deploy until the owner reviews the local MVP. Before production measurement is enabled, add a verified privacy contact, approve retention periods, configure consent behavior, and test all input masking.

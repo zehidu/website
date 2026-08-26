@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>How the Repair-or-Replace Calculator Works — The Renew Up</title>
+    <meta name="description" content="See the assumptions, thresholds, privacy rules, limitations, and version history behind The Renew Up repair-or-replace calculator.">
+    <meta name="robots" content="index,follow,max-image-preview:large"><link rel="canonical" href="https://therenewup.com/methodology/"><link rel="stylesheet" href="/assets/styles.css"><link rel="icon" href="/favicon.ico" sizes="any"><meta name="theme-color" content="#f5f1e8">
+    <meta property="og:type" content="website"><meta property="og:site_name" content="The Renew Up"><meta property="og:title" content="How the Repair-or-Replace Calculator Works"><meta property="og:description" content="The assumptions, thresholds, limitations, and privacy rules behind every result."><meta property="og:url" content="https://therenewup.com/methodology/"><meta name="twitter:card" content="summary">
+  </head>
+  <body data-content-type="methodology">
+    <a class="skip-link" href="#main">Skip to the methodology</a><div class="trust-bar"><div class="shell trust-bar-inner"><span><span class="pulse" aria-hidden="true"></span> Independent appliance guidance</span><span class="trust-detail">Source-checked · No sponsored rankings · No email required</span></div></div>
+    <header class="site-header"><div class="shell header-inner"><a class="brand" href="/" aria-label="The Renew Up home"><span class="brand-mark" aria-hidden="true">R<span>U</span></span><span class="brand-copy">The Renew Up<small>repair smarter</small></span></a><nav class="site-nav" aria-label="Primary navigation"><a href="/diagnose/">Diagnose</a><a href="/#calculator">Repair or replace</a><a href="/recalls/">Recalls</a><a class="nav-action" href="/#calculator">Start a check →</a></nav></div></header>
+    <main id="main" class="page-main"><div class="shell">
+      <ol class="breadcrumbs"><li><a href="/">Home</a></li><li aria-current="page">Methodology</li></ol>
+      <header class="page-hero"><div><p class="eyebrow"><span>Version 1.0</span> Transparent by design</p><h1>How the calculator reaches a result.</h1><p class="lede">The tool is a planning aid, not a diagnosis. Every threshold is visible so a visitor can disagree intelligently instead of trusting a mysterious score.</p></div><aside class="page-aside" aria-label="Current calculator scope"><strong>Current scope</strong><p>U.S. washing machines and dishwashers. The first version compares age, a complete repair estimate, and a comparable replacement price.</p></aside></header>
+      <div class="content-layout"><article class="article-content">
+        <h2 id="inputs">The three decision inputs</h2>
+        <ul><li><strong>Age:</strong> whole or partial years since the appliance entered service.</li><li><strong>Repair estimate:</strong> labor, parts, diagnostic fee, tax, and any other amount required to restore operation.</li><li><strong>Replacement price:</strong> a comparable appliance plus required delivery, installation, connection parts, haul-away, and tax when known.</li></ul>
+        <p>The interface asks which appliance is being compared because the planning-life assumption differs. Version 1.0 uses 11 years for a washing machine and 10 years for a dishwasher. These are editable model assumptions in the code—not manufacturer guarantees or claims that every unit should last that long.</p>
+
+        <h2 id="rules">The version 1.0 rules</h2>
+        <div class="info-callout"><strong>Repair result</strong><p>Repair cost is no more than 40% of comparable replacement cost, and the appliance has used no more than 75% of its planning life.</p></div>
+        <div class="info-callout"><strong>Replacement result</strong><p>Repair cost is at least 60% of comparable replacement cost, or the appliance has reached its planning life.</p></div>
+        <div class="info-callout"><strong>Compare result</strong><p>Everything between those boundaries. The visitor should weigh the written repair warranty, repeat-failure history, delivery costs, features, and one more estimate.</p></div>
+        <p>The displayed percentages are calculated as <strong>repair estimate ÷ replacement price</strong> and <strong>appliance age ÷ planning life</strong>. Estimated years left is planning life minus current age, never below zero.</p>
+
+        <h2 id="overrides">What overrides the cost result</h2>
+        <p>An active safety recall, burning smell, electrical damage, repeated leaking, unavailable parts, a failed structural component, or a qualified technician’s safety finding can outweigh a low repair ratio. Conversely, unusual installation expense or an unusually long repair warranty can make repair more attractive than the simple score suggests.</p>
+        <p>Version 1.0 does not yet calculate energy savings. That requires a matched product record and local energy assumptions; pretending otherwise would make the result look more precise than it is.</p>
+
+        <h2 id="privacy">What enters analytics</h2>
+        <p>Raw age, repair cost, and replacement price are not analytics fields. A completed calculation emits only the appliance category, the result, broad repair-ratio and life-used ranges, and calculator version. This is enough to learn where the model is useful without building a financial profile of a visitor.</p>
+
+        <h2 id="testing">How updates will be governed</h2>
+        <ol><li>Every logic change receives a new calculator version.</li><li>Old and new result distributions remain separable in stored analytics.</li><li>User outcome reports will be collected only with explicit consent.</li><li>Thresholds will not change merely to increase clicks, ad views, or replacement referrals.</li><li>Material changes will be dated on this page before publication.</li></ol>
+
+        <h2 id="sources">Reference sources</h2>
+        <ul class="source-list"><li><a href="https://www.cpsc.gov/Recalls" data-track="source_outbound_click" data-source="cpsc_recalls">U.S. Consumer Product Safety Commission recall search</a><small>Safety-recall override.</small></li><li><a href="https://www.energystar.gov/products" data-track="source_outbound_click" data-source="energy_star_products">ENERGY STAR product resources</a><small>Future matched efficiency data.</small></li><li><a href="https://www.ftc.gov/business-guidance/resources/energyguide-labeling-faqs-appliance-manufacturers" data-track="source_outbound_click" data-source="ftc_energyguide">FTC EnergyGuide labeling guidance</a><small>Future operating-cost comparison context.</small></li></ul>
+      </article><aside class="side-nav" aria-label="Methodology sections"><strong>On this page</strong><ul><li><a href="#inputs">Inputs</a></li><li><a href="#rules">Decision rules</a></li><li><a href="#overrides">Overrides</a></li><li><a href="#privacy">Analytics privacy</a></li><li><a href="#testing">Update governance</a></li><li><a href="#sources">Sources</a></li></ul></aside></div>
+    </div></main>
+    <footer class="site-footer"><div class="shell footer-inner"><div><a class="footer-brand" href="/">The Renew Up</a><p>Repair smarter. Replace with confidence.</p></div><nav aria-label="Footer navigation"><a href="/diagnose/">Diagnose</a><a href="/recalls/">Recalls</a><a href="/methodology/">Methodology</a><a href="/privacy/">Privacy</a></nav><p class="footer-note">Educational guidance—not a substitute for a qualified technician.</p></div></footer><script src="/assets/analytics.js" defer></script>
+  </body>
+</html>

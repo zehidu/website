@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "last_reviewed": "2026-08-26",
+  "market": "US",
+  "currency": "USD",
+  "calculator_assumptions": [
+    {
+      "id": "washer",
+      "name": "Washing machine",
+      "planning_life_years": 11,
+      "note": "A transparent decision-model assumption, not a guarantee of product life.",
+      "initial_symptom_urls": [
+        "/guides/washer-not-draining/",
+        "/guides/washer-not-spinning/"
+      ]
+    },
+    {
+      "id": "dishwasher",
+      "name": "Dishwasher",
+      "planning_life_years": 10,
+      "note": "A transparent decision-model assumption, not a guarantee of product life.",
+      "initial_symptom_urls": [
+        "/guides/dishwasher-not-draining/",
+        "/guides/dishwasher-not-cleaning/"
+      ]
+    }
+  ],
+  "future_official_datasets": [
+    {
+      "name": "CPSC recall data",
+      "url": "https://www.cpsc.gov/Data",
+      "use": "Recall matching and safety overrides"
+    },
+    {
+      "name": "ENERGY STAR product data",
+      "url": "https://www.energystar.gov/products/webservices/frame_index",
+      "use": "Matched efficiency comparisons"
+    },
+    {
+      "name": "FTC EnergyGuide guidance",
+      "url": "https://www.ftc.gov/business-guidance/resources/energyguide-labeling-faqs-appliance-manufacturers",
+      "use": "Operating-cost methodology"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0",
+  "content_version": "mvp-2026-08-26",
+  "identity": {
+    "session_id": "Random per browser tab; no cross-device or cross-site identity",
+    "user_id": null,
+    "raw_ip_storage": false
+  },
+  "common_fields": [
+    "event",
+    "event_id",
+    "event_version",
+    "content_version",
+    "event_time",
+    "session_id",
+    "page_path",
+    "page_title",
+    "referrer_host",
+    "utm_source",
+    "utm_medium",
+    "utm_campaign"
+  ],
+  "events": {
+    "page_view": ["content_type"],
+    "calculator_start": ["calculator_version"],
+    "calculator_validation_error": ["field_count", "calculator_version"],
+    "calculator_complete": ["appliance", "decision", "repair_ratio_bucket", "life_used_bucket", "calculator_version"],
+    "calculator_reset": ["calculator_version"],
+    "issue_search": ["query_length", "results_count", "appliance_filter"],
+    "issue_select": ["issue", "target_path"],
+    "recall_check_click": ["source_name", "target_path"],
+    "source_outbound_click": ["source_name", "target_path"],
+    "navigation_click": ["target_path"]
+  },
+  "prohibited_fields": [
+    "name",
+    "email",
+    "phone",
+    "street_address",
+    "serial_number",
+    "typed_search_text",
+    "repair_cost",
+    "replacement_cost",
+    "exact_appliance_age",
+    "password",
+    "payment_data",
+    "raw_ip_address"
+  ]
+}

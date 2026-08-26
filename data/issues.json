@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "last_reviewed": "2026-08-26",
+  "issues": [
+    {
+      "id": "washer-not-draining",
+      "appliance": "washer",
+      "title": "Washing machine not draining",
+      "url": "/guides/washer-not-draining/",
+      "intent": "diagnose",
+      "safe_first_checks": ["cycle state", "load balance", "visible drain hose", "model-documented pump filter"],
+      "service_boundary": "burning smell, wiring exposure, uncontrolled leak, sealed-panel access",
+      "sources": [
+        "https://producthelp.whirlpool.com/Laundry/Washers/Product_Info/Washer_Product_Assistance/Washer_Not_Draining_or_Spinning%3F_Troubleshooting_Guide"
+      ]
+    },
+    {
+      "id": "washer-not-spinning",
+      "appliance": "washer",
+      "title": "Washing machine not spinning",
+      "url": "/guides/washer-not-spinning/",
+      "intent": "diagnose",
+      "safe_first_checks": ["cycle selection", "load balance", "standing water", "leveling"],
+      "service_boundary": "violent movement, electrical smell, repeated lock failure, sealed-panel access",
+      "sources": [
+        "https://producthelp.whirlpool.com/Laundry/Washers/Top_Load_Washer/Cycle_Concerns/Not_Spinning_-_Washer"
+      ]
+    },
+    {
+      "id": "dishwasher-not-draining",
+      "appliance": "dishwasher",
+      "title": "Dishwasher not draining",
+      "url": "/guides/dishwasher-not-draining/",
+      "intent": "diagnose",
+      "safe_first_checks": ["cycle completion", "model-documented filter", "visible hose routing", "sink connection"],
+      "service_boundary": "breaker trip, water near wiring, uncontrolled leak, live testing",
+      "sources": [
+        "https://www.bosch-home.com/us/owner-support/get-support/support-selfhelp-dishwasher-not-drain",
+        "https://producthelp.whirlpool.com/Dishwashers/Product_Info/Dishwasher_Product_Assistance/Dishwasher_Not_Draining"
+      ]
+    },
+    {
+      "id": "dishwasher-not-cleaning",
+      "appliance": "dishwasher",
+      "title": "Dishwasher not cleaning well",
+      "url": "/guides/dishwasher-not-cleaning/",
+      "intent": "diagnose",
+      "safe_first_checks": ["loading", "filter", "spray-arm movement", "detergent", "cycle selection"],
+      "service_boundary": "electrical fault, heating fault, no circulation after controlled test",
+      "sources": [
+        "https://www.bosch-home.com/us/owner-support/get-support/support-selfhelp-dishwasher-not-cleaning-dishes",
+        "https://products.geappliances.com/appliance/gea-support-search-content?contentId=38933"
+      ]
+    }
+  ]
+}

@@ -1,32 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>The Renew Up Field Notes</title>
+    <title>The Renew Up Appliance Guides</title>
     <link>https://therenewup.com/</link>
-    <description>A real website growth experiment documented in public.</description>
+    <description>Source-checked appliance diagnosis and repair-or-replace guidance.</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 26 Aug 2026 18:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 26 Aug 2026 20:00:00 GMT</lastBuildDate>
     <atom:link href="https://therenewup.com/feed.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Day zero: what an untracked website was really hiding</title>
-      <link>https://therenewup.com/case-study/day-zero/</link>
-      <guid isPermaLink="true">https://therenewup.com/case-study/day-zero/</guid>
-      <pubDate>Wed, 26 Aug 2026 18:00:00 GMT</pubDate>
-      <description>The ownership map, missing measurement, broken lead flow, public demo admin, and 90-day recovery plan.</description>
-    </item>
-    <item>
-      <title>Free website analytics without running your own server</title>
-      <link>https://therenewup.com/guides/free-website-analytics/</link>
-      <guid isPermaLink="true">https://therenewup.com/guides/free-website-analytics/</guid>
-      <pubDate>Wed, 26 Aug 2026 17:55:00 GMT</pubDate>
-      <description>A practical measurement stack using Cloudflare Web Analytics, Google Search Console, and Lighthouse.</description>
-    </item>
-    <item>
-      <title>Local development vs. static hosting</title>
-      <link>https://therenewup.com/guides/local-vs-static-hosting/</link>
-      <guid isPermaLink="true">https://therenewup.com/guides/local-vs-static-hosting/</guid>
-      <pubDate>Wed, 26 Aug 2026 17:50:00 GMT</pubDate>
-      <description>Why the cost-conscious workflow keeps editing on your computer and public delivery on a reliable static host.</description>
-    </item>
+    <item><title>Washing machine not draining? Safe first checks</title><link>https://therenewup.com/guides/washer-not-draining/</link><guid isPermaLink="true">https://therenewup.com/guides/washer-not-draining/</guid><pubDate>Wed, 26 Aug 2026 20:00:00 GMT</pubDate><description>Move from cycle and load checks to the hose and model-documented filter.</description></item>
+    <item><title>Washing machine not spinning? What to check first</title><link>https://therenewup.com/guides/washer-not-spinning/</link><guid isPermaLink="true">https://therenewup.com/guides/washer-not-spinning/</guid><pubDate>Wed, 26 Aug 2026 19:55:00 GMT</pubDate><description>Separate a cycle or load-balance issue from a likely service problem.</description></item>
+    <item><title>Dishwasher not draining? Safe checks in order</title><link>https://therenewup.com/guides/dishwasher-not-draining/</link><guid isPermaLink="true">https://therenewup.com/guides/dishwasher-not-draining/</guid><pubDate>Wed, 26 Aug 2026 19:50:00 GMT</pubDate><description>Inspect the visible filter and drain path without guessing at a failed pump.</description></item>
+    <item><title>Dishwasher not cleaning well? Diagnose the basics</title><link>https://therenewup.com/guides/dishwasher-not-cleaning/</link><guid isPermaLink="true">https://therenewup.com/guides/dishwasher-not-cleaning/</guid><pubDate>Wed, 26 Aug 2026 19:45:00 GMT</pubDate><description>Check loading, the filter, spray arms, detergent, and water readiness.</description></item>
   </channel>
 </rss>

@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0",
+  "market": "US-en",
+  "principle": "Query patterns are planning labels, not fabricated search-volume estimates. A planned page is published only after source review and a distinct user task are confirmed.",
+  "clusters": [
+    {
+      "cluster": "repair-or-replace",
+      "purpose": "Decision utility and commercial-intent support",
+      "pages": [
+        {"url": "/", "status": "mvp-live", "query_pattern": "repair or replace [appliance]", "format": "calculator"},
+        {"url": "/methodology/", "status": "mvp-live", "query_pattern": "repair or replace calculator methodology", "format": "methodology"},
+        {"url": "/data/appliance-lifespan/", "status": "planned-research", "query_pattern": "how long do [appliances] last", "format": "reference table"},
+        {"url": "/calculators/appliance-running-cost/", "status": "planned-data", "query_pattern": "[appliance] electricity cost calculator", "format": "calculator"},
+        {"url": "/compare/repair-warranty-vs-replacement-warranty/", "status": "planned-research", "query_pattern": "repair warranty vs appliance warranty", "format": "comparison"}
+      ]
+    },
+    {
+      "cluster": "washing-machine-symptoms",
+      "purpose": "High-intent diagnosis with safe first checks",
+      "pages": [
+        {"url": "/guides/washer-not-draining/", "status": "mvp-live", "query_pattern": "washing machine not draining", "format": "symptom guide"},
+        {"url": "/guides/washer-not-spinning/", "status": "mvp-live", "query_pattern": "washing machine not spinning", "format": "symptom guide"},
+        {"url": "/guides/washer-leaking/", "status": "planned-source-review", "query_pattern": "washing machine leaking", "format": "symptom guide"},
+        {"url": "/guides/washer-shaking/", "status": "planned-source-review", "query_pattern": "washing machine shaking violently", "format": "symptom guide"},
+        {"url": "/guides/washer-wont-start/", "status": "planned-source-review", "query_pattern": "washing machine will not start", "format": "symptom guide"},
+        {"url": "/guides/washer-smells/", "status": "planned-source-review", "query_pattern": "washing machine smells", "format": "maintenance guide"},
+        {"url": "/guides/washer-door-locked/", "status": "planned-source-review", "query_pattern": "washing machine door locked", "format": "symptom guide"},
+        {"url": "/guides/washer-not-filling/", "status": "planned-source-review", "query_pattern": "washing machine not filling", "format": "symptom guide"}
+      ]
+    },
+    {
+      "cluster": "dishwasher-symptoms",
+      "purpose": "High-intent diagnosis with safe first checks",
+      "pages": [
+        {"url": "/guides/dishwasher-not-draining/", "status": "mvp-live", "query_pattern": "dishwasher not draining", "format": "symptom guide"},
+        {"url": "/guides/dishwasher-not-cleaning/", "status": "mvp-live", "query_pattern": "dishwasher not cleaning dishes", "format": "symptom guide"},
+        {"url": "/guides/dishwasher-leaking/", "status": "planned-source-review", "query_pattern": "dishwasher leaking", "format": "symptom guide"},
+        {"url": "/guides/dishwasher-wont-start/", "status": "planned-source-review", "query_pattern": "dishwasher will not start", "format": "symptom guide"},
+        {"url": "/guides/dishwasher-not-drying/", "status": "planned-source-review", "query_pattern": "dishwasher not drying", "format": "symptom guide"},
+        {"url": "/guides/dishwasher-smells/", "status": "planned-source-review", "query_pattern": "dishwasher smells", "format": "maintenance guide"},
+        {"url": "/guides/dishwasher-not-filling/", "status": "planned-source-review", "query_pattern": "dishwasher not filling with water", "format": "symptom guide"},
+        {"url": "/guides/dishwasher-making-noise/", "status": "planned-source-review", "query_pattern": "dishwasher making noise", "format": "symptom guide"}
+      ]
+    },
+    {
+      "cluster": "official-data-lookups",
+      "purpose": "Actionable reference data that remains useful beyond a search summary",
+      "pages": [
+        {"url": "/recalls/", "status": "mvp-live", "query_pattern": "appliance recall lookup", "format": "official-source handoff"},
+        {"url": "/recalls/search/", "status": "planned-api-review", "query_pattern": "[brand] [model] recall", "format": "CPSC-backed lookup"},
+        {"url": "/energy/", "status": "planned-data", "query_pattern": "[model] energy use", "format": "ENERGY STAR and EnergyGuide lookup"},
+        {"url": "/error-codes/", "status": "planned-source-review", "query_pattern": "[brand] appliance error code", "format": "manufacturer-source index"},
+        {"url": "/error-codes/bosch-dishwasher/", "status": "planned-source-review", "query_pattern": "Bosch dishwasher error codes", "format": "brand hub"},
+        {"url": "/error-codes/whirlpool-washer/", "status": "planned-source-review", "query_pattern": "Whirlpool washer error codes", "format": "brand hub"}
+      ]
+    }
+  ],
+  "scale_gate": {
+    "requirements": [
+      "Unique user task and non-duplicative answer",
+      "Primary or manufacturer source review",
+      "Clear safety and service boundary",
+      "Valid canonical and internal links",
+      "Template earns indexing and non-branded impressions before bulk expansion"
+    ]
+  }
+}

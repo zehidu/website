@@ -2,6 +2,31 @@
 
 All material website changes are recorded here. Production status is stated explicitly so a local build is never mistaken for a live result.
 
+## 2026-08-26 — Appliance decision MVP, not yet published
+
+### Product direction
+
+- Replaced the generic website-growth experiment with a focused appliance repair and lifecycle product
+- Added a working, transparent repair-or-replace calculator for washing machines and dishwashers
+- Added a searchable symptom library and four source-reviewed starting guides
+- Added an official CPSC recall handoff and a public calculator methodology
+
+### Measurement foundation
+
+- Added a strict analytics event allowlist, anonymous per-tab preview sessions, coarse calculator ranges, and prohibited-field contract
+- Added the content roadmap, appliance assumptions, issue records, and full measurement architecture
+- Kept all third-party analytics disabled pending consent, retention, privacy-contact, and owner review
+
+### Search and trust
+
+- Replaced titles, descriptions, navigation, sitemap, feed, structured data, social preview, and internal links
+- Added dated source reviews, safety boundaries, primary/manufacturer references, and transparent model limitations
+- Removed the obsolete experiment dashboard, audit, hosting guide, analytics guide, and day-zero baseline from the site surface
+
+### Production status
+
+The live domain is unchanged. This MVP exists only on the local growth-foundation branch until the owner reviews and explicitly approves deployment.
+
 ## 2026-08-26 — Local growth foundation, not yet published
 
 ### Added
