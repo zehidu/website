@@ -60,151 +60,201 @@
     </header>
 
     <main id="main">
-      <section class="hero" id="diagnose" aria-labelledby="hero-title">
-        <div class="shell hero-grid">
-          <div class="hero-copy">
-            <p class="eyebrow"><span>New</span> Free appliance decision tool</p>
-            <h1 id="hero-title">Fix it—or know when <em>not to.</em></h1>
-            <p class="lede">Turn a confusing appliance problem into a clear next step. Compare repair cost, remaining life, and replacement price in one practical check.</p>
-            <div class="hero-actions">
-              <a class="button button-primary" href="#calculator">Check my appliance <span aria-hidden="true">→</span></a>
-              <a class="text-link" href="#how-it-works">How the recommendation works</a>
+      <section class="hero decision-hero" id="diagnose" aria-labelledby="hero-title">
+        <div class="shell">
+          <div class="lab-intro">
+            <div class="lab-intro-copy">
+              <p class="eyebrow"><span>Decision Lab</span> Free · private · no sign-up</p>
+              <h1 id="hero-title">Repair or replace? <em>See the whole decision.</em></h1>
+              <p class="lede">Five quick answers become a visual plan—price, age, reliability, warranty, and the point where replacing starts to win.</p>
             </div>
-            <ul class="proof-points">
-              <li><span aria-hidden="true">✓</span> Takes about 60 seconds</li>
-              <li><span aria-hidden="true">✓</span> Private by default</li>
-              <li><span aria-hidden="true">✓</span> Shows the reasoning</li>
-            </ul>
+            <div class="signal-legend">
+              <div><span aria-hidden="true">$</span><strong>Price</strong><small>quote vs. all-in new</small></div>
+              <div><span aria-hidden="true">◷</span><strong>Age</strong><small>life already used</small></div>
+              <div><span aria-hidden="true">↻</span><strong>Reliability</strong><small>condition + repeat repairs</small></div>
+              <div><span aria-hidden="true">◇</span><strong>Safety</strong><small>always overrides cost</small></div>
+            </div>
           </div>
 
-          <div class="decision-card" id="calculator">
-            <div class="decision-card-head">
+          <div class="decision-workbench" id="calculator">
+            <div class="workbench-top">
               <div>
-                <p class="step-label">Repair or replace calculator</p>
-                <h2>Start with what you know.</h2>
+                <p class="step-label">The Renew Up decision lab</p>
+                <h2>Build your repair-or-replace map.</h2>
               </div>
-              <span class="time-chip">~1 min</span>
+              <ol class="progress-rail">
+                <li class="is-active"><span>1</span>Situation</li>
+                <li><span>2</span>Numbers</li>
+                <li><span>3</span>Decision map</li>
+              </ol>
             </div>
-            <form class="calculator-form" data-calculator aria-describedby="calculator-note" autocomplete="off" novalidate>
-              <div class="field field-wide">
-                <label for="appliance">Which appliance needs help?</label>
-                <select id="appliance" name="appliance" required>
-                  <option value="">Choose an appliance</option>
-                  <option value="washer">Washing machine</option>
-                  <option value="dishwasher">Dishwasher</option>
-                </select>
-              </div>
-              <div class="field-row">
-                <div class="field">
-                  <label for="age">How old is it?</label>
-                  <div class="input-suffix">
-                    <input id="age" name="age" type="number" min="0" max="40" step="1" inputmode="numeric" placeholder="8" required>
-                    <span>years</span>
-                  </div>
-                </div>
-                <div class="field">
-                  <label for="repair-cost">Repair estimate</label>
-                  <div class="input-prefix">
-                    <span>$</span>
-                    <input id="repair-cost" name="repair_cost" type="number" min="0" max="10000" step="1" inputmode="decimal" placeholder="280" required>
-                  </div>
-                </div>
-              </div>
-              <div class="field field-wide">
-                <label for="replacement-cost">Comparable replacement price</label>
-                <div class="input-prefix">
-                  <span>$</span>
-                  <input id="replacement-cost" name="replacement_cost" type="number" min="1" max="25000" step="1" inputmode="decimal" placeholder="850" required>
-                </div>
-              </div>
-              <button class="button button-calculate" type="submit">See my recommendation <span aria-hidden="true">→</span></button>
-              <p class="form-note" id="calculator-note"><span aria-hidden="true">●</span> Your answers stay on this device and are not transmitted.</p>
-            </form>
 
-            <section class="calculator-result" data-calculator-result hidden tabindex="-1" aria-live="polite">
-              <div class="result-heading">
-                <span class="result-icon" data-result-icon aria-hidden="true">✓</span>
-                <div>
-                  <p class="step-label">Your planning result</p>
-                  <h3 data-result-title>Repair looks like the stronger value.</h3>
+            <div class="workbench-grid">
+              <form class="calculator-form calculator-form-v2" data-calculator aria-describedby="calculator-note" autocomplete="off" novalidate>
+                <fieldset class="appliance-choices field-wide" data-appliance-group>
+                  <legend>What needs help?</legend>
+                  <label class="appliance-choice"><input type="radio" name="appliance" value="washer" required><span class="appliance-pictogram washer-pictogram" aria-hidden="true"><i></i></span><span><strong>Washer</strong><small>laundry</small></span></label>
+                  <label class="appliance-choice"><input type="radio" name="appliance" value="dishwasher" required><span class="appliance-pictogram dishwasher-pictogram" aria-hidden="true"><i></i></span><span><strong>Dishwasher</strong><small>kitchen</small></span></label>
+                </fieldset>
+
+                <div class="field field-wide">
+                  <label for="symptom">Closest symptom</label>
+                  <select id="symptom" name="symptom" disabled>
+                    <option value="">Choose the appliance first</option>
+                  </select>
                 </div>
-              </div>
-              <p class="result-summary" data-result-summary></p>
-              <dl class="result-metrics">
-                <div><dt>Repair vs. new</dt><dd data-repair-ratio>—</dd></div>
-                <div><dt>Planning life used</dt><dd data-life-used>—</dd></div>
-                <div><dt>Estimated years left</dt><dd data-years-left>—</dd></div>
-              </dl>
-              <div class="result-caution"><strong>Before deciding:</strong> check for an active recall and ask what the repair warranty covers. Safety issues always override this cost model.</div>
-              <div class="result-actions">
-                <a href="/recalls/" data-track="recall_check_click">Check recalls</a>
-                <button type="button" data-calculator-reset>Change my numbers</button>
-              </div>
-            </section>
+
+                <div class="age-control field-wide">
+                  <div class="age-label"><label for="age">Appliance age</label><output for="age" data-age-output>7 years</output></div>
+                  <input id="age" name="age" type="range" min="0" max="25" step="1" value="7">
+                  <div class="range-labels" aria-hidden="true"><span>New</span><span>Midlife</span><span>Older</span></div>
+                </div>
+
+                <div class="field-row money-row">
+                  <div class="field">
+                    <label for="repair-cost">Written repair quote</label>
+                    <div class="input-prefix"><span>$</span><input id="repair-cost" name="repair_cost" type="number" min="0" max="10000" step="1" inputmode="decimal" placeholder="280" required></div>
+                  </div>
+                  <div class="field">
+                    <label for="replacement-cost">New, installed</label>
+                    <div class="input-prefix"><span>$</span><input id="replacement-cost" name="replacement_cost" type="number" min="1" max="25000" step="1" inputmode="decimal" placeholder="850" required></div>
+                  </div>
+                </div>
+                <p class="field-hint">Include delivery, installation, connection parts, tax, and haul-away when known.</p>
+
+                <details class="precision-panel">
+                  <summary><span>Improve the accuracy</span><small>4 optional signals</small></summary>
+                  <div class="precision-grid">
+                    <div class="field"><label for="condition">Before this problem</label><select id="condition" name="condition"><option value="good">Reliable and working well</option><option value="fair">A few smaller issues</option><option value="poor">Already performing poorly</option></select></div>
+                    <div class="field"><label for="previous-repairs">Major repairs in 3 years</label><select id="previous-repairs" name="previous_repairs"><option value="0">None</option><option value="1">One</option><option value="2">Two or more</option></select></div>
+                    <div class="field"><label for="diagnosis-confidence">Diagnosis certainty</label><select id="diagnosis-confidence" name="diagnosis_confidence"><option value="unknown">No confirmed diagnosis</option><option value="likely">Likely cause identified</option><option value="confirmed">Written confirmed diagnosis</option></select></div>
+                    <div class="field"><label for="repair-warranty">Repair warranty</label><div class="input-suffix"><input id="repair-warranty" name="repair_warranty" type="number" min="0" max="36" step="1" inputmode="numeric" value="0"><span>months</span></div></div>
+                    <div class="field field-wide"><label for="annual-savings">Expected annual utility savings with replacement</label><div class="input-prefix"><span>$</span><input id="annual-savings" name="annual_savings" type="number" min="0" max="2000" step="1" inputmode="decimal" value="0"></div><small>Optional: use the difference between the two EnergyGuide estimates.</small></div>
+                  </div>
+                </details>
+
+                <label class="safety-check"><input type="checkbox" name="safety_concern" value="yes"><span aria-hidden="true">!</span><span><strong>Possible safety issue</strong><small>Burning smell, shock, smoke, overheating, or water near wiring.</small></span></label>
+
+                <button class="button button-calculate" type="submit">Build my decision map <span aria-hidden="true">→</span></button>
+                <p class="form-note" id="calculator-note"><span aria-hidden="true">●</span> Your amounts stay on this device and are never sent to analytics.</p>
+              </form>
+
+              <aside class="decision-output-panel" aria-label="Calculator decision map">
+                <div class="result-empty" data-result-empty>
+                  <div class="empty-map-head"><span class="live-dot" aria-hidden="true"></span><strong>Live decision map</strong></div>
+                  <div class="decision-field" aria-hidden="true">
+                    <span class="field-label label-repair">Repair zone</span><span class="field-label label-compare">Compare</span><span class="field-label label-replace">Replace zone</span>
+                    <span class="field-axis field-axis-x">Repair cost →</span><span class="field-axis field-axis-y">Age →</span>
+                    <i class="field-marker" data-preview-marker></i>
+                  </div>
+                  <div class="empty-map-copy"><h3>Your numbers will land here.</h3><p>We show the pressure toward repair or replacement—not a mysterious yes/no answer.</p></div>
+                  <dl class="preview-stats"><div><dt>Quote ratio</dt><dd data-preview-ratio>—</dd></div><div><dt>Life used</dt><dd data-preview-life>—</dd></div><div><dt>Decision signals</dt><dd>5</dd></div></dl>
+                </div>
+
+                <section class="calculator-result result-v2" data-calculator-result hidden tabindex="-1" aria-live="polite">
+                  <div class="result-topline"><span class="result-status" data-result-status>Planning result</span><span class="confidence-chip" data-result-confidence>Medium confidence</span></div>
+                  <div class="verdict-grid">
+                    <div class="score-ring" data-score-ring role="img" aria-label="Replacement pressure score"><span data-result-score>—</span><small>replacement<br>pressure</small></div>
+                    <div><p class="step-label">Your decision</p><h3 data-result-title>Compare both paths.</h3><p class="result-summary" data-result-summary></p></div>
+                  </div>
+
+                  <div class="decision-meter" data-decision-meter><div><span>Repair</span><span>Compare</span><span>Replace</span></div><i aria-hidden="true"></i></div>
+
+                  <dl class="result-metrics result-metrics-v2">
+                    <div><dt>Repair vs. new</dt><dd data-repair-ratio>—</dd></div>
+                    <div><dt>Planning life used</dt><dd data-life-used>—</dd></div>
+                    <div><dt>Reliable years estimated</dt><dd data-years-left>—</dd></div>
+                  </dl>
+
+                  <div class="visual-report">
+                    <div class="report-heading"><strong>Value per expected year</strong><small>Lower is stronger</small></div>
+                    <div class="cost-bar"><span>Repair path</span><div><i data-repair-bar></i></div><strong data-repair-per-year>—</strong></div>
+                    <div class="cost-bar is-replace"><span>Replace path</span><div><i data-replace-bar></i></div><strong data-replace-per-year>—</strong></div>
+                  </div>
+
+                  <div class="driver-report">
+                    <div class="report-heading"><strong>What moved the result</strong><small>points toward replacement</small></div>
+                    <div class="driver-row"><span>Quote</span><div><i data-driver="quote"></i></div><b data-driver-value="quote">—</b></div>
+                    <div class="driver-row"><span>Age</span><div><i data-driver="age"></i></div><b data-driver-value="age">—</b></div>
+                    <div class="driver-row"><span>Reliability</span><div><i data-driver="reliability"></i></div><b data-driver-value="reliability">—</b></div>
+                    <div class="driver-row"><span>Efficiency</span><div><i data-driver="efficiency"></i></div><b data-driver-value="efficiency">—</b></div>
+                    <div class="driver-row is-credit"><span>Repair warranty</span><div><i data-driver="warranty"></i></div><b data-driver-value="warranty">—</b></div>
+                  </div>
+
+                  <div class="threshold-card"><span>Break-even guardrail</span><strong data-repair-cap>—</strong><p data-threshold-copy>Enter your numbers to calculate the quote boundary.</p></div>
+
+                  <div class="timeline-card"><div class="report-heading"><strong>Five-year planning view</strong><small>cash timing, not a guarantee</small></div><div class="timeline-track" data-timeline-track></div><div class="timeline-totals"><span>Repair path <strong data-repair-five-year>—</strong></span><span>Replace now <strong data-replace-five-year>—</strong></span></div></div>
+
+                  <div class="result-caution" data-result-caution><strong>Before deciding:</strong> check recalls and confirm what the written quote includes.</div>
+                  <div class="next-step-card"><strong>Best next moves</strong><ol data-next-steps></ol></div>
+                  <div class="result-actions">
+                    <a href="/recalls/" data-track="recall_check_click">Check recalls</a>
+                    <button type="button" data-print-result>Print plan</button>
+                    <button type="button" data-calculator-reset>Start over</button>
+                  </div>
+                </section>
+              </aside>
+            </div>
           </div>
-        </div>
 
-        <div class="shell source-ribbon" id="sources">
-          <p>Built to use sources you can verify</p>
-          <ul>
-            <li><strong>CPSC</strong><span>recall data</span></li>
-            <li><strong>ENERGY STAR</strong><span>efficiency data</span></li>
-            <li><strong>EnergyGuide</strong><span>running costs</span></li>
-          </ul>
+          <div class="source-ribbon source-ribbon-v2" id="sources">
+            <p>Decision inputs stay yours. Reference sources stay visible.</p>
+            <ul><li><strong>CPSC</strong><span>safety recalls</span></li><li><strong>ENERGY STAR</strong><span>efficiency context</span></li><li><strong>EnergyGuide</strong><span>your running-cost input</span></li></ul>
+          </div>
         </div>
       </section>
 
       <section class="issue-section" aria-labelledby="issue-title">
         <div class="shell">
           <div class="section-heading">
-            <p class="section-kicker">Start with the symptom</p>
+            <p class="section-kicker">Fast symptom paths</p>
             <div>
-              <h2 id="issue-title">What is your appliance doing?</h2>
-              <p>Choose the closest symptom for safe first checks, likely causes, repair difficulty, and the point where a technician makes more sense.</p>
+              <h2 id="issue-title">Pick the symptom. Follow the safe path.</h2>
+              <p>Each guide turns troubleshooting into a short visual sequence: observe, check, test, then stop before unsafe work.</p>
             </div>
           </div>
-          <div class="issue-grid">
+          <div class="issue-grid issue-grid-v2">
             <a class="issue-card" href="/guides/washer-not-draining/" data-track="issue_select" data-issue="washer-not-draining">
-              <span class="issue-type">Washing machine</span>
-              <h3>Water will not drain</h3>
-              <p>Start with the hose, filter, and load before assuming the pump has failed.</p>
-              <span class="card-link">Open safe checks →</span>
+              <span class="issue-type">Washer</span><span class="issue-symbol" aria-hidden="true">↓</span>
+              <h3>Water stays in</h3>
+              <div class="mini-path" aria-hidden="true"><span>Cycle</span><i></i><span>Hose</span><i></i><span>Filter</span></div>
+              <span class="card-link">Open the 5-step path →</span>
             </a>
-            <a class="issue-card" href="/diagnose/?q=washer+not+spinning" data-track="issue_select" data-issue="washer-not-spinning">
-              <span class="issue-type">Washing machine</span>
+            <a class="issue-card" href="/guides/washer-not-spinning/" data-track="issue_select" data-issue="washer-not-spinning">
+              <span class="issue-type">Washer</span><span class="issue-symbol" aria-hidden="true">↻</span>
               <h3>Drum will not spin</h3>
-              <p>Separate an unbalanced load or locked door from a drive-system problem.</p>
-              <span class="card-link">Explore the symptom →</span>
+              <div class="mini-path" aria-hidden="true"><span>Cycle</span><i></i><span>Load</span><i></i><span>Drain</span></div>
+              <span class="card-link">Open the 5-step path →</span>
             </a>
             <a class="issue-card" href="/guides/dishwasher-not-draining/" data-track="issue_select" data-issue="dishwasher-not-draining">
-              <span class="issue-type">Dishwasher</span>
-              <h3>Water remains after a cycle</h3>
-              <p>Inspect the filter and drain path without reaching into hidden components.</p>
-              <span class="card-link">Open safe checks →</span>
+              <span class="issue-type">Dishwasher</span><span class="issue-symbol" aria-hidden="true">≋</span>
+              <h3>Water remains</h3>
+              <div class="mini-path" aria-hidden="true"><span>Cycle</span><i></i><span>Filter</span><i></i><span>Sink</span></div>
+              <span class="card-link">Open the 5-step path →</span>
             </a>
-            <a class="issue-card" href="/diagnose/?q=dishwasher+not+cleaning" data-track="issue_select" data-issue="dishwasher-not-cleaning">
-              <span class="issue-type">Dishwasher</span>
-              <h3>Dishes are still dirty</h3>
-              <p>Check loading, spray-arm movement, filter condition, and water temperature.</p>
-              <span class="card-link">Explore the symptom →</span>
+            <a class="issue-card" href="/guides/dishwasher-not-cleaning/" data-track="issue_select" data-issue="dishwasher-not-cleaning">
+              <span class="issue-type">Dishwasher</span><span class="issue-symbol" aria-hidden="true">✦</span>
+              <h3>Dishes stay dirty</h3>
+              <div class="mini-path" aria-hidden="true"><span>Load</span><i></i><span>Spray</span><i></i><span>Filter</span></div>
+              <span class="card-link">Open the 6-step path →</span>
             </a>
           </div>
-          <div class="center-action"><a class="button button-outline" href="/diagnose/">Browse all appliance symptoms <span aria-hidden="true">→</span></a></div>
+          <div class="center-action"><a class="button button-outline" href="/diagnose/">Open the problem finder <span aria-hidden="true">→</span></a></div>
         </div>
       </section>
 
       <section class="preview-next" id="how-it-works" aria-labelledby="next-title">
         <div class="shell preview-next-grid">
-          <p class="section-kicker">One decision, fully explained</p>
+          <div><p class="section-kicker">No black box</p><h2 id="next-title">Five signals. One transparent map.</h2><p>Every point is visible. Change an answer and see which pressure moved.</p><a class="light-link" href="/methodology/">Inspect every rule →</a></div>
           <div>
-            <h2 id="next-title">A useful answer is more than a percentage.</h2>
-            <p>The calculator shows the cost ratio, expected remaining life, assumptions, and the strongest reason behind its recommendation. It never hides a paid ranking inside the answer.</p>
-            <ol class="method-steps">
-              <li><span>01</span><div><strong>Compare cost</strong><p>See the repair estimate as a percentage of a comparable replacement.</p></div></li>
-              <li><span>02</span><div><strong>Account for age</strong><p>Measure age against a clearly disclosed planning-life assumption.</p></div></li>
-              <li><span>03</span><div><strong>Check the exceptions</strong><p>Recalls, safety concerns, repeat failures, and warranty coverage can change the answer.</p></div></li>
-            </ol>
-            <a class="light-link" href="/methodology/">Read the full methodology →</a>
+            <div class="signal-stack-chart" role="img" aria-label="Decision signal weighting illustration">
+              <div><span>Repair quote</span><i><b class="signal-quote"></b></i><strong>largest signal</strong></div>
+              <div><span>Age + life stage</span><i><b class="signal-age"></b></i><strong>up to 37 pts</strong></div>
+              <div><span>Reliability</span><i><b class="signal-reliability"></b></i><strong>up to 19 pts</strong></div>
+              <div><span>Efficiency</span><i><b class="signal-efficiency"></b></i><strong>your input</strong></div>
+              <div class="is-credit"><span>Repair warranty</span><i><b class="signal-warranty"></b></i><strong>pulls back</strong></div>
+            </div>
+            <div class="zone-scale"><span>Repair</span><span>Compare</span><span>Replace</span></div>
           </div>
         </div>
       </section>
@@ -212,17 +262,15 @@
       <section class="data-section" aria-labelledby="data-title">
         <div class="shell data-grid">
           <div>
-            <p class="section-kicker dark-kicker">Built to get better</p>
-            <h2 id="data-title">Every useful visit can improve the next answer.</h2>
+            <p class="section-kicker dark-kicker">Privacy, shown visually</p>
+            <h2 id="data-title">The numbers stay here.</h2>
+            <p class="data-lede">The site measures whether the tool works—not what your appliance costs.</p>
           </div>
-          <div class="data-copy">
-            <p>We will measure anonymous product actions—such as completed calculations and selected symptoms—then compare those patterns with search demand and page performance.</p>
-            <ul>
-              <li><strong>No typed form contents</strong><span>Cost and age values stay out of analytics.</span></li>
-              <li><strong>No hidden identity profile</strong><span>Measurement uses an anonymous visit session.</span></li>
-              <li><strong>Versioned recommendations</strong><span>Each result records the calculator version, not personal details.</span></li>
-            </ul>
-            <a class="text-link" href="/privacy/">See what will and will not be measured →</a>
+          <div class="privacy-map">
+            <div class="privacy-lane stays"><span aria-hidden="true">⌂</span><div><strong>Stays in your browser</strong><small>age · prices · warranty · condition</small></div></div>
+            <div class="privacy-divider" aria-hidden="true"><i></i><b>only broad result ranges</b><i></i></div>
+            <div class="privacy-lane aggregate"><span aria-hidden="true">▦</span><div><strong>Aggregate measurement</strong><small>page view · tool completed · result category</small></div></div>
+            <a class="text-link" href="/privacy/">Open the full privacy map →</a>
           </div>
         </div>
       </section>
@@ -230,10 +278,10 @@
       <section class="final-cta">
         <div class="shell final-cta-inner">
           <div>
-            <p class="section-kicker">Make the next step clearer</p>
-            <h2>Start with the numbers you already have.</h2>
+            <p class="section-kicker">One decision map</p>
+            <h2>See the quote boundary before you spend.</h2>
           </div>
-          <a class="button button-primary" href="#calculator">Use the free calculator <span aria-hidden="true">↑</span></a>
+          <a class="button button-primary" href="#calculator">Build my map <span aria-hidden="true">↑</span></a>
         </div>
       </section>
     </main>
@@ -253,6 +301,5 @@
     <script src="/assets/analytics.js" defer></script>
     <script src="/assets/calculator-engine.js" defer></script>
     <script src="/assets/app.js" defer></script>
-    <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"fbbeb51d2bd04a6e90b34933a4214e19"}'></script>
   </body>
 </html>

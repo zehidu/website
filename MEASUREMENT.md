@@ -27,7 +27,7 @@ Retention values for tools that are not connected remain proposals until product
 
 ## Event contract
 
-The machine-readable contract is in data/event-schema.json. Code may emit only allowlisted event names and properties. Raw calculator inputs, typed searches, serial numbers, names and contact details are prohibited.
+The machine-readable contract is in data/event-schema.json. Decision Lab v2 emits calculator version `rr-2.0`, a result category including the safety `pause` state, and only broad repair-ratio and life-used ranges. Raw calculator inputs, typed searches, serial numbers, names and contact details are prohibited.
 
 The site saves the latest 100 QA events in browser sessionStorage. They can be inspected with:
 

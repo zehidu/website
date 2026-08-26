@@ -2,6 +2,21 @@
 
 All material website changes are recorded here. Production status is stated explicitly so a local build is never mistaken for a live result.
 
+## 2026-08-26 — Decision Lab v2 visual redesign
+
+### Product experience
+
+- Replaced the basic three-input result with a progressive decision workbench for price, age, reliability, diagnosis, warranty, efficiency, and safety
+- Added replacement-pressure, cost-per-expected-year, break-even, score-driver, and five-year planning visuals
+- Converted the homepage, problem finder, four symptom guides, recall flow, methodology, and privacy explanation into compact visual paths and outcome maps
+- Kept typed appliance details and dollar amounts out of analytics
+
+### Calculator governance
+
+- Versioned the model as `rr-2.0` with repair, compare, replace, and safety-pause outcomes
+- Added transparent 0–100 pressure zones and a direct replacement boundary at a 75% repair-to-replacement ratio
+- Expanded boundary tests for the new output model
+
 ## 2026-08-26 — Appliance decision MVP production release
 
 ### Product direction

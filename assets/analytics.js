@@ -2,7 +2,7 @@
   "use strict";
 
   var EVENT_VERSION = "1.0";
-  var CONTENT_VERSION = "mvp-2026-08-26";
+  var CONTENT_VERSION = "decision-lab-v2-2026-08-26";
   var PREVIEW_KEY = "renewup_preview_events";
   var SESSION_KEY = "renewup_session_id";
   var allowedEvents = new Set([
@@ -98,6 +98,16 @@
     }
   }
 
+  function loadCloudflareBeacon() {
+    if (!/^(www\.)?therenewup\.com$/i.test(window.location.hostname)) return;
+    if (document.querySelector("script[data-cf-beacon]")) return;
+    var beacon = document.createElement("script");
+    beacon.defer = true;
+    beacon.src = "https://static.cloudflareinsights.com/beacon.min.js";
+    beacon.setAttribute("data-cf-beacon", JSON.stringify({ token: "fbbeb51d2bd04a6e90b34933a4214e19" }));
+    document.head.appendChild(beacon);
+  }
+
   function track(name, properties) {
     if (!allowedEvents.has(name)) return false;
     var source = acquisition();
@@ -143,6 +153,7 @@
   };
 
   document.addEventListener("DOMContentLoaded", function () {
+    loadCloudflareBeacon();
     track("page_view", {
       content_type: document.body.dataset.contentType || "general"
     });

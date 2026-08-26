@@ -16,16 +16,16 @@ Open http://127.0.0.1:4173/ and run the repeatable checks in another PowerShell 
 
 No package installation, database, or paid local service is required.
 
-## MVP surface
+## Decision Lab v2 surface
 
-- / — working repair-or-replace calculator
-- /diagnose/ — searchable symptom library
+- / — visual repair-or-replace workbench with progressive precision inputs, score drivers, value-per-year comparison, break-even guardrail, and five-year planning view
+- /diagnose/ — searchable visual symptom paths
 - /guides/washer-not-draining/
 - /guides/washer-not-spinning/
 - /guides/dishwasher-not-draining/
 - /guides/dishwasher-not-cleaning/
 - /recalls/ — official CPSC recall handoff
-- /methodology/ — calculator rules and limitations
+- /methodology/ — versioned calculator formula, boundaries, and limitations
 - /privacy/ — current and planned measurement disclosure
 
 Product data, the content roadmap, and the analytics contract live in data/. The decision and dashboard architecture is documented in MEASUREMENT.md.

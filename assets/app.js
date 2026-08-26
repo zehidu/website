@@ -1,6 +1,23 @@
 (function () {
   "use strict";
 
+  var symptomOptions = {
+    washer: [
+      ["washer-not-draining", "Water will not drain"],
+      ["washer-not-spinning", "Drum will not spin"],
+      ["washer-leaking", "Water is leaking"],
+      ["washer-noisy", "New noise or vibration"],
+      ["washer-other", "Another washer problem"]
+    ],
+    dishwasher: [
+      ["dishwasher-not-draining", "Water remains after a cycle"],
+      ["dishwasher-not-cleaning", "Dishes are still dirty"],
+      ["dishwasher-leaking", "Water is leaking"],
+      ["dishwasher-noisy", "New noise or vibration"],
+      ["dishwasher-other", "Another dishwasher problem"]
+    ]
+  };
+
   function analytics(name, properties) {
     if (window.renewUpAnalytics) window.renewUpAnalytics.track(name, properties);
   }
@@ -11,93 +28,230 @@
       field.removeAttribute("aria-invalid");
       field.removeAttribute("aria-describedby");
     });
+    form.querySelectorAll(".has-error").forEach(function (field) { field.classList.remove("has-error"); });
   }
 
-  function showError(field, message) {
-    var id = field.id + "-error";
+  function showError(field, message, container) {
     var error = document.createElement("p");
+    var id = (field && field.id ? field.id : "calculator-field") + "-error";
     error.className = "field-error";
     error.id = id;
     error.textContent = message;
-    field.setAttribute("aria-invalid", "true");
-    field.setAttribute("aria-describedby", id);
-    field.closest(".field").appendChild(error);
+    if (field) {
+      field.setAttribute("aria-invalid", "true");
+      field.setAttribute("aria-describedby", id);
+    }
+    var target = container || (field ? field.closest(".field, .age-control") : null);
+    if (target) {
+      target.classList.add("has-error");
+      target.appendChild(error);
+    }
+  }
+
+  function setText(root, selector, value) {
+    var item = root.querySelector(selector);
+    if (item) item.textContent = value;
+  }
+
+  function setBar(root, selector, percentValue) {
+    var bar = root.querySelector(selector);
+    if (bar) bar.style.width = Math.max(0, Math.min(percentValue, 100)) + "%";
   }
 
   function setupCalculator(form) {
     var result = document.querySelector("[data-calculator-result]");
+    var emptyResult = document.querySelector("[data-result-empty]");
     var engine = window.renewUpCalculator;
-    if (!result || !engine) return;
+    var ageField = form.elements.age;
+    var ageOutput = form.querySelector("[data-age-output]");
+    var symptomField = form.elements.symptom;
+    var progressItems = Array.from(document.querySelectorAll(".progress-rail li"));
+    if (!result || !emptyResult || !engine) return;
     var started = false;
+
+    function selectedAppliance() {
+      var checked = form.querySelector("input[name='appliance']:checked");
+      return checked ? checked.value : "";
+    }
+
+    function renderSymptoms(appliance) {
+      symptomField.innerHTML = "";
+      var placeholder = document.createElement("option");
+      placeholder.value = "";
+      placeholder.textContent = appliance ? "Choose the closest symptom" : "Choose the appliance first";
+      symptomField.appendChild(placeholder);
+      (symptomOptions[appliance] || []).forEach(function (option) {
+        var element = document.createElement("option");
+        element.value = option[0];
+        element.textContent = option[1];
+        symptomField.appendChild(element);
+      });
+      symptomField.disabled = !appliance;
+    }
+
+    function updateAgeOutput() {
+      var age = Number(ageField.value);
+      ageOutput.textContent = age + (age === 1 ? " year" : " years");
+      ageField.style.setProperty("--range-progress", (age / Number(ageField.max)) * 100 + "%");
+    }
+
+    function updateProgress(stage) {
+      progressItems.forEach(function (item, index) {
+        item.classList.toggle("is-active", index <= stage);
+      });
+    }
+
+    function updatePreview() {
+      var appliance = selectedAppliance();
+      var repair = Number(form.elements.repair_cost.value);
+      var replacement = Number(form.elements.replacement_cost.value);
+      var planningLife = engine.assumptions[appliance] ? engine.assumptions[appliance].planningLife : 10;
+      var ratio = replacement > 0 && repair >= 0 ? repair / replacement : null;
+      var life = appliance ? Number(ageField.value) / planningLife : null;
+      var marker = document.querySelector("[data-preview-marker]");
+
+      setText(emptyResult, "[data-preview-ratio]", ratio === null ? "—" : Math.round(ratio * 100) + "%");
+      setText(emptyResult, "[data-preview-life]", life === null ? "—" : Math.round(life * 100) + "%");
+      if (marker && ratio !== null && life !== null) {
+        marker.style.setProperty("--marker-x", Math.max(6, Math.min((ratio / 0.8) * 88 + 6, 94)) + "%");
+        marker.style.setProperty("--marker-y", Math.max(8, Math.min((life / 1.2) * 84 + 8, 92)) + "%");
+        marker.classList.add("is-ready");
+      } else if (marker) {
+        marker.classList.remove("is-ready");
+      }
+      updateProgress(appliance && form.elements.repair_cost.value && form.elements.replacement_cost.value ? 1 : 0);
+    }
+
+    function readCalculation() {
+      return engine.calculate({
+        appliance: selectedAppliance(),
+        age: ageField.value,
+        repairCost: form.elements.repair_cost.value,
+        replacementCost: form.elements.replacement_cost.value,
+        previousRepairs: form.elements.previous_repairs.value,
+        condition: form.elements.condition.value,
+        diagnosisConfidence: form.elements.diagnosis_confidence.value,
+        repairWarrantyMonths: form.elements.repair_warranty.value,
+        annualSavings: form.elements.annual_savings.value,
+        safetyConcern: form.elements.safety_concern.checked,
+        symptom: form.elements.symptom.value
+      });
+    }
+
+    function renderTimeline(calculation) {
+      var track = result.querySelector("[data-timeline-track]");
+      track.innerHTML = "";
+      calculation.timeline.forEach(function (entry) {
+        var point = document.createElement("span");
+        point.className = "timeline-year is-" + entry.state;
+        point.innerHTML = "<i></i><b>Y" + entry.year + "</b><small>" + (entry.state === "repair" ? "keep" : "new") + "</small>";
+        track.appendChild(point);
+      });
+    }
+
+    function renderResult(calculation) {
+      result.className = "calculator-result result-v2 is-" + calculation.decision;
+      setText(result, "[data-result-status]", calculation.decision === "pause" ? "Safety override" : "Planning result");
+      setText(result, "[data-result-confidence]", calculation.confidence + " confidence");
+      setText(result, "[data-result-score]", calculation.decision === "pause" ? "!" : Math.round(calculation.replacementPressure));
+      setText(result, "[data-result-title]", calculation.title);
+      setText(result, "[data-result-summary]", calculation.summary);
+      setText(result, "[data-repair-ratio]", calculation.repairRatioLabel);
+      setText(result, "[data-life-used]", calculation.lifeUsedLabel);
+      setText(result, "[data-years-left]", calculation.yearsLeftLabel);
+      setText(result, "[data-repair-per-year]", calculation.repairPerYearLabel);
+      setText(result, "[data-replace-per-year]", calculation.replacePerYearLabel);
+      setText(result, "[data-repair-cap]", "≤ " + calculation.repairComfortCapLabel);
+      setText(result, "[data-threshold-copy]", "Repair is strongest below this quote. The replacement zone begins near " + calculation.replaceTriggerCostLabel + " with the other answers unchanged.");
+      setText(result, "[data-repair-five-year]", calculation.repairFiveYearCostLabel);
+      setText(result, "[data-replace-five-year]", calculation.replaceFiveYearCostLabel);
+
+      var ring = result.querySelector("[data-score-ring]");
+      var meter = result.querySelector("[data-decision-meter]");
+      ring.style.setProperty("--score-angle", calculation.replacementPressure * 3.6 + "deg");
+      ring.setAttribute("aria-label", calculation.decision === "pause" ? "Safety concern overrides the financial score" : "Replacement pressure " + Math.round(calculation.replacementPressure) + " out of 100");
+      meter.style.setProperty("--score", calculation.replacementPressure + "%");
+
+      var maxAnnualCost = Math.max(calculation.repairPerYear, calculation.replacePerYear, 1);
+      setBar(result, "[data-repair-bar]", (calculation.repairPerYear / maxAnnualCost) * 100);
+      setBar(result, "[data-replace-bar]", (calculation.replacePerYear / maxAnnualCost) * 100);
+
+      Object.keys(calculation.drivers).forEach(function (driver) {
+        var value = calculation.drivers[driver];
+        setBar(result, "[data-driver='" + driver + "']", (value / 60) * 100);
+        var driverLabel = Math.round(value) === 0 ? "0" : (driver === "warranty" ? "−" : "+") + Math.round(value);
+        setText(result, "[data-driver-value='" + driver + "']", driverLabel);
+      });
+
+      renderTimeline(calculation);
+      var nextSteps = result.querySelector("[data-next-steps]");
+      nextSteps.innerHTML = "";
+      calculation.nextSteps.forEach(function (step) {
+        var item = document.createElement("li");
+        item.textContent = step;
+        nextSteps.appendChild(item);
+      });
+
+      var caution = result.querySelector("[data-result-caution]");
+      caution.innerHTML = calculation.decision === "pause"
+        ? "<strong>Do not use cost to overrule safety.</strong> Follow official stop-use, recall, and qualified-service guidance."
+        : "<strong>Before deciding:</strong> check recalls and confirm the written quote, warranty, and all-in replacement cost.";
+
+      emptyResult.hidden = true;
+      result.hidden = false;
+      updateProgress(2);
+      result.focus({ preventScroll: true });
+      result.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
 
     form.addEventListener("input", function () {
       if (!started) {
         started = true;
         analytics("calculator_start", { calculator_version: engine.version });
       }
+      updateAgeOutput();
+      updatePreview();
     });
-    form.addEventListener("change", function () {
+
+    form.addEventListener("change", function (event) {
       if (!started) {
         started = true;
         analytics("calculator_start", { calculator_version: engine.version });
       }
+      if (event.target.name === "appliance") renderSymptoms(selectedAppliance());
+      updatePreview();
     });
 
     form.addEventListener("submit", function (event) {
       event.preventDefault();
       clearErrors(form);
-
-      var applianceField = form.elements.appliance;
-      var ageField = form.elements.age;
+      var appliance = selectedAppliance();
       var repairField = form.elements.repair_cost;
       var replacementField = form.elements.replacement_cost;
+      var applianceGroup = form.querySelector("[data-appliance-group]");
       var invalid = [];
 
-      if (!engine.assumptions[applianceField.value]) {
-        showError(applianceField, "Choose a washing machine or dishwasher.");
-        invalid.push(applianceField);
-      }
-      if (ageField.value === "" || Number(ageField.value) < 0 || Number(ageField.value) > 40) {
-        showError(ageField, "Enter an age from 0 to 40 years.");
-        invalid.push(ageField);
+      if (!engine.assumptions[appliance]) {
+        showError(form.querySelector("input[name='appliance']"), "Choose a washing machine or dishwasher.", applianceGroup);
+        invalid.push(form.querySelector("input[name='appliance']"));
       }
       if (repairField.value === "" || Number(repairField.value) < 0) {
-        showError(repairField, "Enter the repair estimate, even if it is zero.");
+        showError(repairField, "Enter the complete repair quote, even if it is zero.");
         invalid.push(repairField);
       }
       if (replacementField.value === "" || Number(replacementField.value) <= 0) {
-        showError(replacementField, "Enter a replacement price greater than zero.");
+        showError(replacementField, "Enter an all-in replacement price greater than zero.");
         invalid.push(replacementField);
       }
 
       if (invalid.length) {
-        analytics("calculator_validation_error", {
-          field_count: invalid.length,
-          calculator_version: engine.version
-        });
+        analytics("calculator_validation_error", { field_count: invalid.length, calculator_version: engine.version });
         invalid[0].focus();
         return;
       }
 
-      var calculation = engine.calculate({
-        appliance: applianceField.value,
-        age: ageField.value,
-        repairCost: repairField.value,
-        replacementCost: replacementField.value
-      });
-
-      result.className = "calculator-result is-" + calculation.decision;
-      result.querySelector("[data-result-icon]").textContent = calculation.icon;
-      result.querySelector("[data-result-title]").textContent = calculation.title;
-      result.querySelector("[data-result-summary]").textContent = calculation.summary;
-      result.querySelector("[data-repair-ratio]").textContent = calculation.repairRatioLabel;
-      result.querySelector("[data-life-used]").textContent = calculation.lifeUsedLabel;
-      result.querySelector("[data-years-left]").textContent = calculation.yearsLeftLabel;
-      form.hidden = true;
-      result.hidden = false;
-      result.focus({ preventScroll: true });
-      result.scrollIntoView({ behavior: "smooth", block: "nearest" });
-
+      var calculation = readCalculation();
+      renderResult(calculation);
       analytics("calculator_complete", {
         appliance: calculation.appliance,
         decision: calculation.decision,
@@ -107,13 +261,22 @@
       });
     });
 
-    var reset = result.querySelector("[data-calculator-reset]");
-    reset.addEventListener("click", function () {
+    result.querySelector("[data-calculator-reset]").addEventListener("click", function () {
+      form.reset();
+      clearErrors(form);
+      renderSymptoms("");
+      updateAgeOutput();
+      updatePreview();
       result.hidden = true;
-      form.hidden = false;
-      form.querySelector("button[type='submit']").focus();
+      emptyResult.hidden = false;
+      form.querySelector("input[name='appliance']").focus();
       analytics("calculator_reset", { calculator_version: engine.version });
     });
+
+    result.querySelector("[data-print-result]").addEventListener("click", function () { window.print(); });
+    renderSymptoms("");
+    updateAgeOutput();
+    updatePreview();
   }
 
   function setupIssueLibrary() {
@@ -139,11 +302,7 @@
       if (shouldTrack) {
         clearTimeout(timer);
         timer = setTimeout(function () {
-          analytics("issue_search", {
-            query_length: query.length,
-            results_count: visible,
-            appliance_filter: activeFilter
-          });
+          analytics("issue_search", { query_length: query.length, results_count: visible, appliance_filter: activeFilter });
         }, 500);
       }
     }
@@ -152,9 +311,7 @@
     filters.forEach(function (button) {
       button.addEventListener("click", function () {
         activeFilter = button.dataset.applianceFilter;
-        filters.forEach(function (item) {
-          item.setAttribute("aria-pressed", String(item === button));
-        });
+        filters.forEach(function (item) { item.setAttribute("aria-pressed", String(item === button)); });
         applyFilter(true);
       });
     });

@@ -3,6 +3,14 @@
   "last_reviewed": "2026-08-26",
   "market": "US",
   "currency": "USD",
+  "calculator_version": "rr-2.0",
+  "decision_model": {
+    "replacement_pressure_range": [0, 100],
+    "zones": {"repair": [0, 44], "compare": [45, 61], "replace": [62, 100]},
+    "direct_replace_ratio": 0.75,
+    "safety_override": "pause",
+    "inputs": ["appliance", "age", "repair_cost", "replacement_cost", "condition", "previous_repairs", "diagnosis_confidence", "repair_warranty_months", "annual_utility_savings", "safety_concern"]
+  },
   "calculator_assumptions": [
     {
       "id": "washer",

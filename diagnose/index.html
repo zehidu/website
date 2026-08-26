@@ -33,15 +33,22 @@
         <ol class="breadcrumbs"><li><a href="/">Home</a></li><li aria-current="page">Problem finder</li></ol>
         <header class="page-hero">
           <div>
-            <p class="eyebrow"><span>4 guides</span> Initial symptom library</p>
-            <h1>Describe what the appliance is doing.</h1>
-            <p class="lede">Search by symptom, then follow safe checks from simple and reversible to the point where professional diagnosis is the smarter move.</p>
+            <p class="eyebrow"><span>Problem finder</span> 4 visual paths</p>
+            <h1>Start with the symptom.</h1>
+            <p class="lede">Pick what you see. We arrange the safest checks from easiest to stop boundary.</p>
           </div>
-          <aside class="page-aside"><strong>Start safely</strong><p>Disconnect power and close the water supply before accessing a filter, hose, or removable panel. Never bypass a door lock or safety switch.</p></aside>
+          <aside class="page-aside safety-aside"><span aria-hidden="true">!</span><div><strong>Safety beats diagnosis</strong><p>Disconnect power and close water before touching a filter or hose. Never bypass a lock or safety switch.</p></div></aside>
         </header>
 
+        <section class="diagnostic-route" aria-label="How the problem finder works">
+          <div><span>1</span><strong>Match the symptom</strong><small>Choose what the appliance does—not a guessed part.</small></div>
+          <div><span>2</span><strong>Check the simple path</strong><small>Settings, load, visible hoses, filters, and installation.</small></div>
+          <div><span>3</span><strong>Run one test</strong><small>Record the cycle, code, sound, and what changed.</small></div>
+          <div><span>4</span><strong>Respect the stop line</strong><small>Leaks, heat, wiring, or repeat failure need qualified help.</small></div>
+        </section>
+
         <section class="search-panel" aria-labelledby="search-label">
-          <label id="search-label" for="issue-search">Search symptoms</label>
+          <label id="search-label" for="issue-search">Find your symptom</label>
           <div class="search-control"><input id="issue-search" type="search" data-issue-search placeholder="Try “not draining” or “dirty dishes”" autocomplete="off"><a class="button button-primary" href="/#calculator">Use cost calculator</a></div>
           <div class="filter-row" role="group" aria-label="Filter by appliance">
             <button class="filter-button" type="button" data-appliance-filter="all" aria-pressed="true">All appliances</button>
@@ -50,18 +57,18 @@
           </div>
         </section>
 
-        <div class="library-grid">
+        <div class="library-grid library-grid-visual">
           <article class="library-card" data-issue-card data-appliance="washer" data-search="washing machine washer not draining water left wet clothes drain hose filter pump">
-            <span class="issue-type">Washing machine</span><h2>Water will not drain</h2><p>Check load state, standing water, drain hose position, and the user-accessible filter.</p><a href="/guides/washer-not-draining/" data-track="issue_select" data-issue="washer-not-draining">Open the guide →</a>
+            <span class="issue-type">Washer</span><span class="library-symbol" aria-hidden="true">↓</span><h2>Water stays in</h2><div class="mini-path" aria-hidden="true"><span>Cycle</span><i></i><span>Hose</span><i></i><span>Filter</span></div><a href="/guides/washer-not-draining/" data-track="issue_select" data-issue="washer-not-draining">Open 5-step path →</a>
           </article>
           <article class="library-card" data-issue-card data-appliance="washer" data-search="washing machine washer not spinning spin cycle wet clothes unbalanced load locked door">
-            <span class="issue-type">Washing machine</span><h2>Drum will not spin</h2><p>Separate a load-balance or door-lock problem from a likely drive-system fault.</p><a href="/guides/washer-not-spinning/" data-track="issue_select" data-issue="washer-not-spinning">Open the guide →</a>
+            <span class="issue-type">Washer</span><span class="library-symbol" aria-hidden="true">↻</span><h2>Drum will not spin</h2><div class="mini-path" aria-hidden="true"><span>Cycle</span><i></i><span>Load</span><i></i><span>Drain</span></div><a href="/guides/washer-not-spinning/" data-track="issue_select" data-issue="washer-not-spinning">Open 5-step path →</a>
           </article>
           <article class="library-card" data-issue-card data-appliance="dishwasher" data-search="dishwasher not draining standing water filter drain hose disposal">
-            <span class="issue-type">Dishwasher</span><h2>Water remains after a cycle</h2><p>Inspect the visible filter and drain path before assuming the drain pump has failed.</p><a href="/guides/dishwasher-not-draining/" data-track="issue_select" data-issue="dishwasher-not-draining">Open the guide →</a>
+            <span class="issue-type">Dishwasher</span><span class="library-symbol" aria-hidden="true">≋</span><h2>Water remains</h2><div class="mini-path" aria-hidden="true"><span>Cycle</span><i></i><span>Filter</span><i></i><span>Sink</span></div><a href="/guides/dishwasher-not-draining/" data-track="issue_select" data-issue="dishwasher-not-draining">Open 5-step path →</a>
           </article>
           <article class="library-card" data-issue-card data-appliance="dishwasher" data-search="dishwasher not cleaning dirty dishes cloudy food spray arm filter detergent water temperature">
-            <span class="issue-type">Dishwasher</span><h2>Dishes are still dirty</h2><p>Check loading, spray-arm movement, filter condition, detergent, and hot-water readiness.</p><a href="/guides/dishwasher-not-cleaning/" data-track="issue_select" data-issue="dishwasher-not-cleaning">Open the guide →</a>
+            <span class="issue-type">Dishwasher</span><span class="library-symbol" aria-hidden="true">✦</span><h2>Dishes stay dirty</h2><div class="mini-path" aria-hidden="true"><span>Load</span><i></i><span>Spray</span><i></i><span>Filter</span></div><a href="/guides/dishwasher-not-cleaning/" data-track="issue_select" data-issue="dishwasher-not-cleaning">Open 6-step path →</a>
           </article>
         </div>
         <p class="empty-state" data-empty-state hidden>No matching guide yet. Try a shorter symptom, or use the repair-or-replace calculator while we expand the library.</p>
@@ -71,6 +78,5 @@
     <footer class="site-footer"><div class="shell footer-inner"><div><a class="footer-brand" href="/">The Renew Up</a><p>Repair smarter. Replace with confidence.</p></div><nav aria-label="Footer navigation"><a href="/diagnose/">Diagnose</a><a href="/recalls/">Recalls</a><a href="/methodology/">Methodology</a><a href="/privacy/">Privacy</a></nav><p class="footer-note">Educational guidance—not a substitute for a qualified technician.</p></div></footer>
     <script src="/assets/analytics.js" defer></script>
     <script src="/assets/app.js" defer></script>
-    <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"fbbeb51d2bd04a6e90b34933a4214e19"}'></script>
   </body>
 </html>
