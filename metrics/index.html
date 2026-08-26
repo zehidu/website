@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Growth Dashboard — The Renew Up</title>
+    <meta name="description" content="A public, plainly labeled dashboard for The Renew Up's traffic, search visibility, content, accessibility, and performance baselines.">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://therenewup.com/metrics/">
+    <link rel="stylesheet" href="/assets/styles.css">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <meta name="theme-color" content="#f4f1e8">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="The Renew Up">
+    <meta property="og:title" content="Growth Dashboard — The Renew Up">
+    <meta property="og:description" content="Live baseline, local changes, and targets—kept deliberately separate.">
+    <meta property="og:url" content="https://therenewup.com/metrics/">
+    <meta name="twitter:card" content="summary">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Growth Dashboard",
+        "url": "https://therenewup.com/metrics/",
+        "description": "A public dashboard for The Renew Up's website growth baselines and targets.",
+        "isPartOf": {"@type": "WebSite", "name": "The Renew Up", "url": "https://therenewup.com/"},
+        "dateModified": "2026-08-26",
+        "inLanguage": "en-US"
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to dashboard</a>
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="brand" href="/" aria-label="The Renew Up home">
+          <span class="brand-mark" aria-hidden="true"><span>↗</span></span>
+          <span>The Renew Up</span>
+        </a>
+        <nav class="site-nav" aria-label="Primary navigation">
+          <ul class="nav-list">
+            <li><a href="/">Experiment</a></li>
+            <li><a href="/metrics/" aria-current="page">Metrics</a></li>
+            <li><a href="/case-study/day-zero/">Day-zero audit</a></li>
+            <li><a href="/guides/free-website-analytics/">Analytics guide</a></li>
+            <li><a href="/guides/local-vs-static-hosting/">Hosting guide</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="page-hero">
+        <div class="shell">
+          <ol class="breadcrumbs" aria-label="Breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li aria-current="page">Metrics</li>
+          </ol>
+          <p class="eyebrow">Public growth dashboard</p>
+          <h1>Baseline, build, and target—never blended together.</h1>
+          <p class="lede">The live site is the baseline. The new local build is work awaiting release. Targets remain targets until a dated measurement proves otherwise.</p>
+          <div class="meta-row">
+            <span>Baseline captured August 26, 2026</span>
+            <span>Local build status: ready for account connection and release</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="snapshot-title">
+        <div class="shell">
+          <div class="section-head">
+            <p class="kicker">Current snapshot</p>
+            <div>
+              <h2 class="section-title" id="snapshot-title">What we can prove today.</h2>
+              <p class="section-intro">Account-gated analytics and Search Console numbers are intentionally not guessed. They will appear only after the correct accounts are connected.</p>
+            </div>
+          </div>
+          <div class="dashboard-grid">
+            <article class="dashboard-card">
+              <div class="label"><span>Visitor analytics</span><span class="badge badge-alert">Not connected</span></div>
+              <span class="big">0 tools</span>
+              <p>No analytics beacon or equivalent traffic collector was present in the live source at baseline.</p>
+            </article>
+            <article class="dashboard-card">
+              <div class="label"><span>Google Search</span><span class="badge">Ownership clue found</span></div>
+              <span class="big">TXT</span>
+              <p>A Google site-verification DNS record exists. Performance data remains account-gated.</p>
+            </article>
+            <article class="dashboard-card">
+              <div class="label"><span>Useful search surface</span><span class="target">Local build</span></div>
+              <span class="big">6 pages</span>
+              <p>The new build adds a dashboard, a real audit, two focused guides, and a privacy page to the homepage.</p>
+            </article>
+            <article class="dashboard-card">
+              <div class="label"><span>Live Lighthouse</span><span class="target">Simulated mobile</span></div>
+              <span class="big">87 / 71</span>
+              <p>Performance / accessibility. The accessibility baseline failed button names, select labels, contrast, heading order, and main-landmark checks.</p>
+            </article>
+            <article class="dashboard-card">
+              <div class="label"><span>Local Lighthouse</span><span class="badge">Tested</span></div>
+              <span class="big">100 × 4</span>
+              <p>Performance, accessibility, best practices, and SEO. FCP and LCP were 1.3 seconds in the final local simulated-mobile run.</p>
+            </article>
+            <article class="dashboard-card">
+              <div class="label"><span>Crawl foundation</span><span class="target">Local build</span></div>
+              <span class="big">3 files</span>
+              <p>robots.txt, sitemap.xml, and an RSS feed are valid and ready for the first production release.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-lime" aria-labelledby="scoreboard-title">
+        <div class="shell">
+          <div class="section-head">
+            <p class="kicker">Release scoreboard</p>
+            <div>
+              <h2 class="section-title" id="scoreboard-title">One row for each claim that matters.</h2>
+              <p class="section-intro">“Local” means the file exists and has been tested on this computer. It is not presented as a production result.</p>
+            </div>
+          </div>
+          <div class="status-table-wrap">
+            <table class="status-table">
+              <thead>
+                <tr>
+                  <th scope="col">Signal</th>
+                  <th scope="col">Live baseline</th>
+                  <th scope="col">Local release</th>
+                  <th scope="col">Next target</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Traffic measurement</td>
+                  <td><strong>None detected</strong></td>
+                  <td>Integration point documented; account access pending</td>
+                  <td>Cloudflare Web Analytics collecting verified visits</td>
+                </tr>
+                <tr>
+                  <td>Google measurement</td>
+                  <td>DNS verification token exists</td>
+                  <td>Sitemap and canonical URLs prepared</td>
+                  <td>Inspect property, submit sitemap, capture impressions and clicks</td>
+                </tr>
+                <tr>
+                  <td>Crawl files</td>
+                  <td><strong>No robots.txt; no sitemap</strong></td>
+                  <td>Both files created</td>
+                  <td>Confirm 200 responses and Search Console discovery</td>
+                </tr>
+                <tr>
+                  <td>Indexable useful pages</td>
+                  <td><strong>1 generic page</strong></td>
+                  <td>6 purpose-built pages</td>
+                  <td>12 tightly related pages based on observed queries</td>
+                </tr>
+                <tr>
+                  <td>Mobile performance</td>
+                  <td><strong>87</strong>; FCP 3.0 s; LCP 3.0 s</td>
+                  <td><strong>100</strong>; FCP 1.3 s; LCP 1.3 s in final local test</td>
+                  <td>95+ and LCP under 2.5 s in repeatable lab tests</td>
+                </tr>
+                <tr>
+                  <td>Accessibility</td>
+                  <td><strong>71</strong></td>
+                  <td><strong>100</strong>; semantic landmarks, labeled navigation, focus states, and stronger contrast</td>
+                  <td>95+ with no serious automated findings</td>
+                </tr>
+                <tr>
+                  <td>Best practices / SEO</td>
+                  <td><strong>96 / 100</strong></td>
+                  <td><strong>100 / 100</strong>; final local test had no console errors</td>
+                  <td>Repeat 100 / 100 on the production domain after deployment</td>
+                </tr>
+                <tr>
+                  <td>Lead handling</td>
+                  <td>Form stored data only in each visitor's browser</td>
+                  <td>Misleading form removed</td>
+                  <td>Add a real consent-aware conversion path only when there is an actual offer</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="method-title">
+        <div class="shell proof-grid">
+          <div>
+            <p class="kicker">Method</p>
+            <h2 class="section-title" id="method-title">How the baseline was captured.</h2>
+          </div>
+          <div class="proof-grid">
+            <div class="card">
+              <span class="card-number">Lab</span>
+              <div>
+                <h3>Lighthouse 13.4.1</h3>
+                <p>Run against the live HTTPS homepage using Chrome's simulated mobile profile. Scores can vary between runs, so trends matter more than one point.</p>
+              </div>
+            </div>
+            <div class="card">
+              <span class="card-number">Infrastructure</span>
+              <div>
+                <h3>DNS, headers, and source</h3>
+                <p>Public DNS, Netlify site metadata, HTTP responses, Git history, page source, and public search results were checked on the same date.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-dark">
+        <div class="shell cta-band">
+          <div>
+            <h2>Start with the evidence behind the dashboard.</h2>
+            <p>The day-zero audit explains why the old admin and contact form looked functional but could never provide shared website metrics or usable leads.</p>
+          </div>
+          <div class="cta-actions">
+            <a class="button button-light" href="/case-study/day-zero/">Read the audit →</a>
+            <a class="text-link" href="/guides/free-website-analytics/">See the measurement stack</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-inner">
+        <div>
+          <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"><span>↗</span></span><span>The Renew Up</span></a>
+          <p class="footer-note">A transparent experiment in making one real website more useful, measurable, accessible, and discoverable.</p>
+        </div>
+        <div class="footer-links">
+          <div><strong>Explore</strong><a href="/">Experiment</a><a href="/case-study/day-zero/">Day-zero audit</a><a href="/feed.xml">RSS feed</a></div>
+          <div><strong>Guides</strong><a href="/guides/free-website-analytics/">Free analytics stack</a><a href="/guides/local-vs-static-hosting/">Local vs. static hosting</a><a href="/privacy/">Privacy</a></div>
+        </div>
+      </div>
+      <div class="shell footer-bottom"><span>© 2026 The Renew Up. Findings are dated; targets are labeled.</span><span>Last dashboard update: August 26, 2026</span></div>
+    </footer>
+  </body>
+</html>

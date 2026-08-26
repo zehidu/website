@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>The Renew Up Field Notes</title>
+    <link>https://therenewup.com/</link>
+    <description>A real website growth experiment documented in public.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 26 Aug 2026 18:00:00 GMT</lastBuildDate>
+    <atom:link href="https://therenewup.com/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Day zero: what an untracked website was really hiding</title>
+      <link>https://therenewup.com/case-study/day-zero/</link>
+      <guid isPermaLink="true">https://therenewup.com/case-study/day-zero/</guid>
+      <pubDate>Wed, 26 Aug 2026 18:00:00 GMT</pubDate>
+      <description>The ownership map, missing measurement, broken lead flow, public demo admin, and 90-day recovery plan.</description>
+    </item>
+    <item>
+      <title>Free website analytics without running your own server</title>
+      <link>https://therenewup.com/guides/free-website-analytics/</link>
+      <guid isPermaLink="true">https://therenewup.com/guides/free-website-analytics/</guid>
+      <pubDate>Wed, 26 Aug 2026 17:55:00 GMT</pubDate>
+      <description>A practical measurement stack using Cloudflare Web Analytics, Google Search Console, and Lighthouse.</description>
+    </item>
+    <item>
+      <title>Local development vs. static hosting</title>
+      <link>https://therenewup.com/guides/local-vs-static-hosting/</link>
+      <guid isPermaLink="true">https://therenewup.com/guides/local-vs-static-hosting/</guid>
+      <pubDate>Wed, 26 Aug 2026 17:50:00 GMT</pubDate>
+      <description>Why the cost-conscious workflow keeps editing on your computer and public delivery on a reliable static host.</description>
+    </item>
+  </channel>
+</rss>
