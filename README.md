@@ -14,6 +14,14 @@ Then open `http://127.0.0.1:4173/`.
 
 No package install, database, or paid local service is required.
 
+In a second PowerShell window, validate the files and local routes:
+
+```powershell
+.\scripts\check-site.ps1
+```
+
+Run `.\scripts\check-site.ps1 -SkipHttp` when the local server is not running.
+
 ## Production map
 
 - Registrar: GoDaddy
@@ -23,6 +31,7 @@ No package install, database, or paid local service is required.
 - Search ownership clue: Google site-verification TXT record exists in DNS
 
 See [OPERATIONS.md](OPERATIONS.md) for dashboards, release checks, and the weekly growth routine.
+The dated machine-readable baseline is in [data/baseline-2026-08-26.json](data/baseline-2026-08-26.json), and material changes are recorded in [CHANGELOG.md](CHANGELOG.md).
 
 ## Site structure
 
