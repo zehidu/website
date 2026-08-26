@@ -10,6 +10,7 @@ All material website changes are recorded here. Production status is stated expl
 - Added replacement-pressure, cost-per-expected-year, break-even, score-driver, and five-year planning visuals
 - Converted the homepage, problem finder, four symptom guides, recall flow, methodology, and privacy explanation into compact visual paths and outcome maps
 - Kept typed appliance details and dollar amounts out of analytics
+- Versioned production CSS and JavaScript URLs so the release cannot mix new HTML with week-cached older assets
 
 ### Calculator governance
 
