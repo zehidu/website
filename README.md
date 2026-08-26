@@ -28,6 +28,8 @@ No package installation, database, or paid local service is required.
 - /methodology/ — versioned calculator formula, boundaries, and limitations
 - /privacy/ — current and planned measurement disclosure
 
+The shared motion layer uses intersection-aware CSS transitions, animated calculator feedback, reading progress, and active section guidance. It honors `prefers-reduced-motion`, requires no animation library, and keeps all content usable when JavaScript is unavailable.
+
 Product data, the content roadmap, and the analytics contract live in data/. The decision and dashboard architecture is documented in MEASUREMENT.md.
 
 ## Production map

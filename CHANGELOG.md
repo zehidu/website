@@ -2,6 +2,14 @@
 
 All material website changes are recorded here. Production status is stated explicitly so a local build is never mistaken for a live result.
 
+## 2026-08-26 — Explanatory motion system
+
+- Added staged scroll reveals and animated pathways across every production route
+- Added live decision-map scanning, responsive inputs, score count-up, driver bars, timeline sequencing, and result-card reveals
+- Added animated troubleshooting steps, recall-label scanning, methodology signals, privacy data flow, reading progress, and active section guidance
+- Added complete reduced-motion behavior and kept the system dependency-free
+- Versioned all visual assets so the motion release cannot mix with older cached files
+
 ## 2026-08-26 — Decision Lab v2 visual redesign
 
 ### Product experience

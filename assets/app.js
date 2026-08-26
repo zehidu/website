@@ -55,7 +55,39 @@
 
   function setBar(root, selector, percentValue) {
     var bar = root.querySelector(selector);
-    if (bar) bar.style.width = Math.max(0, Math.min(percentValue, 100)) + "%";
+    if (!bar) return;
+    var target = Math.max(0, Math.min(percentValue, 100)) + "%";
+    var motionToken = (bar._motionToken || 0) + 1;
+    bar._motionToken = motionToken;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      bar.style.width = target;
+      return;
+    }
+    bar.style.width = "0%";
+    window.requestAnimationFrame(function () {
+      window.requestAnimationFrame(function () {
+        if (bar._motionToken === motionToken) bar.style.width = target;
+      });
+    });
+  }
+
+  function animateScore(root, target) {
+    var score = root.querySelector("[data-result-score]");
+    if (!score) return;
+    if (root._scoreAnimationFrame) window.cancelAnimationFrame(root._scoreAnimationFrame);
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      score.textContent = String(Math.round(target));
+      return;
+    }
+    var startedAt;
+    function frame(time) {
+      if (!startedAt) startedAt = time;
+      var progress = Math.min((time - startedAt) / 760, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      score.textContent = String(Math.round(target * eased));
+      if (progress < 1) root._scoreAnimationFrame = window.requestAnimationFrame(frame);
+    }
+    root._scoreAnimationFrame = window.requestAnimationFrame(frame);
   }
 
   function setupCalculator(form) {
@@ -144,16 +176,21 @@
       calculation.timeline.forEach(function (entry) {
         var point = document.createElement("span");
         point.className = "timeline-year is-" + entry.state;
+        point.style.setProperty("--timeline-order", String(entry.year - 1));
         point.innerHTML = "<i></i><b>Y" + entry.year + "</b><small>" + (entry.state === "repair" ? "keep" : "new") + "</small>";
         track.appendChild(point);
       });
     }
 
     function renderResult(calculation) {
+      if (result._scoreAnimationFrame) window.cancelAnimationFrame(result._scoreAnimationFrame);
+      result._scoreAnimationFrame = null;
+      var renderToken = (result._renderToken || 0) + 1;
+      result._renderToken = renderToken;
       result.className = "calculator-result result-v2 is-" + calculation.decision;
       setText(result, "[data-result-status]", calculation.decision === "pause" ? "Safety override" : "Planning result");
       setText(result, "[data-result-confidence]", calculation.confidence + " confidence");
-      setText(result, "[data-result-score]", calculation.decision === "pause" ? "!" : Math.round(calculation.replacementPressure));
+      setText(result, "[data-result-score]", calculation.decision === "pause" ? "!" : "0");
       setText(result, "[data-result-title]", calculation.title);
       setText(result, "[data-result-summary]", calculation.summary);
       setText(result, "[data-repair-ratio]", calculation.repairRatioLabel);
@@ -168,9 +205,9 @@
 
       var ring = result.querySelector("[data-score-ring]");
       var meter = result.querySelector("[data-decision-meter]");
-      ring.style.setProperty("--score-angle", calculation.replacementPressure * 3.6 + "deg");
+      ring.style.setProperty("--score-angle", "0deg");
       ring.setAttribute("aria-label", calculation.decision === "pause" ? "Safety concern overrides the financial score" : "Replacement pressure " + Math.round(calculation.replacementPressure) + " out of 100");
-      meter.style.setProperty("--score", calculation.replacementPressure + "%");
+      meter.style.setProperty("--score", "0%");
 
       var maxAnnualCost = Math.max(calculation.repairPerYear, calculation.replacePerYear, 1);
       setBar(result, "[data-repair-bar]", (calculation.repairPerYear / maxAnnualCost) * 100);
@@ -200,8 +237,17 @@
       emptyResult.hidden = true;
       result.hidden = false;
       updateProgress(2);
+      window.requestAnimationFrame(function () {
+        window.requestAnimationFrame(function () {
+          if (result._renderToken !== renderToken) return;
+          ring.style.setProperty("--score-angle", calculation.replacementPressure * 3.6 + "deg");
+          meter.style.setProperty("--score", calculation.replacementPressure + "%");
+          if (calculation.decision !== "pause") animateScore(result, calculation.replacementPressure);
+        });
+      });
+      document.dispatchEvent(new CustomEvent("renewup:result-rendered", { detail: { decision: calculation.decision, score: calculation.replacementPressure } }));
       result.focus({ preventScroll: true });
-      result.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      result.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "nearest" });
     }
 
     form.addEventListener("input", function () {
@@ -262,6 +308,9 @@
     });
 
     result.querySelector("[data-calculator-reset]").addEventListener("click", function () {
+      result._renderToken = (result._renderToken || 0) + 1;
+      if (result._scoreAnimationFrame) window.cancelAnimationFrame(result._scoreAnimationFrame);
+      result._scoreAnimationFrame = null;
       form.reset();
       clearErrors(form);
       renderSymptoms("");

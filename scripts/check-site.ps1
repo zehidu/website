@@ -98,6 +98,7 @@ if (-not $SkipHttp) {
     "/assets/analytics.js" = 200
     "/assets/calculator-engine.js" = 200
     "/assets/app.js" = 200
+    "/assets/motion.js" = 200
     "/assets/og.png" = 200
     "/favicon.ico" = 200
     "/metrics/" = 404
