@@ -26,7 +26,7 @@ All material website changes are recorded here. Production status is stated expl
 
 ### Production status
 
-The owner approved publication on August 26, 2026. This is the production release source for the rebuilt domain.
+The owner approved publication on August 26, 2026. This is the production release source for the rebuilt domain. Google Search Console accepted the canonical sitemap and discovered all 9 indexable production URLs.
 
 ## 2026-08-26 — Local growth foundation, not yet published
 

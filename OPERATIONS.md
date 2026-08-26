@@ -50,7 +50,7 @@ Every new search page needs a distinct user task, primary or manufacturer source
 - [ ] Social preview, favicon, keyboard focus, contrast and small-screen layout reviewed
 - [x] Privacy notice discloses the active aggregate Cloudflare Web Analytics baseline
 - [ ] Privacy contact, retention and consent configuration approved before product-event analytics activation
-- [ ] Production Search Console sitemap resubmitted after deployment
+- [x] Production Search Console sitemap resubmitted and accepted after deployment
 
 ## Weekly growth review
 
