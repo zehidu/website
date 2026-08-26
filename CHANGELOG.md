@@ -28,6 +28,7 @@ All material website changes are recorded here. Production status is stated expl
 - Removed admin paths return 404 from the local static server
 - Lighthouse 13.4.1 simulated-mobile scores: 100 performance, 100 accessibility, 100 best practices, and 100 SEO
 - Netlify CLI offline dry run accepts `netlify.toml`
+- Netlify's offline runtime applies the security headers, redirects `/index.html` to `/`, serves the custom 404 for removed admin routes, and returns the expected content types for crawl and baseline files
 
 ### Production status
 
