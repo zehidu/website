@@ -10,7 +10,7 @@
 | Google Search Console | Search demand, indexing and sitemap status | https://search.google.com/search-console |
 | Live site | Production verification | https://therenewup.com/ |
 
-The required owner-approved account connections are established. Production still runs the old site until an explicit deployment approval.
+The required owner-approved account connections are established. Publication was explicitly approved on August 26, 2026.
 
 ## Local release workflow
 

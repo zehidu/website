@@ -2,7 +2,7 @@
 
 A source-checked appliance decision site built around a working repair-or-replace calculator, symptom guides, recall checks, and privacy-safe product measurement.
 
-This branch is a local MVP and is not published to therenewup.com.
+This repository contains the validated production source for therenewup.com.
 
 ## Run locally
 
@@ -42,4 +42,4 @@ Netlify, Cloudflare, and Search Console are connected to the owner-approved Goog
 
 ## Publication gate
 
-Do not deploy until the owner reviews the local MVP. Before production measurement is enabled, add a verified privacy contact, approve retention periods, configure consent behavior, and test all input masking.
+The owner approved publication on August 26, 2026. Before third-party product analytics is enabled, add a verified privacy contact, approve retention periods, configure consent behavior, and test all input masking.

@@ -1,6 +1,6 @@
 # The Renew Up measurement plan
 
-Status: local MVP only. No production analytics provider is enabled by this branch.
+Status: production event contract prepared. No third-party product analytics provider is enabled by this release.
 
 ## Decision system
 
@@ -29,11 +29,11 @@ Retention values remain proposals until production consent and privacy configura
 
 The machine-readable contract is in data/event-schema.json. Code may emit only allowlisted event names and properties. Raw calculator inputs, typed searches, serial numbers, names and contact details are prohibited.
 
-The local preview saves the latest 100 QA events in browser sessionStorage. They can be inspected with:
+The site saves the latest 100 QA events in browser sessionStorage. They can be inspected with:
 
     window.renewUpAnalytics.getPreviewEvents()
 
-This preview log is not transmitted. It exists to verify event shape before connecting a provider.
+This QA log is not transmitted. It exists to verify event shape before connecting a provider.
 
 ## Production data flow
 

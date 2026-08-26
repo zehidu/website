@@ -2,7 +2,7 @@
 
 All material website changes are recorded here. Production status is stated explicitly so a local build is never mistaken for a live result.
 
-## 2026-08-26 — Appliance decision MVP, not yet published
+## 2026-08-26 — Appliance decision MVP production release
 
 ### Product direction
 
@@ -15,7 +15,7 @@ All material website changes are recorded here. Production status is stated expl
 
 - Added a strict analytics event allowlist, anonymous per-tab preview sessions, coarse calculator ranges, and prohibited-field contract
 - Added the content roadmap, appliance assumptions, issue records, and full measurement architecture
-- Kept all third-party analytics disabled pending consent, retention, privacy-contact, and owner review
+- Kept all third-party product analytics disabled pending consent, retention, privacy-contact, and owner review
 
 ### Search and trust
 
@@ -25,7 +25,7 @@ All material website changes are recorded here. Production status is stated expl
 
 ### Production status
 
-The live domain is unchanged. This MVP exists only on the local growth-foundation branch until the owner reviews and explicitly approves deployment.
+The owner approved publication on August 26, 2026. This is the production release source for the rebuilt domain.
 
 ## 2026-08-26 — Local growth foundation, not yet published
 
