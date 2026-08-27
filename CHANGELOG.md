@@ -2,6 +2,15 @@
 
 All material website changes are recorded here. Production status is stated explicitly so a local build is never mistaken for a live result.
 
+## 2026-08-26 — Coherent calculator story
+
+- Rebuilt the homepage hero as one connected nine-stage worked example instead of independent signal loops
+- Animated context, life used, quote ratio, reliability, offsets, safety, score, yearly value, break-even guardrail, and five-year plan in sequence
+- Connected every displayed value to the production calculator engine so the walkthrough and live result share one source of truth
+- Added direct stage navigation, previous/play/next controls, progress, keyboard input, offscreen pausing, and reduced-motion behavior
+- Added a persistent driver ledger so each input visibly accumulates into the final replacement-pressure score
+- Versioned every production asset as release `20260826-5`
+
 ## 2026-08-26 — Motion-first visual experience
 
 - Replaced the long calculator form with a three-screen visual wizard for appliance, age, and price

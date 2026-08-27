@@ -20,9 +20,9 @@ var htmlFiles = [
 
 htmlFiles.forEach(function (relativePath) {
   var html = fs.readFileSync(path.join(root, relativePath), "utf8");
-  assert.match(html, /assets\/styles\.css\?v=20260826-4/, relativePath + " must load the motion-first stylesheet release");
-  assert.match(html, /assets\/experience\.js\?v=20260826-4/, relativePath + " must load the visual experience controller");
-  assert.match(html, /assets\/motion\.js\?v=20260826-4/, relativePath + " must load the shared motion controller");
+  assert.match(html, /assets\/styles\.css\?v=20260826-5/, relativePath + " must load the coherent-story stylesheet release");
+  assert.match(html, /assets\/experience\.js\?v=20260826-5/, relativePath + " must load the visual experience controller");
+  assert.match(html, /assets\/motion\.js\?v=20260826-5/, relativePath + " must load the shared motion controller");
   assert.equal((html.match(/assets\/experience\.js/g) || []).length, 1, relativePath + " must load experience exactly once");
   assert.equal((html.match(/assets\/motion\.js/g) || []).length, 1, relativePath + " must load motion exactly once");
 });
@@ -43,13 +43,23 @@ assert.match(styles, /@keyframes data-travel/);
 assert.match(styles, /@keyframes timeline-arrive/);
 assert.match(styles, /@keyframes scene-progress/);
 assert.match(styles, /@keyframes factory-needle/);
+assert.match(styles, /@keyframes story-progress/);
+assert.match(styles, /@keyframes score-piece-in/);
 assert.match(experience, /data-scene/);
 assert.match(experience, /prefers-reduced-motion/);
-assert.match(experience, /data-orbit-signal/);
+assert.match(experience, /setupCalculatorStory/);
+assert.match(experience, /renewUpCalculator/);
 assert.match(app, /new CustomEvent\("renewup:result-rendered"/);
 assert.match(app, /data-lab-step/);
 assert.equal((home.match(/data-lab-step="/g) || []).length, 3, "home must expose three visual calculator steps");
-assert.match(home, /data-decision-orbit/);
+assert.match(home, /data-calculator-story/);
+assert.equal((home.match(/data-story-scene(?:>|\s)/g) || []).length, 9, "home must expose nine connected calculator-story scenes");
+assert.equal((home.match(/data-story-go=/g) || []).length, 9, "home must expose nine direct stage controls");
+assert.match(home, /data-story-repair-ratio/);
+assert.match(home, /data-story-cap/);
+assert.match(home, /data-story-trigger/);
+assert.match(home, /data-story-year=/);
+assert.match(home, /data-story-next-steps/);
 
 htmlFiles.filter(function (relativePath) { return relativePath.startsWith("guides/"); }).forEach(function (relativePath) {
   var guide = fs.readFileSync(path.join(root, relativePath), "utf8");
@@ -57,4 +67,4 @@ htmlFiles.filter(function (relativePath) { return relativePath.startsWith("guide
   assert.match(guide, /<details class="deep-notes">/, relativePath + " must keep technical notes behind a disclosure");
 });
 
-console.log("Motion-first scenes, wizard, and reduced-motion contract passed for all 10 HTML routes.");
+console.log("Coherent calculator story, guide scenes, wizard, and reduced-motion contract passed for all 10 HTML routes.");

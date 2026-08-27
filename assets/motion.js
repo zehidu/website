@@ -127,7 +127,7 @@
 
     register(".lab-intro-copy > *, .kinetic-hero-copy > *, .page-hero > *, .breadcrumbs, .not-found > .shell > *", "motion-headline");
     register(".signal-legend > div, .issue-card, .library-card, .guide-snapshot > div, .cause-map > div, .input-chip-grid > div, .method-zones > div, .verify-grid > div, .privacy-visual > div", "motion-card");
-    register(".decision-orbit, .decision-workbench, .scene-player, .diagnose-flow, .search-panel, .method-overview > *, .recall-action > *, .data-grid > *, .final-cta-inner > *, .side-nav", "motion-panel");
+    register(".calculator-story, .decision-workbench, .scene-player, .diagnose-flow, .search-panel, .method-overview > *, .recall-action > *, .data-grid > *, .final-cta-inner > *, .side-nav", "motion-panel");
     register(".diagnostic-route > div, .recall-route > div, .visual-steps > li", "motion-step");
     register(".section-heading > *, .preview-next-grid > *, .article-content > h2, .article-content > p, .safety-callout, .info-callout, .decision-banner, .source-list > li, .measurement-row, .site-footer .footer-inner > *", "motion-copy");
     register(".signal-stack-chart > div, .formula-signal, .privacy-lane, .privacy-divider, .zone-scale, .source-ribbon > *", "motion-data");
