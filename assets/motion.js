@@ -125,14 +125,14 @@
       }, { rootMargin: "0px 0px -7% 0px", threshold: 0.12 });
     }
 
-    register(".lab-intro-copy > *, .page-hero > *, .breadcrumbs, .not-found > .shell > *", "motion-headline");
+    register(".lab-intro-copy > *, .kinetic-hero-copy > *, .page-hero > *, .breadcrumbs, .not-found > .shell > *", "motion-headline");
     register(".signal-legend > div, .issue-card, .library-card, .guide-snapshot > div, .cause-map > div, .input-chip-grid > div, .method-zones > div, .verify-grid > div, .privacy-visual > div", "motion-card");
-    register(".decision-workbench, .search-panel, .method-overview > *, .recall-action > *, .data-grid > *, .final-cta-inner > *, .side-nav", "motion-panel");
+    register(".decision-orbit, .decision-workbench, .scene-player, .diagnose-flow, .search-panel, .method-overview > *, .recall-action > *, .data-grid > *, .final-cta-inner > *, .side-nav", "motion-panel");
     register(".diagnostic-route > div, .recall-route > div, .visual-steps > li", "motion-step");
     register(".section-heading > *, .preview-next-grid > *, .article-content > h2, .article-content > p, .safety-callout, .info-callout, .decision-banner, .source-list > li, .measurement-row, .site-footer .footer-inner > *", "motion-copy");
     register(".signal-stack-chart > div, .formula-signal, .privacy-lane, .privacy-divider, .zone-scale, .source-ribbon > *", "motion-data");
 
-    registerSequence(".signal-legend, .issue-grid, .signal-stack-chart, .privacy-map, .diagnostic-route, .library-grid, .guide-snapshot, .visual-steps, .cause-map, .method-overview, .formula-list, .method-zones, .recall-route, .verify-grid, .privacy-visual, .measurement-table");
+    registerSequence(".signal-legend, .issue-grid, .signal-stack-chart, .privacy-map, .diagnostic-route, .diagnose-flow, .library-grid, .guide-snapshot, .visual-steps, .cause-map, .method-overview, .formula-list, .method-zones, .recall-route, .verify-grid, .privacy-visual, .measurement-table");
     setupReadingProgress();
     setupActiveSideNavigation();
     setupLiveValueFeedback();

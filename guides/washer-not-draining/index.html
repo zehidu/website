@@ -6,7 +6,7 @@
     <meta name="description" content="Work through safe, model-aware checks for a washing machine that will not drain, from cycle state and hose routing to the accessible pump filter.">
     <meta name="robots" content="index,follow,max-image-preview:large">
     <link rel="canonical" href="https://therenewup.com/guides/washer-not-draining/">
-    <link rel="stylesheet" href="/assets/styles.css?v=20260826-3"><link rel="icon" href="/favicon.ico" sizes="any"><meta name="theme-color" content="#f5f1e8">
+    <link rel="stylesheet" href="/assets/styles.css?v=20260826-4"><link rel="icon" href="/favicon.ico" sizes="any"><meta name="theme-color" content="#f5f1e8">
     <meta property="og:type" content="article"><meta property="og:site_name" content="The Renew Up"><meta property="og:title" content="Washing Machine Not Draining? Safe First Checks"><meta property="og:description" content="A model-aware path from simple checks to the point where service makes sense."><meta property="og:url" content="https://therenewup.com/guides/washer-not-draining/">
     <meta name="twitter:card" content="summary"><meta name="twitter:title" content="Washing Machine Not Draining? Safe First Checks"><meta name="twitter:description" content="A model-aware path from simple checks to the point where service makes sense.">
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Washing Machine Not Draining? Safe First Checks","datePublished":"2026-08-26","dateModified":"2026-08-26","author":{"@type":"Organization","name":"The Renew Up"},"publisher":{"@type":"Organization","name":"The Renew Up"},"mainEntityOfPage":"https://therenewup.com/guides/washer-not-draining/","about":["washing machine drainage","appliance troubleshooting"]}</script>
@@ -18,13 +18,16 @@
     <main id="main" class="page-main guide-page"><div class="shell">
       <ol class="breadcrumbs"><li><a href="/">Home</a></li><li><a href="/diagnose/">Problem finder</a></li><li aria-current="page">Washer not draining</li></ol>
       <header class="page-hero"><div><p class="eyebrow"><span>Washer</span> 5-step visual guide</p><h1>Washer not draining?</h1><p class="lede">Follow the water path before assuming the pump failed.</p></div><aside class="page-aside safety-aside" aria-label="Safety summary"><span aria-hidden="true">!</span><div><strong>Stop immediately</strong><p>Burning smell, damaged wiring, water near an outlet, or sealed-panel access.</p></div></aside></header>
-      <section class="guide-snapshot" aria-label="Washer drainage guide overview">
-        <div><span>1</span><strong>Make safe</strong><small>cancel · unplug · close valves</small></div>
-        <i aria-hidden="true"></i><div><span>2</span><strong>Trace water</strong><small>cycle · load · hose · filter</small></div>
-        <i aria-hidden="true"></i><div><span>3</span><strong>Test once</strong><small>record sound + code</small></div>
-        <i aria-hidden="true"></i><div class="is-stop"><span>4</span><strong>Stop boundary</strong><small>leak · hum · repeat failure</small></div>
+      <section class="scene-player" data-scene-player data-autoplay="true" aria-label="Animated washer drainage path">
+        <div class="scene-stage">
+          <article class="motion-scene is-active" data-scene><div class="scene-visual" data-action="safe" aria-hidden="true"><div class="visual-appliance washer-visual"><i class="visual-panel"></i><i class="visual-led"></i><div class="visual-window"><i class="visual-water"></i><b class="visual-load"></b></div><span class="visual-plug">UNPLUG</span></div><span class="visual-cue cue-right is-stop">!</span></div><div class="scene-copy"><span>STEP 01</span><h2>Power off.</h2><p>Cancel. Unplug. Close water.</p></div></article>
+          <article class="motion-scene" data-scene><div class="scene-visual" data-action="drain" aria-hidden="true"><div class="visual-appliance washer-visual"><i class="visual-panel"></i><i class="visual-led"></i><div class="visual-window"><i class="visual-water"></i><b class="visual-load"></b></div><i class="visual-hose"></i></div><span class="visual-cue cue-left">HOSE</span></div><div class="scene-copy"><span>STEP 02</span><h2>Trace water.</h2><p>Cycle → load → visible hose.</p></div></article>
+          <article class="motion-scene" data-scene><div class="scene-visual" data-action="filter" aria-hidden="true"><div class="visual-appliance washer-visual"><i class="visual-panel"></i><div class="visual-window"><i class="visual-water"></i></div><i class="visual-filter"></i></div><span class="visual-cue cue-left">CLEAN</span></div><div class="scene-copy"><span>STEP 03</span><h2>Filter—if shown.</h2><p>Only the owner-accessible part in your manual.</p></div></article>
+          <article class="motion-scene" data-scene><div class="scene-visual" data-action="stop" aria-hidden="true"><div class="visual-appliance washer-visual"><i class="visual-panel"></i><i class="visual-led"></i><div class="visual-window"><i class="visual-water"></i><b class="visual-load"></b></div><span class="visual-code">HUM · LEAK · CODE</span></div><span class="visual-cue cue-right is-stop">STOP</span></div><div class="scene-copy"><span>STEP 04</span><h2>Test once.</h2><p>Still full, humming, or leaking? Stop.</p><span class="scene-stop">Service boundary</span></div></article>
+        </div>
+        <div class="scene-nav"><button class="scene-button" type="button" data-scene-prev aria-label="Previous step">←</button><span class="scene-counter" data-scene-counter>01 / 04</span><div class="scene-dots" data-scene-dots aria-label="Guide steps"></div><button class="scene-button" type="button" data-scene-next aria-label="Next step">→</button></div><div class="scene-progress" data-scene-progress aria-hidden="true"><i></i></div>
       </section>
-      <div class="content-layout"><article class="article-content">
+      <details class="deep-notes"><summary><span>Model-aware safety, reasoning, and sources</span><b>Open exact notes</b></summary><div class="content-layout"><article class="article-content">
         <h2 id="safe">1. Make it safe</h2>
         <div class="safety-callout"><strong>Electricity and water are a dangerous combination.</strong><p>Cancel the cycle, disconnect power, and close the water valves before moving a hose or opening a user-serviceable filter. Use your exact model manual; filter access and emergency-drain steps vary.</p></div>
         <p>If the tub is full, prepare a shallow pan and towels. Do not tilt a full machine. If the appliance is hard-wired, inaccessible, or leaking toward electrical connections, stop and call a qualified technician.</p>
@@ -53,10 +56,11 @@
           <li><a href="https://producthelp.whirlpool.com/Laundry/Washers/Front_Load_Washers/Cycle_Concerns/Not_Draining/Not_Draining_-_Front_Load_Washer" data-track="source_outbound_click" data-source="whirlpool_front_load_drain">Whirlpool Product Help — front-load washer not draining</a><small>Model-dependent filter and drain-hose guidance.</small></li>
           <li><a href="https://www.cpsc.gov/Recalls" data-track="source_outbound_click" data-source="cpsc_recalls">U.S. Consumer Product Safety Commission recalls</a><small>Official U.S. recall search.</small></li>
         </ul>
-      </article><aside class="side-nav" aria-label="Guide sections"><strong>In this guide</strong><ul><li><a href="#safe">Make it safe</a></li><li><a href="#checks">Ordered checks</a></li><li><a href="#causes">What it may mean</a></li><li><a href="#decision">Repair or replace</a></li><li><a href="#sources">Sources</a></li></ul></aside></div>
+      </article><aside class="side-nav" aria-label="Guide sections"><strong>In this guide</strong><ul><li><a href="#safe">Make it safe</a></li><li><a href="#checks">Ordered checks</a></li><li><a href="#causes">What it may mean</a></li><li><a href="#decision">Repair or replace</a></li><li><a href="#sources">Sources</a></li></ul></aside></div></details>
     </div></main>
     <footer class="site-footer"><div class="shell footer-inner"><div><a class="footer-brand" href="/">The Renew Up</a><p>Repair smarter. Replace with confidence.</p></div><nav aria-label="Footer navigation"><a href="/diagnose/">Diagnose</a><a href="/recalls/">Recalls</a><a href="/methodology/">Methodology</a><a href="/privacy/">Privacy</a></nav><p class="footer-note">Educational guidance—not a substitute for a qualified technician.</p></div></footer>
-    <script src="/assets/analytics.js?v=20260826-3" defer></script>
-    <script src="/assets/motion.js?v=20260826-3" defer></script>
+    <script src="/assets/analytics.js?v=20260826-4" defer></script>
+    <script src="/assets/experience.js?v=20260826-4" defer></script>
+    <script src="/assets/motion.js?v=20260826-4" defer></script>
   </body>
 </html>

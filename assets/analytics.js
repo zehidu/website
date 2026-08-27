@@ -2,7 +2,7 @@
   "use strict";
 
   var EVENT_VERSION = "1.0";
-  var CONTENT_VERSION = "decision-lab-v2-2026-08-26";
+  var CONTENT_VERSION = "motion-first-v3-2026-08-26";
   var PREVIEW_KEY = "renewup_preview_events";
   var SESSION_KEY = "renewup_session_id";
   var allowedEvents = new Set([
@@ -12,6 +12,9 @@
     "calculator_validation_error",
     "calculator_complete",
     "calculator_reset",
+    "calculator_step_view",
+    "visual_step_change",
+    "decision_signal_view",
     "issue_search",
     "issue_select",
     "recall_check_click",
@@ -30,7 +33,10 @@
     "source_name",
     "field_count",
     "content_type",
-    "calculator_version"
+    "calculator_version",
+    "step_number",
+    "player_index",
+    "signal"
   ]);
 
   function randomId() {

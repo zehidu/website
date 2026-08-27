@@ -2,6 +2,15 @@
 
 All material website changes are recorded here. Production status is stated explicitly so a local build is never mistaken for a live result.
 
+## 2026-08-26 — Motion-first visual experience
+
+- Replaced the long calculator form with a three-screen visual wizard for appliance, age, and price
+- Added an interactive decision orbit, animated price balance, age dial, scoring factory, privacy gate, and symptom machines
+- Converted every troubleshooting guide, recall flow, methodology explanation, and privacy explanation into touch-controlled scene players
+- Moved technical depth and source notes behind native disclosures so the initial experience stays visual without removing search-readable evidence
+- Added keyboard controls, no-JavaScript fallbacks, autoplay pausing, and full reduced-motion behavior
+- Versioned every production asset as release `20260826-4`
+
 ## 2026-08-26 — Explanatory motion system
 
 - Added staged scroll reveals and animated pathways across every production route

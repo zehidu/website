@@ -7,7 +7,7 @@
     <meta name="description" content="Make a confident appliance decision with practical repair guidance, recall checks, and a free repair-or-replace calculator.">
     <meta name="robots" content="index,follow,max-image-preview:large">
     <link rel="canonical" href="https://therenewup.com/">
-    <link rel="stylesheet" href="/assets/styles.css?v=20260826-3">
+    <link rel="stylesheet" href="/assets/styles.css?v=20260826-4">
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="alternate" type="application/rss+xml" title="The Renew Up appliance guides" href="https://therenewup.com/feed.xml">
     <meta name="theme-color" content="#f5f1e8">
@@ -62,81 +62,99 @@
     <main id="main">
       <section class="hero decision-hero" id="diagnose" aria-labelledby="hero-title">
         <div class="shell">
-          <div class="lab-intro">
-            <div class="lab-intro-copy">
-              <p class="eyebrow"><span>Decision Lab</span> Free · private · no sign-up</p>
-              <h1 id="hero-title">Repair or replace? <em>See the whole decision.</em></h1>
-              <p class="lede">Five quick answers become a visual plan—price, age, reliability, warranty, and the point where replacing starts to win.</p>
+          <div class="kinetic-hero">
+            <div class="kinetic-hero-copy">
+              <p class="eyebrow"><span>Decision Lab</span> 3 visual moves</p>
+              <h1 id="hero-title">Don’t guess.<br><em>Watch the decision form.</em></h1>
+              <p class="lede">Pick it. Age it. Price it.</p>
+              <a class="button button-primary hero-start" href="#calculator">Start the live check <span aria-hidden="true">↓</span></a>
+              <div class="hero-proof" aria-label="Free, private, and transparent"><span>Free</span><span>Private</span><span>No black box</span></div>
             </div>
-            <div class="signal-legend">
-              <div><span aria-hidden="true">$</span><strong>Price</strong><small>quote vs. all-in new</small></div>
-              <div><span aria-hidden="true">◷</span><strong>Age</strong><small>life already used</small></div>
-              <div><span aria-hidden="true">↻</span><strong>Reliability</strong><small>condition + repeat repairs</small></div>
-              <div><span aria-hidden="true">◇</span><strong>Safety</strong><small>always overrides cost</small></div>
+
+            <div class="decision-orbit" data-decision-orbit data-active-signal="price" aria-label="The four signals that shape a repair-or-replace decision">
+              <div class="orbit-rings" aria-hidden="true"><i></i><i></i><i></i></div>
+              <div class="orbit-lines" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+              <div class="orbit-core" aria-hidden="true">
+                <div class="orbit-appliance"><span class="orbit-drum"><i></i></span><b></b></div>
+                <span class="orbit-choice orbit-repair">REPAIR</span>
+                <span class="orbit-choice orbit-replace">REPLACE</span>
+              </div>
+              <button class="orbit-signal signal-price" type="button" data-orbit-signal="price" aria-pressed="true"><span>$</span><b>Price</b></button>
+              <button class="orbit-signal signal-age" type="button" data-orbit-signal="age" aria-pressed="false"><span>07</span><b>Age</b></button>
+              <button class="orbit-signal signal-history" type="button" data-orbit-signal="history" aria-pressed="false"><span>↻</span><b>History</b></button>
+              <button class="orbit-signal signal-safety" type="button" data-orbit-signal="safety" aria-pressed="false"><span>!</span><b>Safety</b></button>
+              <div class="orbit-readout"><i aria-hidden="true"></i><span data-orbit-label>Quote pressure</span></div>
             </div>
           </div>
 
           <div class="decision-workbench" id="calculator">
             <div class="workbench-top">
               <div>
-                <p class="step-label">The Renew Up decision lab</p>
-                <h2>Build your repair-or-replace map.</h2>
+                <p class="step-label">Live decision machine</p>
+                <h2>Three moves. One visual answer.</h2>
               </div>
-              <ol class="progress-rail">
-                <li class="is-active"><span>1</span>Situation</li>
-                <li><span>2</span>Numbers</li>
-                <li><span>3</span>Decision map</li>
+              <ol class="progress-rail" aria-label="Calculator progress">
+                <li class="is-active"><span>1</span>Pick</li>
+                <li><span>2</span>Age</li>
+                <li><span>3</span>Price</li>
+                <li><span>4</span>Map</li>
               </ol>
             </div>
 
             <div class="workbench-grid">
-              <form class="calculator-form calculator-form-v2" data-calculator aria-describedby="calculator-note" autocomplete="off" novalidate>
-                <fieldset class="appliance-choices field-wide" data-appliance-group>
-                  <legend>What needs help?</legend>
-                  <label class="appliance-choice"><input type="radio" name="appliance" value="washer" required><span class="appliance-pictogram washer-pictogram" aria-hidden="true"><i></i></span><span><strong>Washer</strong><small>laundry</small></span></label>
-                  <label class="appliance-choice"><input type="radio" name="appliance" value="dishwasher" required><span class="appliance-pictogram dishwasher-pictogram" aria-hidden="true"><i></i></span><span><strong>Dishwasher</strong><small>kitchen</small></span></label>
-                </fieldset>
-
-                <div class="field field-wide">
-                  <label for="symptom">Closest symptom</label>
-                  <select id="symptom" name="symptom" disabled>
-                    <option value="">Choose the appliance first</option>
-                  </select>
-                </div>
-
-                <div class="age-control field-wide">
-                  <div class="age-label"><label for="age">Appliance age</label><output for="age" data-age-output>7 years</output></div>
-                  <input id="age" name="age" type="range" min="0" max="25" step="1" value="7">
-                  <div class="range-labels" aria-hidden="true"><span>New</span><span>Midlife</span><span>Older</span></div>
-                </div>
-
-                <div class="field-row money-row">
-                  <div class="field">
-                    <label for="repair-cost">Written repair quote</label>
-                    <div class="input-prefix"><span>$</span><input id="repair-cost" name="repair_cost" type="number" min="0" max="10000" step="1" inputmode="decimal" placeholder="280" required></div>
+              <form class="calculator-form calculator-form-v2 visual-wizard" data-calculator aria-describedby="calculator-note" autocomplete="off" novalidate>
+                <section class="lab-step is-active" data-lab-step="0" aria-labelledby="pick-title">
+                  <div class="step-question"><span>01</span><div><p>Pick the machine</p><h3 id="pick-title">What stopped?</h3></div></div>
+                  <fieldset class="appliance-choices field-wide" data-appliance-group>
+                    <legend class="sr-only">Choose an appliance</legend>
+                    <label class="appliance-choice appliance-choice-large"><input type="radio" name="appliance" value="washer" required><span class="choice-machine washer-machine" aria-hidden="true"><i class="choice-door"><b></b></i><i class="choice-light"></i></span><span><strong>Washer</strong><small>tap to select</small></span></label>
+                    <label class="appliance-choice appliance-choice-large"><input type="radio" name="appliance" value="dishwasher" required><span class="choice-machine dishwasher-machine" aria-hidden="true"><i class="choice-rack"><b></b></i><i class="choice-light"></i></span><span><strong>Dishwasher</strong><small>tap to select</small></span></label>
+                  </fieldset>
+                  <div class="field field-wide symptom-field">
+                    <label for="symptom">What do you see?</label>
+                    <select id="symptom" name="symptom" disabled><option value="">Choose the appliance first</option></select>
                   </div>
-                  <div class="field">
-                    <label for="replacement-cost">New, installed</label>
-                    <div class="input-prefix"><span>$</span><input id="replacement-cost" name="replacement_cost" type="number" min="1" max="25000" step="1" inputmode="decimal" placeholder="850" required></div>
+                  <div class="wizard-actions"><span></span><button class="button button-primary" type="button" data-lab-next>Next: age <span aria-hidden="true">→</span></button></div>
+                </section>
+
+                <section class="lab-step" data-lab-step="1" aria-labelledby="age-title">
+                  <div class="step-question"><span>02</span><div><p>Move the dial</p><h3 id="age-title">How old?</h3></div></div>
+                  <div class="age-stage" aria-hidden="true"><div class="age-orbit"><i></i><i></i><i></i><b data-age-stage-value>7</b><span>years</span></div><div class="age-life-track"><i data-age-life-fill></i><b></b></div><div class="age-life-labels"><span>New</span><span>Midlife</span><span>Older</span></div></div>
+                  <div class="age-control field-wide">
+                    <div class="age-label"><label for="age">Appliance age</label><output for="age" data-age-output>7 years</output></div>
+                    <input id="age" name="age" type="range" min="0" max="25" step="1" value="7">
+                    <div class="range-labels" aria-hidden="true"><span>0</span><span>12</span><span>25+</span></div>
                   </div>
-                </div>
-                <p class="field-hint">Include delivery, installation, connection parts, tax, and haul-away when known.</p>
+                  <div class="wizard-actions"><button class="wizard-back" type="button" data-lab-back>← Back</button><button class="button button-primary" type="button" data-lab-next>Next: price <span aria-hidden="true">→</span></button></div>
+                </section>
 
-                <details class="precision-panel">
-                  <summary><span>Improve the accuracy</span><small>5 optional details</small></summary>
-                  <div class="precision-grid">
-                    <div class="field"><label for="condition">Before this problem</label><select id="condition" name="condition"><option value="good">Reliable and working well</option><option value="fair">A few smaller issues</option><option value="poor">Already performing poorly</option></select></div>
-                    <div class="field"><label for="previous-repairs">Major repairs in 3 years</label><select id="previous-repairs" name="previous_repairs"><option value="0">None</option><option value="1">One</option><option value="2">Two or more</option></select></div>
-                    <div class="field"><label for="diagnosis-confidence">Diagnosis certainty</label><select id="diagnosis-confidence" name="diagnosis_confidence"><option value="unknown">No confirmed diagnosis</option><option value="likely">Likely cause identified</option><option value="confirmed">Written confirmed diagnosis</option></select></div>
-                    <div class="field"><label for="repair-warranty">Repair warranty</label><div class="input-suffix"><input id="repair-warranty" name="repair_warranty" type="number" min="0" max="36" step="1" inputmode="numeric" value="0"><span>months</span></div></div>
-                    <div class="field field-wide"><label for="annual-savings">Expected annual utility savings with replacement</label><div class="input-prefix"><span>$</span><input id="annual-savings" name="annual_savings" type="number" min="0" max="2000" step="1" inputmode="decimal" value="0"></div><small>Optional: use the difference between the two EnergyGuide estimates.</small></div>
+                <section class="lab-step" data-lab-step="2" aria-labelledby="price-title">
+                  <div class="step-question"><span>03</span><div><p>Balance both paths</p><h3 id="price-title">What’s the gap?</h3></div></div>
+                  <div class="price-balance" data-price-balance aria-hidden="true">
+                    <div class="balance-beam"><i></i><b></b></div>
+                    <div class="balance-pan repair-pan"><span>Repair</span><i data-repair-weight></i></div>
+                    <div class="balance-pan replace-pan"><span>New</span><i data-replace-weight></i></div>
+                    <div class="balance-center"><i></i><b></b></div>
                   </div>
-                </details>
+                  <div class="field-row money-row">
+                    <div class="field"><label for="repair-cost">Repair quote</label><div class="input-prefix"><span>$</span><input id="repair-cost" name="repair_cost" type="number" min="0" max="10000" step="1" inputmode="decimal" placeholder="280" required></div></div>
+                    <div class="field"><label for="replacement-cost">New, installed</label><div class="input-prefix"><span>$</span><input id="replacement-cost" name="replacement_cost" type="number" min="1" max="25000" step="1" inputmode="decimal" placeholder="850" required></div></div>
+                  </div>
 
-                <label class="safety-check"><input type="checkbox" name="safety_concern" value="yes"><span aria-hidden="true">!</span><span><strong>Possible safety issue</strong><small>Burning smell, shock, smoke, overheating, or water near wiring.</small></span></label>
-
-                <button class="button button-calculate" type="submit">Build my decision map <span aria-hidden="true">→</span></button>
-                <p class="form-note" id="calculator-note"><span aria-hidden="true">●</span> Your amounts stay on this device and are never sent to analytics.</p>
+                  <details class="precision-panel">
+                    <summary><span>Fine-tune the map</span><small>optional</small></summary>
+                    <div class="precision-grid">
+                      <div class="field"><label for="condition">Earlier condition</label><select id="condition" name="condition"><option value="good">Working well</option><option value="fair">Some issues</option><option value="poor">Performing poorly</option></select></div>
+                      <div class="field"><label for="previous-repairs">Recent major repairs</label><select id="previous-repairs" name="previous_repairs"><option value="0">None</option><option value="1">One</option><option value="2">Two or more</option></select></div>
+                      <div class="field"><label for="diagnosis-confidence">Diagnosis</label><select id="diagnosis-confidence" name="diagnosis_confidence"><option value="unknown">Unknown</option><option value="likely">Likely</option><option value="confirmed">Confirmed in writing</option></select></div>
+                      <div class="field"><label for="repair-warranty">Repair warranty</label><div class="input-suffix"><input id="repair-warranty" name="repair_warranty" type="number" min="0" max="36" step="1" inputmode="numeric" value="0"><span>months</span></div></div>
+                      <div class="field field-wide"><label for="annual-savings">New appliance yearly savings</label><div class="input-prefix"><span>$</span><input id="annual-savings" name="annual_savings" type="number" min="0" max="2000" step="1" inputmode="decimal" value="0"></div></div>
+                    </div>
+                  </details>
+                  <label class="safety-check"><input type="checkbox" name="safety_concern" value="yes"><span aria-hidden="true">!</span><span><strong>Safety concern?</strong><small>Smoke, shock, burning, overheating, or water near wiring.</small></span></label>
+                  <div class="wizard-actions"><button class="wizard-back" type="button" data-lab-back>← Back</button><button class="button button-calculate" type="submit">Animate my answer <span aria-hidden="true">→</span></button></div>
+                </section>
+                <p class="form-note" id="calculator-note"><span aria-hidden="true">●</span> Exact amounts never leave this browser.</p>
               </form>
 
               <aside class="decision-output-panel" aria-label="Calculator decision map">
@@ -207,36 +225,28 @@
       <section class="issue-section" aria-labelledby="issue-title">
         <div class="shell">
           <div class="section-heading">
-            <p class="section-kicker">Fast symptom paths</p>
+            <p class="section-kicker">Tap what you see</p>
             <div>
-              <h2 id="issue-title">Pick the symptom. Follow the safe path.</h2>
-              <p>Each guide turns troubleshooting into a short visual sequence: observe, check, test, then stop before unsafe work.</p>
+              <h2 id="issue-title">The symptom moves.</h2>
+              <p>Open it to watch the fix path.</p>
             </div>
           </div>
           <div class="issue-grid issue-grid-v2">
             <a class="issue-card" href="/guides/washer-not-draining/" data-track="issue_select" data-issue="washer-not-draining">
-              <span class="issue-type">Washer</span><span class="issue-symbol" aria-hidden="true">↓</span>
-              <h3>Water stays in</h3>
-              <div class="mini-path" aria-hidden="true"><span>Cycle</span><i></i><span>Hose</span><i></i><span>Filter</span></div>
-              <span class="card-link">Open the 5-step path →</span>
+              <span class="issue-type">Washer</span><div class="symptom-motion washer-water" aria-hidden="true"><div class="tiny-washer"><i class="tiny-door"><b></b></i><i class="tiny-light"></i></div><span class="water-level"></span><span class="motion-arrow">↓</span></div>
+              <h3>Water stays in</h3><span class="card-link">Watch the drain path →</span>
             </a>
             <a class="issue-card" href="/guides/washer-not-spinning/" data-track="issue_select" data-issue="washer-not-spinning">
-              <span class="issue-type">Washer</span><span class="issue-symbol" aria-hidden="true">↻</span>
-              <h3>Drum will not spin</h3>
-              <div class="mini-path" aria-hidden="true"><span>Cycle</span><i></i><span>Load</span><i></i><span>Drain</span></div>
-              <span class="card-link">Open the 5-step path →</span>
+              <span class="issue-type">Washer</span><div class="symptom-motion washer-spin" aria-hidden="true"><div class="tiny-washer"><i class="tiny-door"><b></b></i><i class="tiny-light"></i></div><span class="spin-ring"></span><span class="motion-arrow">↻</span></div>
+              <h3>Drum won’t spin</h3><span class="card-link">Watch the spin path →</span>
             </a>
             <a class="issue-card" href="/guides/dishwasher-not-draining/" data-track="issue_select" data-issue="dishwasher-not-draining">
-              <span class="issue-type">Dishwasher</span><span class="issue-symbol" aria-hidden="true">≋</span>
-              <h3>Water remains</h3>
-              <div class="mini-path" aria-hidden="true"><span>Cycle</span><i></i><span>Filter</span><i></i><span>Sink</span></div>
-              <span class="card-link">Open the 5-step path →</span>
+              <span class="issue-type">Dishwasher</span><div class="symptom-motion dishwasher-water" aria-hidden="true"><div class="tiny-dishwasher"><i></i><b></b><span></span></div><span class="water-level"></span><span class="motion-arrow">≋</span></div>
+              <h3>Water remains</h3><span class="card-link">Watch the drain path →</span>
             </a>
             <a class="issue-card" href="/guides/dishwasher-not-cleaning/" data-track="issue_select" data-issue="dishwasher-not-cleaning">
-              <span class="issue-type">Dishwasher</span><span class="issue-symbol" aria-hidden="true">✦</span>
-              <h3>Dishes stay dirty</h3>
-              <div class="mini-path" aria-hidden="true"><span>Load</span><i></i><span>Spray</span><i></i><span>Filter</span></div>
-              <span class="card-link">Open the 6-step path →</span>
+              <span class="issue-type">Dishwasher</span><div class="symptom-motion dishwasher-spray" aria-hidden="true"><div class="tiny-dishwasher"><i></i><b></b><span></span></div><span class="spray-a"></span><span class="spray-b"></span><span class="motion-arrow">✦</span></div>
+              <h3>Dishes stay dirty</h3><span class="card-link">Watch the clean path →</span>
             </a>
           </div>
           <div class="center-action"><a class="button button-outline" href="/diagnose/">Open the problem finder <span aria-hidden="true">→</span></a></div>
@@ -245,16 +255,14 @@
 
       <section class="preview-next" id="how-it-works" aria-labelledby="next-title">
         <div class="shell preview-next-grid">
-          <div><p class="section-kicker">No black box</p><h2 id="next-title">Five signals. One transparent map.</h2><p>Every point is visible. Change an answer and see which pressure moved.</p><a class="light-link" href="/methodology/">Inspect every rule →</a></div>
+          <div><p class="section-kicker">Inside the machine</p><h2 id="next-title">Signals push.<br>The needle moves.</h2><p>Nothing is hidden.</p><a class="light-link" href="/methodology/">Play with the scoring machine →</a></div>
           <div>
-            <div class="signal-stack-chart" role="img" aria-label="Decision signal weighting illustration">
-              <div><span>Repair quote</span><i><b class="signal-quote"></b></i><strong>largest signal</strong></div>
-              <div><span>Age + life stage</span><i><b class="signal-age"></b></i><strong>up to 37 pts</strong></div>
-              <div><span>Reliability</span><i><b class="signal-reliability"></b></i><strong>up to 19 pts</strong></div>
-              <div><span>Efficiency</span><i><b class="signal-efficiency"></b></i><strong>your input</strong></div>
-              <div class="is-credit"><span>Repair warranty</span><i><b class="signal-warranty"></b></i><strong>pulls back</strong></div>
+            <div class="signal-theater" role="img" aria-label="Price, age, reliability, efficiency, and warranty move a decision needle">
+              <div class="signal-conveyor" aria-hidden="true"><span>$</span><span>07</span><span>↻</span><span>⚡</span><span>W</span><i></i></div>
+              <div class="signal-press" aria-hidden="true"><i></i><b></b></div>
+              <div class="decision-dial" aria-hidden="true"><span>Repair</span><span>Compare</span><span>Replace</span><i></i><b></b></div>
+              <div class="signal-caption"><span>5 inputs</span><i></i><strong>1 visible score</strong></div>
             </div>
-            <div class="zone-scale"><span>Repair</span><span>Compare</span><span>Replace</span></div>
           </div>
         </div>
       </section>
@@ -262,15 +270,16 @@
       <section class="data-section" aria-labelledby="data-title">
         <div class="shell data-grid">
           <div>
-            <p class="section-kicker dark-kicker">Privacy, shown visually</p>
-            <h2 id="data-title">The numbers stay here.</h2>
-            <p class="data-lede">The site measures whether the tool works—not what your appliance costs.</p>
+            <p class="section-kicker dark-kicker">Privacy gate</p>
+            <h2 id="data-title">Your dollars hit a wall.</h2>
+            <p class="data-lede">Only broad, anonymous signals pass.</p>
           </div>
-          <div class="privacy-map">
-            <div class="privacy-lane stays"><span aria-hidden="true">⌂</span><div><strong>Stays in your browser</strong><small>age · prices · warranty · condition</small></div></div>
-            <div class="privacy-divider" aria-hidden="true"><i></i><b>only broad result ranges</b><i></i></div>
-            <div class="privacy-lane aggregate"><span aria-hidden="true">▦</span><div><strong>Aggregate measurement</strong><small>page view · tool completed · result category</small></div></div>
-            <a class="text-link" href="/privacy/">Open the full privacy map →</a>
+          <div class="data-gate" aria-label="Exact values stay in the browser while broad anonymous measurement may pass">
+            <div class="data-source" aria-hidden="true"><span>$280</span><span>7 yrs</span><span>$850</span></div>
+            <div class="gate-wall" aria-hidden="true"><i></i><b>PRIVATE</b><i></i></div>
+            <div class="data-pass" aria-hidden="true"><span>visit</span><span>complete</span><span>range</span></div>
+            <div class="gate-labels"><strong>Exact stays</strong><strong>Broad passes</strong></div>
+            <a class="text-link" href="/privacy/">See the privacy gate →</a>
           </div>
         </div>
       </section>
@@ -298,9 +307,10 @@
         <p class="footer-note">Educational guidance—not a substitute for a qualified technician.</p>
       </div>
     </footer>
-    <script src="/assets/analytics.js?v=20260826-3" defer></script>
-    <script src="/assets/calculator-engine.js?v=20260826-3" defer></script>
-    <script src="/assets/app.js?v=20260826-3" defer></script>
-    <script src="/assets/motion.js?v=20260826-3" defer></script>
+    <script src="/assets/analytics.js?v=20260826-4" defer></script>
+    <script src="/assets/calculator-engine.js?v=20260826-4" defer></script>
+    <script src="/assets/app.js?v=20260826-4" defer></script>
+    <script src="/assets/experience.js?v=20260826-4" defer></script>
+    <script src="/assets/motion.js?v=20260826-4" defer></script>
   </body>
 </html>

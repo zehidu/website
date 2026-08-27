@@ -7,7 +7,7 @@
     <meta name="description" content="Find safe first checks and practical next steps for common washing machine and dishwasher symptoms.">
     <meta name="robots" content="index,follow,max-image-preview:large">
     <link rel="canonical" href="https://therenewup.com/diagnose/">
-    <link rel="stylesheet" href="/assets/styles.css?v=20260826-3">
+    <link rel="stylesheet" href="/assets/styles.css?v=20260826-4">
     <link rel="icon" href="/favicon.ico" sizes="any">
     <meta name="theme-color" content="#f5f1e8">
     <meta property="og:type" content="website">
@@ -33,22 +33,20 @@
         <ol class="breadcrumbs"><li><a href="/">Home</a></li><li aria-current="page">Problem finder</li></ol>
         <header class="page-hero">
           <div>
-            <p class="eyebrow"><span>Problem finder</span> 4 visual paths</p>
-            <h1>Start with the symptom.</h1>
-            <p class="lede">Pick what you see. We arrange the safest checks from easiest to stop boundary.</p>
+            <p class="eyebrow"><span>Problem finder</span> Watch · match · move</p>
+            <h1>What do you see?</h1>
+            <p class="lede">Tap the motion that matches.</p>
           </div>
-          <aside class="page-aside safety-aside"><span aria-hidden="true">!</span><div><strong>Safety beats diagnosis</strong><p>Disconnect power and close water before touching a filter or hose. Never bypass a lock or safety switch.</p></div></aside>
+          <aside class="page-aside safety-aside"><span aria-hidden="true">!</span><div><strong>See smoke, shock, or a leak?</strong><p>Stop. Disconnect safely.</p></div></aside>
         </header>
 
-        <section class="diagnostic-route" aria-label="How the problem finder works">
-          <div><span>1</span><strong>Match the symptom</strong><small>Choose what the appliance does—not a guessed part.</small></div>
-          <div><span>2</span><strong>Check the simple path</strong><small>Settings, load, visible hoses, filters, and installation.</small></div>
-          <div><span>3</span><strong>Run one test</strong><small>Record the cycle, code, sound, and what changed.</small></div>
-          <div><span>4</span><strong>Respect the stop line</strong><small>Leaks, heat, wiring, or repeat failure need qualified help.</small></div>
+        <section class="diagnose-flow" aria-label="Observe, check, test once, then stop before unsafe work">
+          <div class="flow-rail" aria-hidden="true"><i></i></div>
+          <div><span>◎</span><strong>Observe</strong></div><div><span>◇</span><strong>Check</strong></div><div><span>1×</span><strong>Test</strong></div><div class="is-stop"><span>!</span><strong>Stop</strong></div>
         </section>
 
         <section class="search-panel" aria-labelledby="search-label">
-          <label id="search-label" for="issue-search">Find your symptom</label>
+          <label id="search-label" for="issue-search">Name it—or tap it below</label>
           <div class="search-control"><input id="issue-search" type="search" data-issue-search placeholder="Try “not draining” or “dirty dishes”" autocomplete="off"><a class="button button-primary" href="/#calculator">Use cost calculator</a></div>
           <div class="filter-row" role="group" aria-label="Filter by appliance">
             <button class="filter-button" type="button" data-appliance-filter="all" aria-pressed="true">All appliances</button>
@@ -59,16 +57,16 @@
 
         <div class="library-grid library-grid-visual">
           <article class="library-card" data-issue-card data-appliance="washer" data-search="washing machine washer not draining water left wet clothes drain hose filter pump">
-            <span class="issue-type">Washer</span><span class="library-symbol" aria-hidden="true">↓</span><h2>Water stays in</h2><div class="mini-path" aria-hidden="true"><span>Cycle</span><i></i><span>Hose</span><i></i><span>Filter</span></div><a href="/guides/washer-not-draining/" data-track="issue_select" data-issue="washer-not-draining">Open 5-step path →</a>
+            <span class="issue-type">Washer</span><div class="symptom-motion washer-water" aria-hidden="true"><div class="tiny-washer"><i class="tiny-door"><b></b></i><i class="tiny-light"></i></div><span class="water-level"></span><span class="motion-arrow">↓</span></div><h2>Water stays in</h2><a href="/guides/washer-not-draining/" data-track="issue_select" data-issue="washer-not-draining">Watch the path →</a>
           </article>
           <article class="library-card" data-issue-card data-appliance="washer" data-search="washing machine washer not spinning spin cycle wet clothes unbalanced load locked door">
-            <span class="issue-type">Washer</span><span class="library-symbol" aria-hidden="true">↻</span><h2>Drum will not spin</h2><div class="mini-path" aria-hidden="true"><span>Cycle</span><i></i><span>Load</span><i></i><span>Drain</span></div><a href="/guides/washer-not-spinning/" data-track="issue_select" data-issue="washer-not-spinning">Open 5-step path →</a>
+            <span class="issue-type">Washer</span><div class="symptom-motion washer-spin" aria-hidden="true"><div class="tiny-washer"><i class="tiny-door"><b></b></i><i class="tiny-light"></i></div><span class="spin-ring"></span><span class="motion-arrow">↻</span></div><h2>Drum won’t spin</h2><a href="/guides/washer-not-spinning/" data-track="issue_select" data-issue="washer-not-spinning">Watch the path →</a>
           </article>
           <article class="library-card" data-issue-card data-appliance="dishwasher" data-search="dishwasher not draining standing water filter drain hose disposal">
-            <span class="issue-type">Dishwasher</span><span class="library-symbol" aria-hidden="true">≋</span><h2>Water remains</h2><div class="mini-path" aria-hidden="true"><span>Cycle</span><i></i><span>Filter</span><i></i><span>Sink</span></div><a href="/guides/dishwasher-not-draining/" data-track="issue_select" data-issue="dishwasher-not-draining">Open 5-step path →</a>
+            <span class="issue-type">Dishwasher</span><div class="symptom-motion dishwasher-water" aria-hidden="true"><div class="tiny-dishwasher"><i></i><b></b><span></span></div><span class="water-level"></span><span class="motion-arrow">≋</span></div><h2>Water remains</h2><a href="/guides/dishwasher-not-draining/" data-track="issue_select" data-issue="dishwasher-not-draining">Watch the path →</a>
           </article>
           <article class="library-card" data-issue-card data-appliance="dishwasher" data-search="dishwasher not cleaning dirty dishes cloudy food spray arm filter detergent water temperature">
-            <span class="issue-type">Dishwasher</span><span class="library-symbol" aria-hidden="true">✦</span><h2>Dishes stay dirty</h2><div class="mini-path" aria-hidden="true"><span>Load</span><i></i><span>Spray</span><i></i><span>Filter</span></div><a href="/guides/dishwasher-not-cleaning/" data-track="issue_select" data-issue="dishwasher-not-cleaning">Open 6-step path →</a>
+            <span class="issue-type">Dishwasher</span><div class="symptom-motion dishwasher-spray" aria-hidden="true"><div class="tiny-dishwasher"><i></i><b></b><span></span></div><span class="spray-a"></span><span class="spray-b"></span><span class="motion-arrow">✦</span></div><h2>Dishes stay dirty</h2><a href="/guides/dishwasher-not-cleaning/" data-track="issue_select" data-issue="dishwasher-not-cleaning">Watch the path →</a>
           </article>
         </div>
         <p class="empty-state" data-empty-state hidden>No matching guide yet. Try a shorter symptom, or use the repair-or-replace calculator while we expand the library.</p>
@@ -76,8 +74,9 @@
     </main>
 
     <footer class="site-footer"><div class="shell footer-inner"><div><a class="footer-brand" href="/">The Renew Up</a><p>Repair smarter. Replace with confidence.</p></div><nav aria-label="Footer navigation"><a href="/diagnose/">Diagnose</a><a href="/recalls/">Recalls</a><a href="/methodology/">Methodology</a><a href="/privacy/">Privacy</a></nav><p class="footer-note">Educational guidance—not a substitute for a qualified technician.</p></div></footer>
-    <script src="/assets/analytics.js?v=20260826-3" defer></script>
-    <script src="/assets/app.js?v=20260826-3" defer></script>
-    <script src="/assets/motion.js?v=20260826-3" defer></script>
+    <script src="/assets/analytics.js?v=20260826-4" defer></script>
+    <script src="/assets/app.js?v=20260826-4" defer></script>
+    <script src="/assets/experience.js?v=20260826-4" defer></script>
+    <script src="/assets/motion.js?v=20260826-4" defer></script>
   </body>
 </html>

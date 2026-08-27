@@ -20,14 +20,18 @@ var htmlFiles = [
 
 htmlFiles.forEach(function (relativePath) {
   var html = fs.readFileSync(path.join(root, relativePath), "utf8");
-  assert.match(html, /assets\/styles\.css\?v=20260826-3/, relativePath + " must load the motion stylesheet release");
-  assert.match(html, /assets\/motion\.js\?v=20260826-3/, relativePath + " must load the shared motion controller");
+  assert.match(html, /assets\/styles\.css\?v=20260826-4/, relativePath + " must load the motion-first stylesheet release");
+  assert.match(html, /assets\/experience\.js\?v=20260826-4/, relativePath + " must load the visual experience controller");
+  assert.match(html, /assets\/motion\.js\?v=20260826-4/, relativePath + " must load the shared motion controller");
+  assert.equal((html.match(/assets\/experience\.js/g) || []).length, 1, relativePath + " must load experience exactly once");
   assert.equal((html.match(/assets\/motion\.js/g) || []).length, 1, relativePath + " must load motion exactly once");
 });
 
 var motion = fs.readFileSync(path.join(root, "assets/motion.js"), "utf8");
+var experience = fs.readFileSync(path.join(root, "assets/experience.js"), "utf8");
 var styles = fs.readFileSync(path.join(root, "assets/styles.css"), "utf8");
 var app = fs.readFileSync(path.join(root, "assets/app.js"), "utf8");
+var home = fs.readFileSync(path.join(root, "index.html"), "utf8");
 
 assert.match(motion, /prefers-reduced-motion/);
 assert.match(motion, /IntersectionObserver/);
@@ -37,6 +41,20 @@ assert.match(styles, /@media \(prefers-reduced-motion: reduce\)/);
 assert.match(styles, /@keyframes map-scan/);
 assert.match(styles, /@keyframes data-travel/);
 assert.match(styles, /@keyframes timeline-arrive/);
+assert.match(styles, /@keyframes scene-progress/);
+assert.match(styles, /@keyframes factory-needle/);
+assert.match(experience, /data-scene/);
+assert.match(experience, /prefers-reduced-motion/);
+assert.match(experience, /data-orbit-signal/);
 assert.match(app, /new CustomEvent\("renewup:result-rendered"/);
+assert.match(app, /data-lab-step/);
+assert.equal((home.match(/data-lab-step="/g) || []).length, 3, "home must expose three visual calculator steps");
+assert.match(home, /data-decision-orbit/);
 
-console.log("Motion coverage and reduced-motion contract passed for all 10 HTML routes.");
+htmlFiles.filter(function (relativePath) { return relativePath.startsWith("guides/"); }).forEach(function (relativePath) {
+  var guide = fs.readFileSync(path.join(root, relativePath), "utf8");
+  assert.equal((guide.match(/data-scene(?:>|\s)/g) || []).length, 4, relativePath + " must have four animated scenes");
+  assert.match(guide, /<details class="deep-notes">/, relativePath + " must keep technical notes behind a disclosure");
+});
+
+console.log("Motion-first scenes, wizard, and reduced-motion contract passed for all 10 HTML routes.");

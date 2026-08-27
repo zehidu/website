@@ -98,6 +98,8 @@
     var ageOutput = form.querySelector("[data-age-output]");
     var symptomField = form.elements.symptom;
     var progressItems = Array.from(document.querySelectorAll(".progress-rail li"));
+    var labSteps = Array.from(form.querySelectorAll("[data-lab-step]"));
+    var currentStep = 0;
     if (!result || !emptyResult || !engine) return;
     var started = false;
 
@@ -125,12 +127,44 @@
       var age = Number(ageField.value);
       ageOutput.textContent = age + (age === 1 ? " year" : " years");
       ageField.style.setProperty("--range-progress", (age / Number(ageField.max)) * 100 + "%");
+      setText(form, "[data-age-stage-value]", age);
+      var ageFill = form.querySelector("[data-age-life-fill]");
+      if (ageFill) ageFill.style.width = (age / Number(ageField.max)) * 100 + "%";
     }
 
     function updateProgress(stage) {
       progressItems.forEach(function (item, index) {
         item.classList.toggle("is-active", index <= stage);
+        item.classList.toggle("is-current", index === stage);
       });
+    }
+
+    function showStep(index, focusControl) {
+      if (!labSteps.length) return;
+      currentStep = Math.max(0, Math.min(index, labSteps.length - 1));
+      form.dataset.currentStep = String(currentStep);
+      labSteps.forEach(function (step, stepIndex) {
+        var active = stepIndex === currentStep;
+        step.hidden = !active;
+        step.classList.toggle("is-active", active);
+      });
+      updateProgress(currentStep);
+      if (focusControl) {
+        var focusTarget = labSteps[currentStep].querySelector("input:not([type='hidden']), select, button");
+        if (focusTarget) focusTarget.focus({ preventScroll: true });
+      }
+      analytics("calculator_step_view", { step_number: currentStep + 1, calculator_version: engine.version });
+    }
+
+    function validatePickStep() {
+      clearErrors(form);
+      var appliance = selectedAppliance();
+      if (engine.assumptions[appliance]) return true;
+      var firstAppliance = form.querySelector("input[name='appliance']");
+      showError(firstAppliance, "Choose a washing machine or dishwasher.", form.querySelector("[data-appliance-group]"));
+      if (firstAppliance) firstAppliance.focus();
+      analytics("calculator_validation_error", { field_count: 1, calculator_version: engine.version });
+      return false;
     }
 
     function updatePreview() {
@@ -151,7 +185,18 @@
       } else if (marker) {
         marker.classList.remove("is-ready");
       }
-      updateProgress(appliance && form.elements.repair_cost.value && form.elements.replacement_cost.value ? 1 : 0);
+
+      var balance = form.querySelector("[data-price-balance]");
+      if (balance) {
+        var maxValue = Math.max(repair || 0, replacement || 0, 1);
+        var repairLoad = repair > 0 ? Math.max(18, (repair / maxValue) * 100) : 18;
+        var replaceLoad = replacement > 0 ? Math.max(18, (replacement / maxValue) * 100) : 18;
+        var tilt = repair > 0 && replacement > 0 ? Math.max(-7, Math.min(7, ((repair - replacement) / maxValue) * 8)) : 0;
+        balance.style.setProperty("--repair-load", repairLoad + "%");
+        balance.style.setProperty("--replace-load", replaceLoad + "%");
+        balance.style.setProperty("--balance-tilt", tilt + "deg");
+        balance.classList.toggle("has-values", repair > 0 || replacement > 0);
+      }
     }
 
     function readCalculation() {
@@ -236,7 +281,7 @@
 
       emptyResult.hidden = true;
       result.hidden = false;
-      updateProgress(2);
+      updateProgress(3);
       window.requestAnimationFrame(function () {
         window.requestAnimationFrame(function () {
           if (result._renderToken !== renderToken) return;
@@ -268,8 +313,27 @@
       updatePreview();
     });
 
+    form.querySelectorAll("[data-lab-next]").forEach(function (button) {
+      button.addEventListener("click", function () {
+        if (currentStep === 0 && !validatePickStep()) return;
+        showStep(currentStep + 1, true);
+      });
+    });
+
+    form.querySelectorAll("[data-lab-back]").forEach(function (button) {
+      button.addEventListener("click", function () {
+        clearErrors(form);
+        showStep(currentStep - 1, true);
+      });
+    });
+
     form.addEventListener("submit", function (event) {
       event.preventDefault();
+      if (currentStep < 2 && labSteps.length) {
+        if (currentStep === 0 && !validatePickStep()) return;
+        showStep(currentStep + 1, true);
+        return;
+      }
       clearErrors(form);
       var appliance = selectedAppliance();
       var repairField = form.elements.repair_cost;
@@ -292,6 +356,8 @@
 
       if (invalid.length) {
         analytics("calculator_validation_error", { field_count: invalid.length, calculator_version: engine.version });
+        if (!engine.assumptions[appliance]) showStep(0, false);
+        else showStep(2, false);
         invalid[0].focus();
         return;
       }
@@ -318,6 +384,7 @@
       updatePreview();
       result.hidden = true;
       emptyResult.hidden = false;
+      showStep(0, false);
       form.querySelector("input[name='appliance']").focus();
       analytics("calculator_reset", { calculator_version: engine.version });
     });
@@ -326,6 +393,8 @@
     renderSymptoms("");
     updateAgeOutput();
     updatePreview();
+    form.classList.add("wizard-ready");
+    showStep(0, false);
   }
 
   function setupIssueLibrary() {

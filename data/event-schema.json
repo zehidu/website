@@ -1,6 +1,6 @@
 {
-  "schema_version": "1.1",
-  "content_version": "decision-lab-v2-2026-08-26",
+  "schema_version": "1.2",
+  "content_version": "motion-first-v3-2026-08-26",
   "identity": {
     "session_id": "Random per browser tab; no cross-device or cross-site identity",
     "user_id": null,
@@ -26,6 +26,9 @@
     "calculator_validation_error": ["field_count", "calculator_version"],
     "calculator_complete": ["appliance", "decision", "repair_ratio_bucket", "life_used_bucket", "calculator_version"],
     "calculator_reset": ["calculator_version"],
+    "calculator_step_view": ["step_number", "calculator_version"],
+    "visual_step_change": ["content_type", "player_index", "step_number"],
+    "decision_signal_view": ["signal"],
     "issue_search": ["query_length", "results_count", "appliance_filter"],
     "issue_select": ["issue", "target_path"],
     "recall_check_click": ["source_name", "target_path"],

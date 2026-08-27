@@ -16,9 +16,9 @@ Open http://127.0.0.1:4173/ and run the repeatable checks in another PowerShell 
 
 No package installation, database, or paid local service is required.
 
-## Decision Lab v2 surface
+## Motion-first Decision Lab surface
 
-- / — visual repair-or-replace workbench with progressive precision inputs, score drivers, value-per-year comparison, break-even guardrail, and five-year planning view
+- / — interactive decision orbit and a three-screen visual repair-or-replace wizard with animated output
 - /diagnose/ — searchable visual symptom paths
 - /guides/washer-not-draining/
 - /guides/washer-not-spinning/
@@ -28,7 +28,7 @@ No package installation, database, or paid local service is required.
 - /methodology/ — versioned calculator formula, boundaries, and limitations
 - /privacy/ — current and planned measurement disclosure
 
-The shared motion layer uses intersection-aware CSS transitions, animated calculator feedback, reading progress, and active section guidance. It honors `prefers-reduced-motion`, requires no animation library, and keeps all content usable when JavaScript is unavailable.
+The shared experience layer adds touch-controlled scene players, decision-signal motion, calculator feedback, reading progress, and active section guidance. It honors `prefers-reduced-motion`, pauses autoplay during interaction, requires no animation library, and keeps content usable when JavaScript is unavailable.
 
 Product data, the content roadmap, and the analytics contract live in data/. The decision and dashboard architecture is documented in MEASUREMENT.md.
 
