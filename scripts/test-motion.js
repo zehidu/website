@@ -20,9 +20,9 @@ var htmlFiles = [
 
 htmlFiles.forEach(function (relativePath) {
   var html = fs.readFileSync(path.join(root, relativePath), "utf8");
-  assert.match(html, /assets\/styles\.css\?v=20260826-5/, relativePath + " must load the coherent-story stylesheet release");
-  assert.match(html, /assets\/experience\.js\?v=20260826-5/, relativePath + " must load the visual experience controller");
-  assert.match(html, /assets\/motion\.js\?v=20260826-5/, relativePath + " must load the shared motion controller");
+  assert.match(html, /assets\/styles\.css\?v=20260826-6/, relativePath + " must load the clear-story-card stylesheet release");
+  assert.match(html, /assets\/experience\.js\?v=20260826-6/, relativePath + " must load the visual experience controller");
+  assert.match(html, /assets\/motion\.js\?v=20260826-6/, relativePath + " must load the shared motion controller");
   assert.equal((html.match(/assets\/experience\.js/g) || []).length, 1, relativePath + " must load experience exactly once");
   assert.equal((html.match(/assets\/motion\.js/g) || []).length, 1, relativePath + " must load motion exactly once");
 });
@@ -49,12 +49,16 @@ assert.match(experience, /data-scene/);
 assert.match(experience, /prefers-reduced-motion/);
 assert.match(experience, /setupCalculatorStory/);
 assert.match(experience, /renewUpCalculator/);
+assert.match(experience, /touchstart/);
 assert.match(app, /new CustomEvent\("renewup:result-rendered"/);
 assert.match(app, /data-lab-step/);
 assert.equal((home.match(/data-lab-step="/g) || []).length, 3, "home must expose three visual calculator steps");
 assert.match(home, /data-calculator-story/);
 assert.equal((home.match(/data-story-scene(?:>|\s)/g) || []).length, 9, "home must expose nine connected calculator-story scenes");
-assert.equal((home.match(/data-story-go=/g) || []).length, 9, "home must expose nine direct stage controls");
+assert.equal((home.match(/data-story-segment(?:>|\s)/g) || []).length, 9, "home must expose one quiet nine-segment story progress line");
+assert.equal((home.match(/class="story-dock"/g) || []).length, 1, "home must expose one compact walkthrough control card");
+assert.match(home, /data-story-current/);
+assert.doesNotMatch(home, /story-ledger|story-stepper|story-controls/, "home must not repeat walkthrough navigation systems");
 assert.match(home, /data-story-repair-ratio/);
 assert.match(home, /data-story-cap/);
 assert.match(home, /data-story-trigger/);

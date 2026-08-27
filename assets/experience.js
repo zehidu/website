@@ -98,12 +98,15 @@
 
   function setupCalculatorStory(story) {
     var scenes = Array.from(story.querySelectorAll("[data-story-scene]"));
-    var steps = Array.from(story.querySelectorAll("[data-story-go]"));
-    var ledger = Array.from(story.querySelectorAll("[data-story-unlock]"));
+    var segments = Array.from(story.querySelectorAll("[data-story-segment]"));
+    var viewport = story.querySelector(".story-viewport");
     var previous = story.querySelector("[data-story-prev]");
     var next = story.querySelector("[data-story-next]");
     var toggle = story.querySelector("[data-story-toggle]");
     var counter = story.querySelector("[data-story-counter]");
+    var currentName = story.querySelector("[data-story-current]");
+    var nextAction = story.querySelector("[data-story-next-action]");
+    var nextLabel = story.querySelector("[data-story-next-label]");
     var progress = story.querySelector("[data-story-progress]");
     var engine = window.renewUpCalculator;
     var duration = Number(story.dataset.duration) || 4600;
@@ -133,8 +136,6 @@
         symptom: "washer-not-draining"
       });
       var planningLife = engine.assumptions[appliance].planningLife;
-      var driverMaximums = { quote: 60, age: 37, reliability: 19, efficiency: 10, warranty: 8 };
-
       story._exampleCalculation = calculation;
       story.dataset.storyDecision = calculation.decision;
       story.style.setProperty("--story-life", Math.min(calculation.lifeUsed * 100, 100) + "%");
@@ -171,8 +172,6 @@
       Object.keys(calculation.drivers).forEach(function (driver) {
         var rounded = Math.round(calculation.drivers[driver]);
         setStoryText(story, "[data-story-driver-value='" + driver + "']", rounded);
-        var ledgerItem = story.querySelector("[data-story-driver='" + driver + "']");
-        if (ledgerItem) ledgerItem.style.setProperty("--driver-fill", Math.min((calculation.drivers[driver] / driverMaximums[driver]) * 100, 100) + "%");
       });
 
       calculation.timeline.forEach(function (entry) {
@@ -260,18 +259,19 @@
         scene.classList.toggle("is-active", selected);
         scene.setAttribute("aria-hidden", String(!selected));
       });
-      steps.forEach(function (step, stepIndex) {
-        var selected = stepIndex === active;
-        step.classList.toggle("is-active", selected);
-        step.classList.toggle("is-complete", stepIndex < active);
-        step.setAttribute("aria-pressed", String(selected));
-      });
-      ledger.forEach(function (item) {
-        var unlock = Number(item.dataset.storyUnlock);
-        item.classList.toggle("is-reached", active >= unlock);
-        item.classList.toggle("is-current", active === unlock || active === 6);
+      segments.forEach(function (segment, segmentIndex) {
+        segment.classList.toggle("is-active", segmentIndex === active);
+        segment.classList.toggle("is-complete", segmentIndex < active);
       });
       if (counter) counter.textContent = String(active + 1).padStart(2, "0") + " / " + String(scenes.length).padStart(2, "0");
+      var stageName = scenes[active].dataset.storyName || "Step " + String(active + 1);
+      var nextIndex = (active + 1) % scenes.length;
+      var upcomingName = scenes[nextIndex].dataset.storyName || "Step " + String(nextIndex + 1);
+      if (currentName) currentName.textContent = stageName;
+      if (nextAction) nextAction.textContent = active === scenes.length - 1 ? "Replay" : "Next";
+      if (nextLabel) nextLabel.textContent = upcomingName;
+      if (previous) previous.setAttribute("aria-label", "Previous: " + (scenes[(active - 1 + scenes.length) % scenes.length].dataset.storyName || "walkthrough stage"));
+      if (next) next.setAttribute("aria-label", (active === scenes.length - 1 ? "Replay from: " : "Next: ") + upcomingName);
       if (active === 6) animateScore();
       else if (story._exampleCalculation) {
         if (scoreFrame) window.cancelAnimationFrame(scoreFrame);
@@ -285,9 +285,6 @@
       }
     }
 
-    steps.forEach(function (step) {
-      step.addEventListener("click", function () { show(Number(step.dataset.storyGo), true); });
-    });
     if (previous) previous.addEventListener("click", function () { show(active - 1, true); });
     if (next) next.addEventListener("click", function () { show(active + 1, true); });
     if (toggle) toggle.addEventListener("click", function () {
@@ -303,6 +300,23 @@
     story.addEventListener("mouseenter", function () { hovering = true; schedule(); });
     story.addEventListener("mouseleave", function () { hovering = false; schedule(); });
     document.addEventListener("visibilitychange", schedule);
+
+    if (viewport) {
+      var touchStart = null;
+      viewport.addEventListener("touchstart", function (event) {
+        if (event.touches.length !== 1) return;
+        touchStart = { x: event.touches[0].clientX, y: event.touches[0].clientY };
+      }, { passive: true });
+      viewport.addEventListener("touchend", function (event) {
+        if (!touchStart || !event.changedTouches.length) return;
+        var horizontal = event.changedTouches[0].clientX - touchStart.x;
+        var vertical = event.changedTouches[0].clientY - touchStart.y;
+        touchStart = null;
+        if (Math.abs(horizontal) < 48 || Math.abs(horizontal) < Math.abs(vertical) * 1.25) return;
+        show(active + (horizontal < 0 ? 1 : -1), true);
+      }, { passive: true });
+      viewport.addEventListener("touchcancel", function () { touchStart = null; }, { passive: true });
+    }
 
     if ("IntersectionObserver" in window) {
       var observer = new IntersectionObserver(function (entries) {

@@ -2,6 +2,15 @@
 
 All material website changes are recorded here. Production status is stated explicitly so a local build is never mistaken for a live result.
 
+## 2026-08-26 — Clear mobile story card
+
+- Removed the persistent score ledger and nine-label tab strip from beneath the homepage animation
+- Consolidated previous, current step, progress, play/pause, and next into one compact control card
+- Turned each mobile explanation into a raised light card that is visually separate from the animated scene
+- Added horizontal swipe navigation while preserving normal vertical page scrolling
+- Kept detailed score drivers inside the score scene instead of repeating them under every stage
+- Versioned every production asset as release `20260826-6`
+
 ## 2026-08-26 — Coherent calculator story
 
 - Rebuilt the homepage hero as one connected nine-stage worked example instead of independent signal loops

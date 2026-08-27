@@ -2,7 +2,7 @@
   "use strict";
 
   var EVENT_VERSION = "1.0";
-  var CONTENT_VERSION = "calculator-story-v4-2026-08-26";
+  var CONTENT_VERSION = "story-card-v5-2026-08-26";
   var PREVIEW_KEY = "renewup_preview_events";
   var SESSION_KEY = "renewup_session_id";
   var allowedEvents = new Set([

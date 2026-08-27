@@ -7,7 +7,7 @@
     <meta name="description" content="Make a confident appliance decision with practical repair guidance, recall checks, and a free repair-or-replace calculator.">
     <meta name="robots" content="index,follow,max-image-preview:large">
     <link rel="canonical" href="https://therenewup.com/">
-    <link rel="stylesheet" href="/assets/styles.css?v=20260826-5">
+    <link rel="stylesheet" href="/assets/styles.css?v=20260826-6">
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="alternate" type="application/rss+xml" title="The Renew Up appliance guides" href="https://therenewup.com/feed.xml">
     <meta name="theme-color" content="#f5f1e8">
@@ -72,69 +72,66 @@
             </div>
 
             <section class="calculator-story" data-calculator-story data-story-index="0" data-duration="4600" data-example-appliance="washer" data-example-age="8" data-example-repair="390" data-example-replacement="850" data-example-condition="fair" data-example-repairs="1" data-example-diagnosis="likely" data-example-warranty="6" data-example-savings="25" aria-label="Animated walkthrough of every calculator input and output">
-              <div class="story-topbar"><span><i aria-hidden="true"></i> Worked example</span><b data-story-counter>01 / 09</b></div>
+              <div class="story-topbar"><span><i aria-hidden="true"></i> Worked example</span><b>Guided story</b></div>
               <div class="story-sample" aria-label="Example values"><span>Washer</span><i aria-hidden="true">·</i><span>8 years</span><i aria-hidden="true">·</i><span>$390 repair</span><i aria-hidden="true">·</i><span>$850 new</span><b>EXAMPLE</b></div>
 
               <div class="story-viewport">
-                <article class="story-scene is-active" data-story-scene>
+                <article class="story-scene is-active" data-story-scene data-story-name="Context">
                   <div class="story-canvas canvas-context" aria-hidden="true"><div class="story-washer"><i class="story-panel"></i><div class="story-drum"><i class="story-water"></i><b></b></div><span></span></div><div class="symptom-signal"><i></i><b>WATER<br>STAYS IN</b></div><div class="context-link"><i></i><span>11 yr</span></div></div>
                   <div class="story-explain"><span class="story-stage-label">01 · CONTEXT</span><h2>Choose what failed.</h2><p>Appliance + symptom select the planning model. They do not guess the broken part.</p><div class="story-equation"><span>Washer</span><b>+</b><span>Not draining</span><b>→</b><strong><output data-story-planning-life>11</output>-year life</strong></div></div>
                 </article>
 
-                <article class="story-scene" data-story-scene>
+                <article class="story-scene" data-story-scene data-story-name="Life used">
                   <div class="story-canvas canvas-life" aria-hidden="true"><div class="life-gauge"><i></i><b>8</b><span>of <output data-story-planning-life>11</output> years</span></div><div class="life-result"><span>Life used</span><strong data-story-life-used>73%</strong><i></i></div><div class="pressure-pill">+<output data-story-driver-value="age">18</output> pressure</div></div>
                   <div class="story-explain"><span class="story-stage-label">02 · AGE</span><h2>Turn age into life used.</h2><p>The same age means something different for each appliance type.</p><div class="story-equation"><span>8 years</span><b>÷</b><span><output data-story-planning-life>11</output>-year life</span><b>=</b><strong data-story-life-used>73%</strong></div></div>
                 </article>
 
-                <article class="story-scene" data-story-scene>
+                <article class="story-scene" data-story-scene data-story-name="Price ratio">
                   <div class="story-canvas canvas-price" aria-hidden="true"><div class="quote-columns"><div class="quote-column quote-repair"><span>Repair</span><i></i><b>$390</b></div><div class="ratio-bridge"><i></i><strong data-story-repair-ratio>46%</strong><small>of new</small></div><div class="quote-column quote-new"><span>New</span><i></i><b>$850</b></div></div><div class="pressure-pill">+<output data-story-driver-value="quote">37</output> pressure</div></div>
                   <div class="story-explain"><span class="story-stage-label">03 · PRICE</span><h2>Compare complete prices.</h2><p>Repair quote ÷ installed replacement price creates the strongest score driver.</p><div class="story-equation"><span>$390</span><b>÷</b><span>$850</span><b>=</b><strong data-story-repair-ratio>46%</strong></div><small class="story-rule">75%+ enters the replace zone directly.</small></div>
                 </article>
 
-                <article class="story-scene" data-story-scene>
+                <article class="story-scene" data-story-scene data-story-name="Reliability">
                   <div class="story-canvas canvas-reliability" aria-hidden="true"><div class="reliability-stream"><span><i>FAIR</i><b>Condition</b><strong>+3</strong></span><span><i>1×</i><b>Recent repair</b><strong>+4</strong></span><span><i>?</i><b>Likely diagnosis</b><strong>+2</strong></span></div><div class="stream-merge"><i></i><i></i><i></i><b>+<output data-story-driver-value="reliability">9</output></b></div><div class="confidence-badge"><span>Confidence</span><strong data-story-confidence-level>Medium</strong></div></div>
                   <div class="story-explain"><span class="story-stage-label">04 · RELIABILITY</span><h2>Add history, not hunches.</h2><p>Condition, recent repairs, and diagnosis certainty combine into one reliability signal.</p><div class="story-equation"><span>3 condition</span><b>+</b><span>4 history</span><b>+</b><span>2 diagnosis</span><b>=</b><strong>+<output data-story-driver-value="reliability">9</output></strong></div></div>
                 </article>
 
-                <article class="story-scene" data-story-scene>
+                <article class="story-scene" data-story-scene data-story-name="Offsets">
                   <div class="story-canvas canvas-offsets" aria-hidden="true"><div class="offset-scale"><div><span>Utility savings</span><b>$25/yr</b><strong>+<output data-story-driver-value="efficiency">4</output></strong></div><i class="offset-beam"></i><div><span>Repair warranty</span><b>6 months</b><strong>−<output data-story-driver-value="warranty">4</output></strong></div><em></em></div><div class="offset-net"><span>Net change</span><strong data-story-offset-net>0</strong></div></div>
                   <div class="story-explain"><span class="story-stage-label">05 · OFFSETS</span><h2>Push—and pull back.</h2><p>Entered utility savings favor replacement. A written repair warranty strengthens repair.</p><div class="story-equation"><span>+<output data-story-driver-value="efficiency">4</output> efficiency</span><b>−</b><span><output data-story-driver-value="warranty">4</output> warranty</span><b>=</b><strong><output data-story-offset-net>0</output> net</strong></div></div>
                 </article>
 
-                <article class="story-scene" data-story-scene>
+                <article class="story-scene" data-story-scene data-story-name="Safety">
                   <div class="story-canvas canvas-safety" aria-hidden="true"><div class="hazard-packets"><span>SMOKE</span><span>SHOCK</span><span>WATER + WIRING</span></div><div class="safety-gate-story"><i></i><b>SAFETY</b><i></i></div><div class="safety-pass"><span>Example answer</span><strong>NO CONCERN</strong><i>✓</i></div></div>
                   <div class="story-explain"><span class="story-stage-label">06 · SAFETY</span><h2>Safety gets veto power.</h2><p>A “yes” pauses every financial metric. This example passes, so scoring continues.</p><div class="story-equation"><span>Concern?</span><b>YES →</b><strong>Pause result</strong><b>· NO →</b><span>Continue</span></div></div>
                 </article>
 
-                <article class="story-scene" data-story-scene>
+                <article class="story-scene" data-story-scene data-story-name="Score">
                   <div class="story-canvas canvas-score" aria-hidden="true"><div class="score-assembly"><span class="score-piece piece-quote"><i></i><b>Quote +<output data-story-driver-value="quote">37</output></b></span><span class="score-piece piece-age"><i></i><b>Age +<output data-story-driver-value="age">18</output></b></span><span class="score-piece piece-reliability"><i></i><b>Risk +<output data-story-driver-value="reliability">9</output></b></span><span class="score-piece piece-efficiency"><i></i><b>Energy +<output data-story-driver-value="efficiency">4</output></b></span><span class="score-piece piece-warranty"><i></i><b>Warranty −<output data-story-driver-value="warranty">4</output></b></span></div><div class="story-score-ring"><strong data-story-score>64</strong><small>/100</small><i></i></div><div class="story-zones"><span>Repair</span><span>Compare</span><span>Replace</span><i></i></div></div>
                   <div class="story-explain"><span class="story-stage-label">07 · SCORE</span><h2>See every point land.</h2><p>Drivers stack into replacement pressure, then land in a visible decision zone.</p><div class="story-equation"><span><output data-story-driver-value="quote">37</output> + <output data-story-driver-value="age">18</output> + <output data-story-driver-value="reliability">9</output> + <output data-story-driver-value="efficiency">4</output> − <output data-story-driver-value="warranty">4</output></span><b>=</b><strong><output data-story-score>64</output>/100</strong></div><small class="story-rule">0–44 repair · 45–61 compare · 62–100 replace</small></div>
                 </article>
 
-                <article class="story-scene" data-story-scene>
+                <article class="story-scene" data-story-scene data-story-name="Value">
                   <div class="story-canvas canvas-value" aria-hidden="true"><div class="value-bars-story"><div><span>Repair path</span><i><b></b></i><strong data-story-repair-year>$201/yr</strong></div><div><span>Replace path</span><i><b></b></i><strong data-story-replace-year>$52/yr</strong></div></div><div class="guardrail-story"><span>Two decision boundaries</span><i><b></b></i><strong>Current quote $390</strong><em>Repair strongest ≤ <output data-story-cap>$193</output></em><small>Replace begins ≈ <output data-story-trigger>$373</output></small></div><div class="reliable-years"><b data-story-years-left>1.9</b><span>reliable years estimated</span></div></div>
                   <div class="story-explain"><span class="story-stage-label">08 · VALUE</span><h2>Translate score into value.</h2><p>Expected years create yearly cost. Two boundaries show where repair stops winning and replacement begins.</p><div class="story-equation"><span>$390 ÷ <output data-story-years-left>1.9</output> yrs</span><b>=</b><strong data-story-repair-year>$201/yr</strong></div><small class="story-rule">Repair ≤ <output data-story-cap>$193</output> · Compare in between · Replace ≈ <output data-story-trigger>$373</output>+</small></div>
                 </article>
 
-                <article class="story-scene" data-story-scene>
+                <article class="story-scene" data-story-scene data-story-name="Plan">
                   <div class="story-canvas canvas-plan" aria-hidden="true"><div class="story-timeline"><i></i><span data-story-year="1"><b>Y1</b><small>keep</small></span><span data-story-year="2"><b>Y2</b><small>new</small></span><span data-story-year="3"><b>Y3</b><small>new</small></span><span data-story-year="4"><b>Y4</b><small>new</small></span><span data-story-year="5"><b>Y5</b><small>new</small></span></div><div class="five-year-totals"><span>Repair path <strong data-story-repair-five>$1,163</strong></span><span>Replace now <strong data-story-replace-five>$725</strong></span></div><div class="story-verdict"><i>→</i><span><small data-story-confidence>Medium confidence</small><strong data-story-title>Replacement has the stronger case.</strong></span></div></div>
                   <div class="story-explain"><span class="story-stage-label">09 · PLAN</span><h2>Finish with actions.</h2><p data-story-summary>The combined pressure crosses the replacement zone. The strongest factor is the size of the repair quote.</p><ol class="story-actions-mini" data-story-next-steps><li><span>01</span><b>Confirm the replacement price is truly all-in.</b></li><li><span>02</span><b>Compare EnergyGuide costs and rebates.</b></li><li><span>03</span><b>Arrange responsible haul-away.</b></li></ol><a class="story-cta" href="#calculator">Now use your numbers <span aria-hidden="true">↓</span></a></div>
                 </article>
               </div>
 
-              <div class="story-ledger" aria-label="Score drivers accumulated during the walkthrough">
-                <div data-story-unlock="2" data-story-driver="quote"><span>$</span><b>Quote</b><i></i><strong>+<output data-story-driver-value="quote">37</output></strong></div>
-                <div data-story-unlock="1" data-story-driver="age"><span>08</span><b>Age</b><i></i><strong>+<output data-story-driver-value="age">18</output></strong></div>
-                <div data-story-unlock="3" data-story-driver="reliability"><span>↻</span><b>Risk</b><i></i><strong>+<output data-story-driver-value="reliability">9</output></strong></div>
-                <div data-story-unlock="4" data-story-driver="efficiency"><span>⚡</span><b>Energy</b><i></i><strong>+<output data-story-driver-value="efficiency">4</output></strong></div>
-                <div data-story-unlock="4" data-story-driver="warranty"><span>W</span><b>Warranty</b><i></i><strong>−<output data-story-driver-value="warranty">4</output></strong></div>
-              </div>
-
-              <div class="story-stepper" aria-label="Walkthrough stages">
-                <button type="button" data-story-go="0" aria-pressed="true"><span>01</span><b>Context</b></button><button type="button" data-story-go="1" aria-pressed="false"><span>02</span><b>Life</b></button><button type="button" data-story-go="2" aria-pressed="false"><span>03</span><b>Price</b></button><button type="button" data-story-go="3" aria-pressed="false"><span>04</span><b>Risk</b></button><button type="button" data-story-go="4" aria-pressed="false"><span>05</span><b>Offsets</b></button><button type="button" data-story-go="5" aria-pressed="false"><span>06</span><b>Safety</b></button><button type="button" data-story-go="6" aria-pressed="false"><span>07</span><b>Score</b></button><button type="button" data-story-go="7" aria-pressed="false"><span>08</span><b>Value</b></button><button type="button" data-story-go="8" aria-pressed="false"><span>09</span><b>Plan</b></button>
-              </div>
-              <div class="story-controls"><button type="button" data-story-prev aria-label="Previous walkthrough stage">←</button><button type="button" data-story-toggle aria-label="Pause walkthrough"><span aria-hidden="true">Ⅱ</span><b>Pause</b></button><button type="button" data-story-next aria-label="Next walkthrough stage">→</button></div>
-              <div class="story-autoplay" data-story-progress aria-hidden="true"><i></i></div>
+              <nav class="story-dock" aria-label="Walkthrough controls">
+                <button class="story-dock-prev" type="button" data-story-prev aria-label="Previous walkthrough stage"><span aria-hidden="true">←</span></button>
+                <div class="story-dock-main">
+                  <div class="story-dock-title"><span data-story-counter>01 / 09</span><strong data-story-current>Context</strong></div>
+                  <div class="story-dock-track" aria-hidden="true"><i class="is-active" data-story-segment></i><i data-story-segment></i><i data-story-segment></i><i data-story-segment></i><i data-story-segment></i><i data-story-segment></i><i data-story-segment></i><i data-story-segment></i><i data-story-segment></i></div>
+                </div>
+                <button class="story-dock-play" type="button" data-story-toggle aria-label="Pause walkthrough" aria-pressed="false"><span aria-hidden="true">Ⅱ</span><b class="sr-only">Pause</b></button>
+                <button class="story-dock-next" type="button" data-story-next aria-label="Next walkthrough stage"><span data-story-next-action>Next</span><b data-story-next-label>Life used</b><i aria-hidden="true">→</i></button>
+                <div class="story-autoplay" data-story-progress aria-hidden="true"><i></i></div>
+              </nav>
             </section>
           </div>
 
@@ -358,10 +355,10 @@
         <p class="footer-note">Educational guidance—not a substitute for a qualified technician.</p>
       </div>
     </footer>
-    <script src="/assets/analytics.js?v=20260826-5" defer></script>
-    <script src="/assets/calculator-engine.js?v=20260826-5" defer></script>
-    <script src="/assets/app.js?v=20260826-5" defer></script>
-    <script src="/assets/experience.js?v=20260826-5" defer></script>
-    <script src="/assets/motion.js?v=20260826-5" defer></script>
+    <script src="/assets/analytics.js?v=20260826-6" defer></script>
+    <script src="/assets/calculator-engine.js?v=20260826-6" defer></script>
+    <script src="/assets/app.js?v=20260826-6" defer></script>
+    <script src="/assets/experience.js?v=20260826-6" defer></script>
+    <script src="/assets/motion.js?v=20260826-6" defer></script>
   </body>
 </html>

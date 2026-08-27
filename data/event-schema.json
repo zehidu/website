@@ -1,6 +1,6 @@
 {
   "schema_version": "1.2",
-  "content_version": "calculator-story-v4-2026-08-26",
+  "content_version": "story-card-v5-2026-08-26",
   "identity": {
     "session_id": "Random per browser tab; no cross-device or cross-site identity",
     "user_id": null,
